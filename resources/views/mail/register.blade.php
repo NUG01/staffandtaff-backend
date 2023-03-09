@@ -3,5 +3,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <div>{{ $name }}</div>
 <div>{{ $email }}</div>
-<a href="{{ route('verification.notice', $code) }}">{{ env('BACKEND_URL') . $code }}</a>
+<a href="{{ env('FRONTEND_URL', $code) }}">{{ env('FRONTEND_URL') . '/' . $code }}</a>
 </html>
