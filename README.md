@@ -25,10 +25,7 @@
 ### Tech Stack
 
 * <img src="./public/assets/readme/laravel.png" height="18" style="position: relative; top: 4px" /> [Laravel@8.1.x](https://laravel.com/docs/8.1.x) - back-end framework
-* <img src="./public/assets/readme/spatie.png" height="19" style="position: relative; top: 4px" /> [Spatie Translatable](https://github.com/spatie/laravel-translatable) - package for translation
 * <img src="./public/assets/readme/swagger.png" height="19" style="position: relative; top: 4px" /> [Swagger](https://github.com/spatie/laravel-translatable) - package for displaying API's
-* <img src="./public/assets/readme/jwt.png" height="19" style="position: relative; top: 4px" /> [Firebase/php-jwt](https://github.com/spatie/laravel-translatable) - package for authorization 
-* <img src="./public/assets/readme/pusher.jpg" height="19" style="position: relative; top: 4px" /> [Pusher](https://github.com/spatie/laravel-translatable) - package for real time notifications
 
 
 
