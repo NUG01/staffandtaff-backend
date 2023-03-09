@@ -110,4 +110,4 @@ After these steps everything should be OK :pray:
 
 #
 ### Resources
-!["drawsql"](./public/assets/readme/drawsql.png)
+<!-- !["drawsql"](./public/assets/readme/drawsql.png) -->
