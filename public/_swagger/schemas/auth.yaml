@@ -1,0 +1,73 @@
+components:
+  schemas:
+    register:
+      type: object
+      properties:
+        name:
+          type: string
+          example: neqson neqsonadze
+        email:
+          type: string
+          example: neqson@neqson.com
+        password:
+          type: string
+          example: neqson123
+        password_confirmation:
+          type: string
+          example: neqson123
+      required:  
+        - fullname
+        - email    
+        - password    
+        - password_confirmation
+    login:
+      type: object
+      properties:
+        email:
+          type: string
+          example: neqson@neqson.com
+        password:
+          type: string
+          example: neqson123
+      required:  
+        - name
+        - password
+    email-verification:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 8bd81d592b5be48078728328e521e7c5411b3a2e
+      required:  
+        - code
+    verification_notification:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 8bd81d592b5be48078728328e521e7c5411b3a2e
+      required:  
+        - code
+    forgot_password:
+      type: object
+      properties:
+        email:
+          type: string
+          example: neqson@neqson.com
+      required:  
+          - email
+    reset_password:
+      type: object
+      properties:
+        password:
+          type: string
+          example: neqson123
+        token:
+          type: string
+          example: 8bd81d592b5be48078728328e521e7c5411b3a2e
+      required:  
+          - password       
+          - code      
+            
+            
+      

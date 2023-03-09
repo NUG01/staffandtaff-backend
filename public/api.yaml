@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Staff&Taff
+  description: Staff&Taff helps ob seekers and recruiters to find eachother
+  version: 0.1.9
+
+servers:
+  - url: http://localhost:8080/api/v1
+    description: local server
+  - url: http://production.app/api
+    description: production server
+
+
+components:
+  securitySchemes:
+    cookieAuth:        
+      type: apiKey
+      in: cookie
+      name: access_token 
+security:
+  - cookieAuth: []
+
+
+
+paths:
+ /user:
+    $ref: "./_swagger/paths/user.yaml#/paths/~1user"
+ /forgot-password: 
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1forgot-password"
+ /reset-password: 
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1reset-password"
+ /register: 
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1register"
+ /login: 
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1login"
+ /logout: 
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
+ /verify-email/{code}: 
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1email-verification"
+ /email/verification-notification: 
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
+ /categories: 
+    $ref: "./_swagger/paths/categories.yaml#/paths/~1categories"
+ /category/{category}: 
+    $ref: "./_swagger/paths/categories.yaml#/paths/~1category~1{category}"
+#  /categories: 
+#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies"
+#  /category/{category}: 
+#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1update"
+#  /movies/{movie}: 
+#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1{movie}"
+#  /quotes: 
+#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes"
+#  /quotes/{movie}: 
+#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{movie}"
+#  /quotes/{quote}/details: 
+#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}~1details"
+#  /quotes/create: 
+#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1create"
+#  /quotes/update: 
+#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1update"
+#  /quotes/{quote}: 
+#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}"

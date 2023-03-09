@@ -1,0 +1,23 @@
+components:
+  responses:
+    user:
+      '200': 
+        description: A JSON object of user
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 4
+                name:
+                  type: string
+                  example: Arthur Dent
+                email:
+                  type: string
+                  example: neqson@neqson.com
+                thumbnail:
+                  type: string
+                  example: images/G9AbFn69bIW6arB3QuBeFLNAVY6k5SaOJpiod4tf.png
+   

@@ -1,0 +1,12 @@
+paths:
+  /user:
+    get:
+      tags:
+        - User
+      summary: Returns the user
+      description: Returns user info if authorization is successfull
+      responses:
+        '200':
+          $ref: "../responses/user.yaml#/components/responses/user/200"  
+      security: []                           
+            
