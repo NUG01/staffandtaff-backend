@@ -23,11 +23,6 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisterRequest $request): JsonResponse
     {
-        // $request->validate([
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        // ]);
 
         $user = User::create([
             'name' => $request->name,
@@ -43,9 +38,5 @@ class RegisteredUserController extends Controller
         }
 
         return response()->json('Email can not be sent!');
-
-        // Auth::login($user);
-
-        // return response()->noContent();
     }
 }

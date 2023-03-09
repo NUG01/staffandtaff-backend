@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,6 @@ Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });
 
+Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
+
 require __DIR__ . '/auth.php';
-
-
-Route::view('/swagger', 'swagger');

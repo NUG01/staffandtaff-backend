@@ -13,9 +13,7 @@ use Symfony\Component\Uid\NilUlid;
 
 class VerifyEmailController extends Controller
 {
-    /**
-     * Mark the authenticated user's email address as verified.
-     */
+
     public function __invoke(Request $request): RedirectResponse
     {
         $user = User::where('confirmation_code', $request->verification_code)->first();
@@ -30,7 +28,7 @@ class VerifyEmailController extends Controller
         if ($user && $user->email_verified_at) {
             $user->markEmailAsVerified();
             return response()->json('Email verified!');
-            // event(new Verified($request->user()));
+            event(new Verified($request->user()));
         }
 
         return redirect()->intended(
