@@ -25,9 +25,7 @@ class VerifyEmailController extends Controller
         }
 
         if ($user && $user->email_verified_at) {
-            return redirect()->intended(
-                config('app.frontend_url') . RouteServiceProvider::HOME . '?verified=1'
-            );
+            return response()->json('Email is already verified!', 400);
         }
 
 
