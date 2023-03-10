@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IndustryRequest;
 use App\Http\Resources\IndustryResource;
+use App\Http\Resources\PositionResource;
 use App\Models\Industry;
 use App\Models\Position;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -16,6 +17,13 @@ class IndustryController extends Controller
     {
         return IndustryResource::collection(Cache::remember('industries', 60 * 60 * 24, function () {
             return Industry::all();
+        }));
+    }
+
+    public function positionsList(): AnonymousResourceCollection
+    {
+        return PositionResource::collection(Cache::remember('positions', 60 * 60 * 24, function () {
+            return Position::all();
         }));
     }
 

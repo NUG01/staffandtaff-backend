@@ -12,6 +12,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 // Industry and position Routes
 Route::controller(IndustryController::class)->group(function () {
     Route::get('/industries', 'index')->name('industry.index');
+    Route::get('/positions', 'positionsList')->name('industry.index');
     Route::post('/industry/store', 'store')->name('industry.store');
     Route::post('/position/store/{industry}', 'storePosition')->name('position.store');
     Route::get('/industry/{industry}', 'show')->name('industry.show');
