@@ -15,9 +15,7 @@ class IndustryResource extends JsonResource
         return [
             'industry_name' => $this->name,
             'industry_slug' => $this->slug,
-            'positions' => PositionResource::collection(Cache::remember('positions', 60 * 60 * 24, function () {
-                return Position::whereIn('id', (array)$this->children_id)->get();
-            })),
+            'positions' => PositionResource::collection(Position::whereIn('id', (array)$this->children_id)->get()),
         ];
     }
 
