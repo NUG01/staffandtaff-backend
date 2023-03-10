@@ -37,5 +37,9 @@ Route::controller(EstablishmentController::class)->group(function () {
     Route::patch('/establishment/update/{establishment}', 'update')->name('establishment.update');
 });
 
+Route::middleware(['guest', 'verified'])->controller(SubscriptionController::class)->group(function () {
+    Route::post('/user-intent', 'userIntent')->name('subscription.intent');
+    Route::post('/subscription', 'store')->name('subscription.store');
+});
 
-Route::get('/swagger', fn() => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
+Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
