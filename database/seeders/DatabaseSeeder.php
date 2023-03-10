@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'Jason@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456'),
+            'verification_code' => sha1(time()),
         ]);
         Admin::create([
             'name' => 'admin',

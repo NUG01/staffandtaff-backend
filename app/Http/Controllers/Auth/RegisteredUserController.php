@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'verification_code' => sha1(time())
         ]);
-
+    //  return response()->json('ok');
         // event(new Registered($user));
         if ($user) {
             MailController::sendVerificationEmail($user->name, $user->email, $user->verification_code);
