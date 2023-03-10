@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'verification_code' => sha1(time()),
             'password' => Hash::make('123456'),
+            'verification_code' => sha1(time()),
         ]);
         Admin::create([
             'name' => 'admin',

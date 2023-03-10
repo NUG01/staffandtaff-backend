@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'verification_code' => sha1(time())
         ]);
-
+    //  return response()->json('ok');
         // event(new Registered($user));
         if ($user) {
             $url = config('app.frontend_url') . '/email-confirmation/' . $user->verification_code;
