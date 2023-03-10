@@ -10,24 +10,24 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-    public static function sendVerificationEmail($name, $email, $code)
+    public static function sendVerificationEmail($name, $email, $url)
     {
 
         $data = [
             'name' => $name,
             'email' => $email,
-            'code' => $code,
+            'url' => $url,
         ];
 
         Mail::to($email)->send(new RegistrationEmail($data));
     }
-    public static function sendPasswordResetEmail($name, $email, $code)
+    public static function sendPasswordResetEmail($name, $email, $url)
     {
 
         $data = [
             'name' => $name,
             'email' => $email,
-            'code' => $code,
+            'url' => $url,
         ];
 
         Mail::to($email)->send(new PasswordResetEmail($data));

@@ -33,7 +33,8 @@ class RegisteredUserController extends Controller
 
         // event(new Registered($user));
         if ($user) {
-            MailController::sendVerificationEmail($user->name, $user->email, $user->verification_code);
+            $url = config('app.frontend_url') . '/email-confirmation/' . $user->verification_code;
+            MailController::sendVerificationEmail($user->name, $user->email, $url);
             return response()->json('Email sent!');
         }
 

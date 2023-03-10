@@ -28,6 +28,6 @@ class RegistrationEmail extends Mailable
     {
         return $this->from(config('mail.from.address'), config('mail.from.name'))
             ->subject('Email Verification')
-            ->view('mail.register', ['name' => $this->data['name'], 'email' => $this->data['email'], 'code' => $this->data['code']]);
+            ->view('mail.register', ['name' => $this->data['name'], 'email' => $this->data['email'], 'url' => $this->data['url']]);
     }
 }
