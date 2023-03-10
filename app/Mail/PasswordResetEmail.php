@@ -28,6 +28,6 @@ class PasswordResetEmail extends Mailable
 	{
 		return $this->from(config('mail.from.address'), config('mail.from.name'))
 			->subject('Password reset')
-			->view('mail.passwordReset', ['name' => $this->data['name'], 'email' => $this->data['email'], 'code' => $this->data['code']]);
+			->view('mail.passwordReset', ['name' => $this->data['name'], 'email' => $this->data['email'], 'url' => $this->data['url']]);
 	}
 }

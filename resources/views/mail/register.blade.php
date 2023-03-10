@@ -3,5 +3,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <div>{{ $name }}</div>
 <div>{{ $email }}</div>
-<a href="{{ env('FRONTEND_URL', $code) }}">{{ env('FRONTEND_URL') . '/' . $code }}</a>
+<a href="{{ $url }}">{{ $url }}</a>
 </html>
