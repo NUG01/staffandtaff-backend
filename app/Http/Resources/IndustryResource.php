@@ -8,20 +8,20 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-class CategoryResource extends JsonResource
+class IndustryResource extends JsonResource
 {
     public function toArray($request): array
     {
         return [
-            'category_name' => $this->name,
-            'category_slug' => $this->slug,
-            'subcategories' => SubcategoryResource::collection(Cache::remember('subcategories', 60 * 60 * 24, function () {
+            'industry_name' => $this->name,
+            'industry_slug' => $this->slug,
+            'positions' => PositionResource::collection(Cache::remember('positions', 60 * 60 * 24, function () {
                 return Position::whereIn('id', (array)$this->children_id)->get();
             })),
         ];
     }
 
-    public static function updateCategoryOrSubcategory($category, $request)
+    public static function updateIndustryOrPosition($category, $request)
     {
         $category->update([
             'name' => $request->name,
@@ -45,7 +45,7 @@ class CategoryResource extends JsonResource
 
         $result = array_values($result);
 
-        DB::table('subcategories')->whereIn('id', $result)->delete();
+        DB::table('positions')->whereIn('id', $result)->delete();
         $category->delete();
     }
 }

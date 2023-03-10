@@ -3,70 +3,70 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Resources\CategoryResource;
+use App\Http\Requests\IndustryRequest;
+use App\Http\Resources\IndustryResource;
 use App\Models\Industry;
 use App\Models\Position;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 
-class CategoryController extends Controller
+class IndustryController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
-        return CategoryResource::collection(Cache::remember('categories', 60 * 60 * 24, function () {
+        return IndustryResource::collection(Cache::remember('industries', 60 * 60 * 24, function () {
             return Industry::all();
         }));
     }
 
-    public function store(CategoryRequest $request): CategoryResource
+    public function store(IndustryRequest $request): IndustryResource
     {
-        $category = Industry::create([
+        $industry = Industry::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
         ]);
 
-        return CategoryResource::make($category);
+        return IndustryResource::make($industry);
     }
 
-    public function storeSubcategory(Industry $category, CategoryRequest $request): CategoryResource
+    public function storePosition(Industry $industry, IndustryRequest $request): IndustryResource
     {
-        $subcategory = Position::create([
+        $position = Position::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
         ]);
 
-        CategoryResource::updateChildrenIds($category, $subcategory);
+        IndustryResource::updateChildrenIds($industry, $position);
 
-        return CategoryResource::make($category);
+        return IndustryResource::make($industry);
     }
 
-    public function show(Industry $category): CategoryResource
+    public function show(Industry $industry): IndustryResource
     {
-        return CategoryResource::make($category);
+        return IndustryResource::make($industry);
     }
 
-    public function update(Industry $category, CategoryRequest $request): CategoryResource
+    public function update(Industry $industry, IndustryRequest $request): IndustryResource
     {
-        CategoryResource::updateCategoryOrSubcategory($category, $request);
-        return CategoryResource::make($category);
+        IndustryResource::updateIndustryOrPosition($industry, $request);
+        return IndustryResource::make($industry);
     }
 
-    public function updateSubcategory(Position $subcategory, CategoryRequest $request): CategoryResource
+    public function updatePosition(Position $position, IndustryRequest $request): IndustryResource
     {
-        CategoryResource::updateCategoryOrSubcategory($subcategory, $request);
-        return CategoryResource::make($subcategory);
+        IndustryResource::updateIndustryOrPosition($position, $request);
+        return IndustryResource::make($position);
     }
 
-    public function destroy(Industry $category): \Illuminate\Http\JsonResponse
+    public function destroy(Industry $industry): \Illuminate\Http\JsonResponse
     {
-        CategoryResource::destroy($category);
-        return response()->json(['status' => 'category and subcategories has been deleted!']);
+        IndustryResource::destroy($industry);
+        return response()->json(['status' => 'Industry and it\'s positions has been deleted!']);
     }
 
-    public function destroySubcategory(Position $subcategory): \Illuminate\Http\JsonResponse
+    public function destroyPosition(Position $position): \Illuminate\Http\JsonResponse
     {
-        $subcategory->delete();
-        return response()->json(['status' => 'Subcategory has been deleted!']);
+        $position->delete();
+        return response()->json(['status' => 'Position has been deleted!']);
     }
 }

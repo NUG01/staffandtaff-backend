@@ -5,20 +5,20 @@ namespace App\Observers;
 use App\Models\Industry;
 use Illuminate\Support\Facades\Cache;
 
-class CategoryObserver
+class IndustryObserver
 {
     public function created(Industry $category): void
     {
-        Cache::forget('categories');
+        Cache::forget('industries');
     }
 
     public function updated(Industry $category): void
     {
-        Cache::forget('categories');
+        Cache::forget('industries');
     }
 
     public function deleted(Industry $category): void
     {
-        Cache::forget('categories');
+        Cache::forget('industries');
     }
 }

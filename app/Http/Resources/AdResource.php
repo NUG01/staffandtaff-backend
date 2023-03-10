@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Category;
+use App\Models\Industry;
 use App\Models\Gallery;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
@@ -19,7 +19,7 @@ class AdResource extends JsonResource
             'days' => $this->days,
             'salary_type' => $this->salary_type,
             'salary' => $this->salary,
-            'categories' => CategoryResource::collection(Category::all()),
+            'categories' => IndustryResource::collection(Industry::all()),
             'gallery' => [
                 Gallery::where('ad_id', $this->id)->get(['id', 'name']),
             ],

@@ -7,7 +7,7 @@ use App\Models\CategoryCriteria;
 use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CategoryFactory extends Factory
+class IndustryFactory extends Factory
 {
     protected $model = Industry::class;
 
@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
         ];
     }
 
-    public function createCategories()
+    public function createPositions()
     {
         $restaurant_sub_1 = Position::create([
             'name' => 'Direction/Gérance',

@@ -51,6 +51,11 @@ npm run dev
 cp .env.example .env
 ```
 
+You should also add following parameter into .env file to make frontend and backend work together
+```sh
+FRONTENT_URL=http://localhost:3000
+```
+
 6\. After setting up .env variables
 ```sh
 php artisan config:cache
