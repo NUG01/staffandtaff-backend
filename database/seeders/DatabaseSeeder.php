@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'UI UX Designer',
             'email' => 'Jason@gmail.com',
             'email_verified_at' => now(),
+            'verification_code' => sha1(time()),
             'password' => Hash::make('123456'),
         ]);
         Admin::create([
