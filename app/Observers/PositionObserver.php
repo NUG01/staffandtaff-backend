@@ -2,22 +2,22 @@
 
 namespace App\Observers;
 
-use App\Models\Subcategory;
+use App\Models\Position;
 use Illuminate\Support\Facades\Cache;
 
 class SubcategoryObserver
 {
-    public function created(Subcategory $subcategory): void
+    public function created(Position $subcategory): void
     {
         Cache::forget('subcategories');
     }
 
-    public function updated(Subcategory $subcategory): void
+    public function updated(Position $subcategory): void
     {
         Cache::forget('subcategories');
     }
 
-    public function deleted(Subcategory $subcategory): void
+    public function deleted(Position $subcategory): void
     {
         Cache::forget('subcategories');
     }

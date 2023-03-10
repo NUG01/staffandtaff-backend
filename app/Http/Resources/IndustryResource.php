@@ -2,8 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Category;
-use App\Models\Subcategory;
+use App\Models\Industry;
+use App\Models\Position;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +16,7 @@ class CategoryResource extends JsonResource
             'category_name' => $this->name,
             'category_slug' => $this->slug,
             'subcategories' => SubcategoryResource::collection(Cache::remember('subcategories', 60 * 60 * 24, function () {
-                return Subcategory::whereIn('id', (array)$this->children_id)->get();
+                return Position::whereIn('id', (array)$this->children_id)->get();
             })),
         ];
     }
@@ -38,7 +38,7 @@ class CategoryResource extends JsonResource
 
     public static function destroy($category)
     {
-        $children_ids = Category::whereNot('id', $category->id)->pluck('children_id')->toArray();
+        $children_ids = Industry::whereNot('id', $category->id)->pluck('children_id')->toArray();
         $children_ids = collect($children_ids)->flatten(1)->toArray();
 
         $result = array_diff($category->children_id, $children_ids);

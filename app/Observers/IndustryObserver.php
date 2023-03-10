@@ -2,22 +2,22 @@
 
 namespace App\Observers;
 
-use App\Models\Category;
+use App\Models\Industry;
 use Illuminate\Support\Facades\Cache;
 
 class CategoryObserver
 {
-    public function created(Category $category): void
+    public function created(Industry $category): void
     {
         Cache::forget('categories');
     }
 
-    public function updated(Category $category): void
+    public function updated(Industry $category): void
     {
         Cache::forget('categories');
     }
 
-    public function deleted(Category $category): void
+    public function deleted(Industry $category): void
     {
         Cache::forget('categories');
     }

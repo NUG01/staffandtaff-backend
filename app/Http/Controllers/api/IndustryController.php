@@ -5,8 +5,8 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
-use App\Models\Category;
-use App\Models\Subcategory;
+use App\Models\Industry;
+use App\Models\Position;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 
@@ -15,13 +15,13 @@ class CategoryController extends Controller
     public function index(): AnonymousResourceCollection
     {
         return CategoryResource::collection(Cache::remember('categories', 60 * 60 * 24, function () {
-            return Category::all();
+            return Industry::all();
         }));
     }
 
     public function store(CategoryRequest $request): CategoryResource
     {
-        $category = Category::create([
+        $category = Industry::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
         ]);
@@ -29,9 +29,9 @@ class CategoryController extends Controller
         return CategoryResource::make($category);
     }
 
-    public function storeSubcategory(Category $category, CategoryRequest $request): CategoryResource
+    public function storeSubcategory(Industry $category, CategoryRequest $request): CategoryResource
     {
-        $subcategory = Subcategory::create([
+        $subcategory = Position::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
         ]);
@@ -41,30 +41,30 @@ class CategoryController extends Controller
         return CategoryResource::make($category);
     }
 
-    public function show(Category $category): CategoryResource
+    public function show(Industry $category): CategoryResource
     {
         return CategoryResource::make($category);
     }
 
-    public function update(Category $category, CategoryRequest $request): CategoryResource
+    public function update(Industry $category, CategoryRequest $request): CategoryResource
     {
         CategoryResource::updateCategoryOrSubcategory($category, $request);
         return CategoryResource::make($category);
     }
 
-    public function updateSubcategory(Subcategory $subcategory, CategoryRequest $request): CategoryResource
+    public function updateSubcategory(Position $subcategory, CategoryRequest $request): CategoryResource
     {
         CategoryResource::updateCategoryOrSubcategory($subcategory, $request);
         return CategoryResource::make($subcategory);
     }
 
-    public function destroy(Category $category): \Illuminate\Http\JsonResponse
+    public function destroy(Industry $category): \Illuminate\Http\JsonResponse
     {
         CategoryResource::destroy($category);
         return response()->json(['status' => 'category and subcategories has been deleted!']);
     }
 
-    public function destroySubcategory(Subcategory $subcategory): \Illuminate\Http\JsonResponse
+    public function destroySubcategory(Position $subcategory): \Illuminate\Http\JsonResponse
     {
         $subcategory->delete();
         return response()->json(['status' => 'Subcategory has been deleted!']);
