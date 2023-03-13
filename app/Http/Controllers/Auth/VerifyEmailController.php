@@ -19,17 +19,15 @@ class VerifyEmailController extends Controller
         $user = User::where('confirmation_code', $request->verification_code)->first();
 
         if ($user && $user->email_verified_at == null) {
-            return redirect()->intended(
-                config('app.frontend_url') . RouteServiceProvider::HOME . '?verified=1'
-            );
-        }
-
-
-        if ($user && $user->email_verified_at) {
             $user->markEmailAsVerified();
             return response()->json('Email verified!');
-            event(new Verified($request->user()));
+            // event(new Verified($request->user()));
         }
+
+        if ($user && $user->email_verified_at) {
+            return response()->json('Email is already verified!', 400);
+        }
+
 
         return redirect()->intended(
             config('app.frontend_url') . RouteServiceProvider::HOME . '?verified=1'

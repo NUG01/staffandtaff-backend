@@ -5,15 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subcategory extends Model
+class Industry extends Model
 {
     use HasFactory;
 
-    protected $table = 'subcategories';
+    protected $table = 'industries';
 
     protected $fillable = [
-        'name',
+        'children_id',
         'slug',
+        'name',
+    ];
+
+    protected $casts = [
+        'children_id' => 'array'
     ];
 
     public function getRouteKeyName(): string

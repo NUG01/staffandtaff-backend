@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\{AdController, CategoryController, EstablishmentController};
+use App\Http\Controllers\api\{AdController, IndustryController, EstablishmentController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{App, Route,};
 
@@ -9,16 +9,17 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Category Routes
-Route::controller(CategoryController::class)->group(function () {
-    Route::get('/categories', 'index')->name('category.index');
-    Route::post('/category/store', 'store')->name('category.store');
-    Route::post('/subcategory/store/{category}', 'storeSubcategory')->name('subcategory.store');
-    Route::get('/category/{category}', 'show')->name('category.show');
-    Route::patch('/category/update/{category}', 'update')->name('category.update');
-    Route::patch('/subcategory/update/{subcategory}', 'updateSubcategory')->name('subcategory.store');
-    Route::delete('/category/delete/{category}', 'destroy')->name('category.delete');
-    Route::delete('/subcategory/delete/{subcategory}', 'destroySubcategory')->name('subcategory.delete');
+// Industry and position Routes
+Route::controller(IndustryController::class)->group(function () {
+    Route::get('/industries', 'index')->name('industry.index');
+    Route::get('/positions', 'positionsList')->name('industry.index');
+    Route::post('/industry/store', 'store')->name('industry.store');
+    Route::post('/position/store/{industry}', 'storePosition')->name('position.store');
+    Route::get('/industry/{industry}', 'show')->name('industry.show');
+    Route::patch('/industry/update/{industry}', 'update')->name('industry.update');
+    Route::patch('/position/update/{position}', 'updatePosition')->name('position.store');
+    Route::delete('/industry/delete/{industry}', 'destroy')->name('industry.delete');
+    Route::delete('/position/delete/{position}', 'destroyPosition')->name('position.delete');
 });
 
 //Ad Routes
@@ -37,5 +38,9 @@ Route::controller(EstablishmentController::class)->group(function () {
     Route::patch('/establishment/update/{establishment}', 'update')->name('establishment.update');
 });
 
+Route::middleware(['guest', 'verified'])->controller(SubscriptionController::class)->group(function () {
+    Route::post('/user-intent', 'userIntent')->name('subscription.intent');
+    Route::post('/subscription', 'store')->name('subscription.store');
+});
 
-Route::get('/swagger', fn() => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
+Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');

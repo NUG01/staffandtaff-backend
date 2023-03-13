@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Ad;
-use App\Models\Category;
-use App\Models\Subcategory;
+use App\Models\Industry;
+use App\Models\Position;
 use App\Observers\AdObserver;
-use App\Observers\CategoryObserver;
-use App\Observers\SubcategoryObserver;
+use App\Observers\IndustryObserver;
+use App\Observers\PositionObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
 
         // For Caching
         Ad::observe(AdObserver::class);
-        Category::observe(CategoryObserver::class);
-        Subcategory::observe(SubcategoryObserver::class);
+        Industry::observe(IndustryObserver::class);
+        Position::observe(PositionObserver::class);
     }
 }
