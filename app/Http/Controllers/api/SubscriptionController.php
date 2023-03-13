@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
 {
     public function userIntent(Request $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
+        // $user = new User();
         $stripeData = [
             'intent' => $user->createSetupIntent(),
         ];

@@ -2,11 +2,17 @@
 
 use App\Http\Controllers\api\{AdController, IndustryController, EstablishmentController};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{App, Route,};
+use Illuminate\Support\Facades\{App, Auth, Route,};
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+    // $user = User::where('email', $request->email)->first();
+    // $user = new User();
+    $stripeData = [
+        'intent' => $request->user()->createSetupIntent(),
+    ];
+    // return $request->user();
+    return response()->json(['user' => $request->user(), 'token' => $stripeData, 'seconduser' => Auth::user()]);
 });
 
 // Industry and position Routes
