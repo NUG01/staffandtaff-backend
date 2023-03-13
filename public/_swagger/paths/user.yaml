@@ -7,6 +7,5 @@ paths:
       description: Returns user info if authorization is successfull
       responses:
         '200':
-          $ref: "../responses/user.yaml#/components/responses/user/200"  
-      security: []                           
-            
+          $ref: "../responses/user.yaml#/components/responses/user/200"
+      security: []
