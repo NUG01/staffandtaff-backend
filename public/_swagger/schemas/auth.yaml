@@ -40,14 +40,14 @@ components:
           example: 8bd81d592b5be48078728328e521e7c5411b3a2e
       required:  
         - code
-    verification_notification:
-      type: object
-      properties:
-        code:
-          type: string
-          example: 8bd81d592b5be48078728328e521e7c5411b3a2e
-      required:  
-        - code
+    # verification_notification:
+    #   type: object
+    #   properties:
+    #     code:
+    #       type: string
+    #       example: 8bd81d592b5be48078728328e521e7c5411b3a2e
+    #   required:  
+    #     - code
     forgot_password:
       type: object
       properties:
@@ -62,11 +62,15 @@ components:
         password:
           type: string
           example: neqson123
+        password_confirmation:
+          type: string
+          example: neqson123
         token:
           type: string
           example: 8bd81d592b5be48078728328e521e7c5411b3a2e
       required:  
           - password       
+          - password_confirmation    
           - code      
             
             

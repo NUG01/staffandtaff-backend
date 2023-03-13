@@ -16,7 +16,7 @@ class VerifyEmailController extends Controller
 
     public function __invoke(Request $request): RedirectResponse
     {
-        $user = User::where('confirmation_code', $request->verification_code)->first();
+        $user = User::where('confirmation_code', $request->code)->first();
 
         if ($user && $user->email_verified_at == null) {
             $user->markEmailAsVerified();

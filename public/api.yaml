@@ -35,10 +35,10 @@ paths:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1login"
  /logout: 
     $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
- /verify-email/{code}: 
+ /verify-email: 
     $ref: "./_swagger/paths/auth.yaml#/paths/~1email-verification"
- /email/verification-notification: 
-    $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
+#  /email/verification-notification: 
+#     $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
  /categories: 
     $ref: "./_swagger/paths/categories.yaml#/paths/~1categories"
  /category/{category}: 
