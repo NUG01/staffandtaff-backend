@@ -1,0 +1,11 @@
+{
+    "name": "Tips",
+    "alias": "tips",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Tips\\Providers\\TipsServiceProvider"
+    ],
+    "files": []
+}

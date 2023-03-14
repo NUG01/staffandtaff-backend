@@ -13,10 +13,10 @@ servers:
 
 components:
   securitySchemes:
-    cookieAuth:        
+    cookieAuth:
       type: apiKey
       in: cookie
-      name: access_token 
+      name: access_token
 security:
   - cookieAuth: []
 
@@ -25,39 +25,39 @@ security:
 paths:
  /user:
     $ref: "./_swagger/paths/user.yaml#/paths/~1user"
- /forgot-password: 
+ /forgot-password:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1forgot-password"
- /reset-password: 
+ /reset-password:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1reset-password"
- /register: 
+ /register:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1register"
- /login: 
+ /login:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1login"
- /logout: 
+ /logout:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
- /verify-email: 
+ /verify-email:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1email-verification"
-#  /email/verification-notification: 
+#  /email/verification-notification:
 #     $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
- /categories: 
-    $ref: "./_swagger/paths/categories.yaml#/paths/~1categories"
- /category/{category}: 
-    $ref: "./_swagger/paths/categories.yaml#/paths/~1category~1{category}"
-#  /categories: 
-#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies"
-#  /category/{category}: 
-#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1update"
-#  /movies/{movie}: 
-#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1{movie}"
-#  /quotes: 
+ /industries:
+    $ref: "./_swagger/paths/industries.yaml#/paths/~1industries"
+ /industry/{industry}:
+    $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1{industry}"
+#  /categories:
+#     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies"
+#  /category/{category}:
+#     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1update"
+#  /movies/{movie}:
+#     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1{movie}"
+#  /quotes:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes"
-#  /quotes/{movie}: 
+#  /quotes/{movie}:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{movie}"
-#  /quotes/{quote}/details: 
+#  /quotes/{quote}/details:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}~1details"
-#  /quotes/create: 
+#  /quotes/create:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1create"
-#  /quotes/update: 
+#  /quotes/update:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1update"
-#  /quotes/{quote}: 
+#  /quotes/{quote}:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}"

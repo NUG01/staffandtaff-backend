@@ -1,27 +1,27 @@
 paths:
-  /categories:
+  /industries:
     get:
       tags:
-        - Category
+        - Industry
       summary: Returns all categories
-      parameters:   
+      parameters:
       responses:
         '200':
-          $ref: "../responses/categories.yaml#/components/responses/movies_user/200" 
-  /category/{category}:
+          $ref: "../responses/industries.yaml#/components/responses/movies_user/200"
+  /industry/{industry}:
     get:
       tags:
-        - Category
+        - Industry
       summary: Returns specific category
       parameters:
         - in: path
           name: category
           schema:
             type: integer
-          required: true   
+          required: true
       responses:
         '200':
-          $ref: "../responses/categories.yaml#/components/responses/movies_user_details/200"     
+          $ref: "../responses/industries.yaml#/components/responses/movies_user_details/200"
   # /movies:
   #   post:
   #     tags:
@@ -32,10 +32,10 @@ paths:
   #       content:
   #           application/json:
   #             schema:
-  #               $ref: "../schemas/categories.yaml#/components/schemas/movies_create"    
+  #               $ref: "../schemas/industries.yaml#/components/schemas/movies_create"
   #     responses:
   #       '200':
-  #         $ref: "../responses/categories.yaml#/components/responses/movies_create/200"                           
+  #         $ref: "../responses/industries.yaml#/components/responses/movies_create/200"
   # /movies/update:
   #   patch:
   #     tags:
@@ -46,10 +46,10 @@ paths:
   #       content:
   #           application/json:
   #             schema:
-  #               $ref: "../schemas/categories.yaml#/components/schemas/movies"                  
+  #               $ref: "../schemas/industries.yaml#/components/schemas/movies"
   #     responses:
   #       '200':
-  #         $ref: "../responses/categories.yaml#/components/responses/movies/200"                                                
+  #         $ref: "../responses/industries.yaml#/components/responses/movies/200"
   # /movies/{movie}:
   #   delete:
   #     tags:
@@ -63,8 +63,7 @@ paths:
   #         name: movie
   #         schema:
   #           type: integer
-  #         required: true   
+  #         required: true
   #     responses:
   #       '200':
-  #         $ref: "../responses/categories.yaml#/components/responses/movies_movie/200"                                                
-                          
+  #         $ref: "../responses/industries.yaml#/components/responses/movies_movie/200"
