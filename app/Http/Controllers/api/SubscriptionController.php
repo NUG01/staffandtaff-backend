@@ -12,10 +12,10 @@ class SubscriptionController extends Controller
 {
     public function userIntent(Request $request): JsonResponse
     {
-        $user = User::where('email', $request->email)->first();
+        // $user = User::where('email', $request->email)->first();
         // $user = new User();
         $stripeData = [
-            'intent' => $user->createSetupIntent(),
+            'intent' => $request->user->createSetupIntent(),
         ];
         return response()->json($stripeData);
     }

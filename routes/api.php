@@ -2,18 +2,26 @@
 
 use App\Http\Controllers\api\{AdController, IndustryController, EstablishmentController};
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{App, Auth, Route,};
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    // $user = User::where('email', $request->email)->first();
+    // $user = User::where('email', $request->user()['email'])->first();
     // $user = new User();
     // $stripeData = [
     //     'intent' => $request->user()->createSetupIntent(),
     // ];
-    return $request->user();
-    // return response()->json(['user' => $request->user(), 'token' => $stripeData, 'seconduser' => Auth::user()]);
+    // return $request->user();
+    return response()->json(['user' => $request->user()]);
+});
+Route::get('/user-intent', function () {
+    $user = User::where('email', auth()->user()->email)->first();
+    $stripeData = [
+        'intent' => $user->createSetupIntent(),
+    ];
+    return response()->json(['intent' => $stripeData]);
 });
 
 // Industry and position Routes
