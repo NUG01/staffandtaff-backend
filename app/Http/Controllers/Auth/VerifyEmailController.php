@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Uid\NilUlid;
 
 class VerifyEmailController extends Controller
@@ -20,6 +21,7 @@ class VerifyEmailController extends Controller
 
         if ($user && $user->email_verified_at == null) {
             $user->markEmailAsVerified();
+            Auth::login($user);
             return response()->json('Email verified!');
             // event(new Verified($request->user()));
         }

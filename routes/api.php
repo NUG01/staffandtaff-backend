@@ -51,4 +51,3 @@ Route::middleware(['guest', 'verified'])->controller(SubscriptionController::cla
 });
 
 Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
-// Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest')->name('login');
