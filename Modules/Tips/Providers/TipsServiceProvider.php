@@ -3,31 +3,35 @@
 namespace Modules\Tips\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\Tips\Entities\Tip;
+use Modules\Tips\Observers\TipObserver;
 
 class TipsServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'Tips';
+    protected string $moduleName = 'Tips';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'tips';
+    protected string $moduleNameLower = 'tips';
 
     /**
      * Boot the application events.
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        // For Caching
+        Tip::observe(TipObserver::class);
     }
 
     /**
@@ -35,7 +39,7 @@ class TipsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->register(RouteServiceProvider::class);
     }
@@ -66,7 +70,7 @@ class TipsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerViews()
+    public function registerViews(): void
     {
         $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
 
@@ -84,7 +88,7 @@ class TipsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerTranslations()
+    public function registerTranslations(): void
     {
         $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
 
@@ -102,7 +106,7 @@ class TipsServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [];
     }

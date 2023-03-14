@@ -4,7 +4,7 @@ namespace Modules\Tips\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class TipRequest extends FormRequest
 {
     public function authorize(): bool
     {

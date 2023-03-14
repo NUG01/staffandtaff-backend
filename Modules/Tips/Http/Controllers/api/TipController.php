@@ -3,18 +3,21 @@
 namespace Modules\Tips\Http\Controllers\api;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Cache;
 use Modules\Tips\Entities\Tip;
-use Modules\Tips\Http\Requests\PostRequest;
+use Modules\Tips\Http\Requests\TipRequest;
 use Modules\Tips\Transformers\TipResource;
 
 class TipController extends Controller
 {
     public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return TipResource::collection(Tip::all());
+        return TipResource::collection(Cache::remember('tips', 60 * 60 * 24, function () {
+            return Tip::all();
+        }));
     }
 
-    public function store(PostRequest $request): TipResource
+    public function store(TipRequest $request): TipResource
     {
         $post = Tip::create([
             'title' => $request->title,
@@ -33,7 +36,7 @@ class TipController extends Controller
         return TipResource::make($post);
     }
 
-    public function update(Tip $post, PostRequest $request): TipResource
+    public function update(Tip $post, TipRequest $request): TipResource
     {
         return TipResource::make($post->update([
             'title' => $request->title,
