@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\{AdController, IndustryController, EstablishmentController};
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{App, Auth, Route,};
 
@@ -50,3 +51,4 @@ Route::middleware(['guest', 'verified'])->controller(SubscriptionController::cla
 });
 
 Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
+// Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest')->name('login');
