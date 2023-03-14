@@ -37,8 +37,10 @@ paths:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
  /verify-email: 
     $ref: "./_swagger/paths/auth.yaml#/paths/~1email-verification"
-#  /email/verification-notification: 
-#     $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
+ /user-intent: 
+    $ref: "./_swagger/paths/stripe.yaml#/paths/~1user-intent"
+ /payment: 
+    $ref: "./_swagger/paths/stripe.yaml#/paths/~1payment"
  /categories: 
     $ref: "./_swagger/paths/categories.yaml#/paths/~1categories"
  /category/{category}: 

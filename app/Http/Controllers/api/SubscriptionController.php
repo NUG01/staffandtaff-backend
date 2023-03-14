@@ -10,18 +10,17 @@ use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
 {
-    public function userIntent(Request $request): JsonResponse
+    public function userIntent(): JsonResponse
     {
-        // $user = User::where('email', $request->email)->first();
-        // $user = new User();
+        $user = User::where('email', auth()->user()->email)->first();
         $stripeData = [
-            'intent' => $request->user->createSetupIntent(),
+            'intent' => $user->createSetupIntent(),
         ];
-        return response()->json($stripeData);
+        return response()->json(['intent' => $stripeData]);
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function subscribe(Request $request): JsonResponse
     {
         $user = User::where('email', $request->email)->first();
         $user->newSubscription('cash', $request->plan)->create($request->paymentMethod);

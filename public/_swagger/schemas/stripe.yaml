@@ -1,0 +1,18 @@
+components:
+  schemas:
+    stripe_payment:
+      type: object
+      properties:
+        _token:
+          type: string
+          example: of178sdce873rb43hdb3y4fdb34yt67
+        plan:
+          type: string
+          example: price_jbedw7632r7238dhu3
+        payment_method:
+          type: string
+          example: pm_jhdbefc7r6r638fdbe3uhfg7834e
+      required:  
+        - _token
+        - plan    
+        - payment_method      

@@ -1,0 +1,23 @@
+paths:  
+  /payment:
+    post:
+      tags:
+        - Stripe
+      summary: Payment for plan
+      description: Confirms stripe checkout and subscribes
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: "../schemas/stripe.yaml#/components/schemas/stripe_payment"           
+      responses:
+        '200':
+          $ref: "../responses/stripe.yaml#/components/responses/stripe_payment/200" 
+      security: []  
+  /user-intent:
+    get:
+      tags:
+        - Stripe
+      summary: User stripe credentials
+      description: Returns user intent with stripe secret         
+      security: []  

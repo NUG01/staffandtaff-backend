@@ -110,5 +110,8 @@ paths:
       responses:
         '200':
           $ref: "../responses/auth.yaml#/components/responses/reset_password/200" 
-      security: []                                    
+      security: []       
+
+      
+                                   
                  
