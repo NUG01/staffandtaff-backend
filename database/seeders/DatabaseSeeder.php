@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Enum\UserRoleEnum;
+use App\Enum\Role;
 use App\Models\Admin;
 use App\Models\Industry;
 use App\Models\Talent;
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('admin123'),
             'verification_code' => sha1(time()),
-            'role_id' => UserRoleEnum::ADMIN,
+            'role_id' => Role::ADMIN,
         ]);
     }
 }

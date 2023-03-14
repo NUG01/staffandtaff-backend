@@ -2,7 +2,8 @@
 
 namespace Modules\Tips\Http\Controllers\api;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Cache;
 use Modules\Tips\Entities\Tip;
 use Modules\Tips\Http\Requests\TipRequest;
@@ -17,9 +18,14 @@ class TipController extends Controller
         }));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(TipRequest $request): TipResource
     {
-        $post = Tip::create([
+        $this->authorize('administration', Auth()->user());
+
+        $tip = Tip::create([
             'title' => $request->title,
             'slug' => str_slug($request->title, '_'),
             'description' => $request->description,
@@ -28,17 +34,23 @@ class TipController extends Controller
             'cover_image' => $request->cover_image,
         ]);
 
-        return TipResource::make($post);
+        return TipResource::make($tip);
     }
 
-    public function show(Tip $post): TipResource
+    public function show(Tip $tip): TipResource
     {
-        return TipResource::make($post);
+        return TipResource::make($tip);
     }
 
-    public function update(Tip $post, TipRequest $request): TipResource
+    /**
+     * @throws AuthorizationException
+     */
+    public function update(Tip $tip, TipRequest $request): TipResource
     {
-        return TipResource::make($post->update([
+        $this->authorize('administration', Auth()->user());
+
+
+        return TipResource::make($tip->update([
             'title' => $request->title,
             'slug' => str_slug($request->title, '_'),
             'description' => $request->description,
@@ -48,9 +60,14 @@ class TipController extends Controller
         ]));
     }
 
-    public function destroy(Tip $post): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    /**
+     * @throws AuthorizationException
+     */
+    public function destroy(Tip $tip): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $post->delete();
+        $this->authorize('administration', Auth()->user());
+
+        $tip->delete();
         return TipResource::collection(Tip::all());
     }
 }

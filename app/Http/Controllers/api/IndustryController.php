@@ -8,6 +8,7 @@ use App\Http\Resources\IndustryResource;
 use App\Http\Resources\PositionResource;
 use App\Models\Industry;
 use App\Models\Position;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 
@@ -27,8 +28,13 @@ class IndustryController extends Controller
         }));
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function store(IndustryRequest $request): IndustryResource
     {
+        $this->authorize('administration', Auth()->user());
+
         $industry = Industry::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
@@ -37,8 +43,13 @@ class IndustryController extends Controller
         return IndustryResource::make($industry);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function storePosition(Industry $industry, IndustryRequest $request): IndustryResource
     {
+        $this->authorize('administration', Auth()->user());
+
         $position = Position::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
@@ -49,31 +60,56 @@ class IndustryController extends Controller
         return IndustryResource::make($industry);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function show(Industry $industry): IndustryResource
     {
+        $this->authorize('administration', Auth()->user());
+
         return IndustryResource::make($industry);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(Industry $industry, IndustryRequest $request): IndustryResource
     {
+        $this->authorize('administration', Auth()->user());
+
         IndustryResource::updateIndustryOrPosition($industry, $request);
         return IndustryResource::make($industry);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function updatePosition(Position $position, IndustryRequest $request): IndustryResource
     {
+        $this->authorize('administration', Auth()->user());
+
         IndustryResource::updateIndustryOrPosition($position, $request);
         return IndustryResource::make($position);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Industry $industry): \Illuminate\Http\JsonResponse
     {
+        $this->authorize('administration', Auth()->user());
+
         IndustryResource::destroy($industry);
         return response()->json(['status' => 'Industry and it\'s positions has been deleted!']);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroyPosition(Position $position): \Illuminate\Http\JsonResponse
     {
+        $this->authorize('administration', Auth()->user());
+
         $position->delete();
         return response()->json(['status' => 'Position has been deleted!']);
     }

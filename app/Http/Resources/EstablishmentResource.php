@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Enum\UserRoleEnum;
+use App\Enum\Role;
 use App\Models\Establishment;
 use App\Models\EstablishmentLinks;
 use App\Models\Gallery;
@@ -58,7 +58,7 @@ class EstablishmentResource extends JsonResource
 
         return Auth::user()->update([
             'type' => $establishment_id,
-            'role_id' => UserRoleEnum::RECRUITER,
+            'role_id' => Role::RECRUITER,
         ]);
     }
 
