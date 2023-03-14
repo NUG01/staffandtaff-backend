@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Stripe;
 
 class SubscriptionController extends Controller
 {
@@ -22,8 +23,17 @@ class SubscriptionController extends Controller
 
     public function subscribe(Request $request): JsonResponse
     {
-        $user = User::where('email', $request->email)->first();
-        $user->newSubscription('cash', $request->plan)->create($request->paymentMethod);
+
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $user = $request->user();
+        $paymentMethod = $request->payment_method;
+        $user->createOrGetStripeCustomer();
+        $user->updateDefaultPaymentMethod($paymentMethod);
+        $subscription = $user->newSubscription('plan', $request->plan);
+        $subscription->create($paymentMethod, [
+            'email' => $user->email,
+        ]);
+
         return response()->json('Subscribed successfully!');
     }
 }
