@@ -2,11 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Enum\UserRoleEnum;
 use App\Models\Establishment;
 use App\Models\EstablishmentLinks;
 use App\Models\Gallery;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EstablishmentResource extends JsonResource
 {
@@ -54,7 +56,10 @@ class EstablishmentResource extends JsonResource
             'establishment_id' => $establishment_id->id,
         ]);
 
-        return Auth::user()->update(['establishment_id' => ($establishment_id)]);
+        return Auth::user()->update([
+            'type' => $establishment_id,
+            'role_id' => UserRoleEnum::RECRUITER,
+        ]);
     }
 
     public static function update($establishment, $request)

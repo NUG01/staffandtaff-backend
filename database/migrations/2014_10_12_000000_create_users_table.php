@@ -21,6 +21,7 @@ return new class extends Migration
             $table->json('type')->nullable();
             $table->string('password');
             $table->string('verification_code');
+            $table->tinyInteger('role_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

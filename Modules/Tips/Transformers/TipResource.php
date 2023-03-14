@@ -17,6 +17,7 @@ class TipResource extends JsonResource
             'tip_target_audience' => config('targetaudience.selector')[$this->target_audience],
             'tip_cover_image' => $this->cover_image,
             'tip_cta' => config('targetaudience.items')[$this->target_audience],
+            'tip_created_at' => $this->created_at->format('d/m/Y'),
         ];
     }
 }

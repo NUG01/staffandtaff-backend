@@ -4,12 +4,14 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Enum\UserRoleEnum;
 use App\Models\Admin;
 use App\Models\Industry;
 use App\Models\Talent;
 use App\Models\User;
 use Database\Factories\IndustryFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -31,19 +33,13 @@ class DatabaseSeeder extends Seeder
 
         Industry::factory()->createPositions();
 
-
         User::create([
-            'name' => 'UI UX Designer',
-            'email' => 'Jason@gmail.com',
-            'email_verified_at' => now(),
-            'verification_code' => sha1(time()),
-            'password' => Hash::make('123456'),
-            'verification_code' => sha1(time()),
-        ]);
-        Admin::create([
             'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('123456'),
+            'email' => 'admin@staffandtaff.ch',
+            'email_verified_at' => now(),
+            'password' => Hash::make('admin123'),
+            'verification_code' => sha1(time()),
+            'role_id' => UserRoleEnum::ADMIN,
         ]);
     }
 }

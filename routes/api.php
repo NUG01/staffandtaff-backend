@@ -11,6 +11,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return response()->json(['user' => $request->user()]);
 });
 
+Route::get('/', fn() => \App\Enum\UserRoleEnum::cases());
+
 // Industry and position Routes
 Route::controller(IndustryController::class)->group(function () {
     Route::get('/industries', 'index')->name('industry.index');
