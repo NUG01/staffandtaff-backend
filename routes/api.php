@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\{App, Auth, Route,};
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     // $user = User::where('email', $request->email)->first();
     // $user = new User();
-    $stripeData = [
-        'intent' => $request->user()->createSetupIntent(),
-    ];
-    // return $request->user();
-    return response()->json(['user' => $request->user(), 'token' => $stripeData, 'seconduser' => Auth::user()]);
+    // $stripeData = [
+    //     'intent' => $request->user()->createSetupIntent(),
+    // ];
+    return $request->user();
+    // return response()->json(['user' => $request->user(), 'token' => $stripeData, 'seconduser' => Auth::user()]);
 });
 
 // Industry and position Routes
