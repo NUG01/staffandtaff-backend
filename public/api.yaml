@@ -18,37 +18,49 @@ components:
       in: cookie
       name: access_token
 security:
-  - cookieAuth: []
+  - cookieAuth: [ ]
 
 
 
 paths:
- /user:
+  /user:
     $ref: "./_swagger/paths/user.yaml#/paths/~1user"
- /forgot-password:
+  /forgot-password:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1forgot-password"
- /reset-password:
+  /reset-password:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1reset-password"
- /register:
+  /register:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1register"
- /login:
+  /login:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1login"
- /logout:
+  /logout:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
- /verify-email:
+  /verify-email:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1email-verification"
-#  /email/verification-notification:
-#     $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
- /industries:
+  #  /email/verification-notification:
+  #     $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
+  /industries:
     $ref: "./_swagger/paths/industries.yaml#/paths/~1industries"
- /industry/{industry}:
+  /industry/{industry}:
     $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1{industry}"
+  #  /categories:
+  #     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies"
+  #  /category/{category}:
+  #     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1update"
+  #  /movies/{movie}:
+  #     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1{movie}"
+  #  /quotes:
+  /user-intent:
+    $ref: "./_swagger/paths/stripe.yaml#/paths/~1user-intent"
+  /payment:
+    $ref: "./_swagger/paths/stripe.yaml#/paths/~1payment"
+
 #  /categories:
-#     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies"
+#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies"
 #  /category/{category}:
-#     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1update"
+#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1update"
 #  /movies/{movie}:
-#     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1{movie}"
+#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1{movie}"
 #  /quotes:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes"
 #  /quotes/{movie}:

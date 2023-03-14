@@ -9,13 +9,13 @@ paths:
         content:
             application/json:
               schema:
-                $ref: "../schemas/auth.yaml#/components/schemas/register"    
+                $ref: "../schemas/auth.yaml#/components/schemas/register"
       responses:
         '200':
           $ref: "../responses/auth.yaml#/components/responses/register/200"
         '403':
           $ref: "../responses/auth.yaml#/components/responses/register/403"
-      security: []           
+      security: []
   /login:
     post:
       tags:
@@ -26,18 +26,18 @@ paths:
         content:
             application/json:
               schema:
-                $ref: "../schemas/auth.yaml#/components/schemas/login"             
+                $ref: "../schemas/auth.yaml#/components/schemas/login"
       responses:
         '200':
           $ref: "../responses/auth.yaml#/components/responses/login/200"
         '403':
           $ref: "../responses/auth.yaml#/components/responses/login/403"
-      security: []           
+      security: []
   /logout:
     post:
       tags:
         - Auth
-      summary: Logouts user     
+      summary: Logouts user
       responses:
         '200':
           $ref: "../responses/auth.yaml#/components/responses/logout/200"
@@ -51,8 +51,8 @@ paths:
         content:
             application/json:
               schema:
-                $ref: "../schemas/auth.yaml#/components/schemas/email-verification" 
-      security: []               
+                $ref: "../schemas/auth.yaml#/components/schemas/email-verification"
+      security: []
       responses:
         '401':
           description: Failed operation
@@ -60,7 +60,7 @@ paths:
             text/plain:
               schema:
                 type: string
-                example: 'User can not be verified!' 
+                example: 'User can not be verified!'
   # /verification_notification:
   #   post:
   #     tags:
@@ -71,8 +71,8 @@ paths:
   #       content:
   #           application/json:
   #             schema:
-  #               $ref: "../schemas/auth.yaml#/components/schemas/verification_notification" 
-  #     security: []               
+  #               $ref: "../schemas/auth.yaml#/components/schemas/verification_notification"
+  #     security: []
   #     responses:
   #       '401':
   #         description: Failed operation
@@ -80,7 +80,7 @@ paths:
   #           text/plain:
   #             schema:
   #               type: string
-  #               example: 'User can not be verified!' 
+  #               example: 'User can not be verified!'
   /forgot-password:
     post:
       tags:
@@ -90,12 +90,12 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
-              $ref: "../schemas/auth.yaml#/components/schemas/forgot_password"           
+            schema:
+              $ref: "../schemas/auth.yaml#/components/schemas/forgot_password"
       responses:
         '200':
-          $ref: "../responses/auth.yaml#/components/responses/forgot_password/200" 
-      security: []          
+          $ref: "../responses/auth.yaml#/components/responses/forgot_password/200"
+      security: []
   /reset-password:
     post:
       tags:
@@ -105,10 +105,10 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
-              $ref: "../schemas/auth.yaml#/components/schemas/reset_password"           
+            schema:
+              $ref: "../schemas/auth.yaml#/components/schemas/reset_password"
       responses:
         '200':
-          $ref: "../responses/auth.yaml#/components/responses/reset_password/200" 
-      security: []                                    
-                 
+          $ref: "../responses/auth.yaml#/components/responses/reset_password/200"
+      security: []
+

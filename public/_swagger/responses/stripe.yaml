@@ -1,0 +1,10 @@
+components:
+  responses:
+    stripe_payment:
+      '200':
+        description: Successful operation
+        content:
+          text/plain:
+            schema:
+              type: object
+              example: Subscribed successfully!

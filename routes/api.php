@@ -1,19 +1,14 @@
 <?php
 
-use App\Http\Controllers\api\{AdController, IndustryController, EstablishmentController};
+use App\Http\Controllers\api\{AdController, IndustryController, EstablishmentController, SubscriptionController};
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{App, Auth, Route,};
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    // $user = User::where('email', $request->email)->first();
-    // $user = new User();
-    // $stripeData = [
-    //     'intent' => $request->user()->createSetupIntent(),
-    // ];
-    return $request->user();
-    // return response()->json(['user' => $request->user(), 'token' => $stripeData, 'seconduser' => Auth::user()]);
+    return response()->json(['user' => $request->user()]);
 });
 
 // Industry and position Routes
@@ -45,10 +40,10 @@ Route::controller(EstablishmentController::class)->group(function () {
     Route::patch('/establishment/update/{establishment}', 'update')->name('establishment.update');
 });
 
-Route::middleware(['guest', 'verified'])->controller(SubscriptionController::class)->group(function () {
-    Route::post('/user-intent', 'userIntent')->name('subscription.intent');
-    Route::post('/subscription', 'store')->name('subscription.store');
+
+Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->group(function () {
+    Route::get('/user-intent', 'userIntent')->name('stripe.payment');
+    Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
 
 Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
-// Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest')->name('login');
