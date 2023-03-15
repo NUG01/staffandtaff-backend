@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Auth\{AuthenticatedSessionController,
+use App\Http\Controllers\Auth\{
+    AuthenticatedSessionController,
     NewPasswordController,
     PasswordResetLinkController,
     RegisteredUserController,
-    VerifyEmailController,};
+    VerifyEmailController,
+};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -13,8 +15,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->middleware('guest')->name('password.email');
     Route::post('/reset-password', [NewPasswordController::class, 'store'])->middleware('guest')->name('password.store');
     Route::post('/verify-email', VerifyEmailController::class)->middleware(['auth', 'signed', 'throttle:6,1'])->name('verification.verify');
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 });
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
 
 // Route::post('/forgot-password', fn () => response()->noContent());
 // Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->middleware('guest')->name('password.odd');
