@@ -25,11 +25,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('administration', fn($user) => $user->role_id === Role::ADMIN);
+        Gate::define('administration', fn($user) => $user->role_id === Role::ADMIN->value);
 
-        Gate::define('recruiter', fn($user) => $user->role_id === Role::RECRUITER);
+        Gate::define('recruiter', fn($user) => $user->role_id === Role::RECRUITER->value);
 
-        Gate::define('seeker', fn($user) => $user->role_id === Role::SEEKER);
+        Gate::define('seeker', fn($user) => $user->role_id === Role::SEEKER->value);
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url') . "/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";

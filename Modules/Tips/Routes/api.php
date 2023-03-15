@@ -6,9 +6,9 @@ use Modules\Tips\Http\Controllers\api\{CategoryController, TipController};
 Route::controller(TipController::class)->group(function () {
     Route::get('/', 'index')->name('tips.index');
     Route::post('/store', 'store')->name('tip.store');
-    Route::get('/show/{post}', 'show')->name('tip.show');
-    Route::patch('/update/{post}', 'update')->name('tip.update');
-    Route::delete('/destroy/{post}', 'destroy')->name('tip.delete');
+    Route::get('/show/{tip}', 'show')->name('tip.show');
+    Route::patch('/update/{tip}', 'update')->name('tip.update');
+    Route::delete('/destroy/{tip}', 'destroy')->name('tip.delete');
 });
 
 Route::controller(CategoryController::class)->group(function () {
@@ -19,8 +19,8 @@ Route::controller(CategoryController::class)->group(function () {
 });
 
 Route::get('/target_audience', function () {
-    if (auth()->check() && auth()->user()->role_id === \App\Enum\Role::ADMIN) {
+    if (auth()->check() && auth()->user()->role_id === \App\Enum\Role::ADMIN->value) {
         return response()->json(['data' => config('targetaudience.selector')]);
     }
-    return abort(403);
+    abort(403);
 });

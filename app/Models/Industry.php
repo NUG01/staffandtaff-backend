@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\IndustryObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,6 +20,10 @@ class Industry extends Model
 
     protected $casts = [
         'children_id' => 'array'
+    ];
+
+    protected $observers = [
+        Industry::class => [IndustryObserver::class],
     ];
 
     public function getRouteKeyName(): string

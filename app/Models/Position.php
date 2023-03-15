@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PositionObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,10 @@ class Position extends Model
     protected $fillable = [
         'name',
         'slug',
+    ];
+
+    protected $observers = [
+        Position::class => [PositionObserver::class],
     ];
 
     public function getRouteKeyName(): string

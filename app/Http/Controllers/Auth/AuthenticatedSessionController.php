@@ -7,19 +7,22 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Handle an incoming authentication request.
+     * @throws ValidationException
      */
-    public function store(LoginRequest $request)
+    public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        // removed for postmen testing
+//        $request->session()->regenerate();
 
-        return response()->noContent();
+        return response()->json(['status' => 'logged in']);
     }
 
     /**

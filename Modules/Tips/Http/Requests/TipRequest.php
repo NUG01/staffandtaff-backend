@@ -3,6 +3,7 @@
 namespace Modules\Tips\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TipRequest extends FormRequest
 {
@@ -14,7 +15,12 @@ class TipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
+            'title' =>
+            [
+                'required',
+                'string',
+                Rule::unique('tips')->ignore($this->tip)
+            ],
             'description' => 'required|string',
             'category' => 'required|integer',
             'target_audience' => 'required|integer',

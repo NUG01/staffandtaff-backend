@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Observers\JobObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ad extends Model
+class Job extends Model
 {
     use HasFactory;
 
@@ -23,6 +24,10 @@ class Ad extends Model
         'description',
         'start_date',
         'end_date',
+    ];
+
+    protected $observers = [
+        Job::class => [JobObserver::class],
     ];
 
     protected $dates = [

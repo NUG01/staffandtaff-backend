@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Ad;
+use App\Models\Job;
 use App\Models\Industry;
 use App\Models\Position;
-use App\Observers\AdObserver;
+use App\Observers\JobObserver;
 use App\Observers\IndustryObserver;
 use App\Observers\PositionObserver;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         // For Caching
-        Ad::observe(AdObserver::class);
+        Job::observe(JobObserver::class);
         Industry::observe(IndustryObserver::class);
         Position::observe(PositionObserver::class);
     }

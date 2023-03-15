@@ -4,6 +4,7 @@ namespace Modules\Tips\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\Tips\Observers\CategoryObserver;
 
 class Category extends Model
 {
@@ -17,6 +18,10 @@ class Category extends Model
     ];
 
     public $timestamps = false;
+
+    protected $observers = [
+        Category::class => [CategoryObserver::class],
+    ];
 
     public function getRouteKeyName(): string
     {

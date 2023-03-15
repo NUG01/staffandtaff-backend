@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\{AdController, IndustryController, EstablishmentController, SubscriptionController};
+use App\Http\Controllers\api\{JobController, IndustryController, EstablishmentController, SubscriptionController};
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,12 +25,12 @@ Route::controller(IndustryController::class)->group(function () {
 });
 
 //Ad Routes
-Route::controller(AdController::class)->group(function () {
-    Route::get('/ads', 'index')->name('ad.index');
-    Route::post('/ad/create', 'store')->name('ad.store');
-    Route::get('/ad/{ad}', 'show')->name('ad.show');
-    Route::patch('/ad/update/{ad}', 'update')->name('ad.update');
-    Route::delete('/ad/delete/{ad}', 'delete')->name('ad.delete');
+Route::controller(JobController::class)->group(function () {
+    Route::get('/jobs', 'index')->name('ad.index');
+    Route::post('/job/store', 'store')->name('ad.store');
+    Route::get('/job/{job}', 'show')->name('ad.show');
+    Route::patch('/job/update/{job}', 'update')->name('ad.update');
+    Route::delete('/job/delete/{job}', 'delete')->name('ad.delete');
 });
 
 //Establishment Routes

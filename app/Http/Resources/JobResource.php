@@ -7,12 +7,12 @@ use App\Models\Gallery;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
-class AdResource extends JsonResource
+class JobResource extends JsonResource
 {
     public function toArray($request): array
     {
         return [
-            'ad_id' => $this->id,
+            'job_id' => $this->id,
             'city' => $this->city,
             'description' => $this->description,
             'type' => $this->type,
