@@ -3,9 +3,9 @@ components:
     stripe_payment:
       type: object
       properties:
-        _token:
+        plan_id:
           type: string
-          example: of178sdce873rb43hdb3y4fdb34yt67
+          example: plan_4
         plan:
           type: string
           example: price_jbedw7632r7238dhu3
@@ -13,6 +13,6 @@ components:
           type: string
           example: pm_jhdbefc7r6r638fdbe3uhfg7834e
       required:  
-        - _token
+        - plan_id
         - plan    
         - payment_method      

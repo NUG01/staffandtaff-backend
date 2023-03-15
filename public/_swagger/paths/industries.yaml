@@ -3,16 +3,14 @@ paths:
     get:
       tags:
         - Industry
-      summary: Returns all categories
+      summary: Returns all industries
       parameters:
       responses:
-        '200':
-          $ref: "../responses/industries.yaml#/components/responses/movies_user/200"
   /industry/{industry}:
     get:
       tags:
         - Industry
-      summary: Returns specific category
+      summary: Returns specific industry
       parameters:
         - in: path
           name: category
@@ -20,50 +18,3 @@ paths:
             type: integer
           required: true
       responses:
-        '200':
-          $ref: "../responses/industries.yaml#/components/responses/movies_user_details/200"
-  # /movies:
-  #   post:
-  #     tags:
-  #       - Movies
-  #     summary: Creates movie
-  #     requestBody:
-  #       description: Creates new movie
-  #       content:
-  #           application/json:
-  #             schema:
-  #               $ref: "../schemas/industries.yaml#/components/schemas/movies_create"
-  #     responses:
-  #       '200':
-  #         $ref: "../responses/industries.yaml#/components/responses/movies_create/200"
-  # /movies/update:
-  #   patch:
-  #     tags:
-  #       - Category
-  #     summary: Updates movie
-  #     requestBody:
-  #       description: Updates existing movie
-  #       content:
-  #           application/json:
-  #             schema:
-  #               $ref: "../schemas/industries.yaml#/components/schemas/movies"
-  #     responses:
-  #       '200':
-  #         $ref: "../responses/industries.yaml#/components/responses/movies/200"
-  # /movies/{movie}:
-  #   delete:
-  #     tags:
-  #       - Category
-  #     summary: Deletes movie
-  #     requestBody:
-  #       description: Deletes existing movie
-  #       content:
-  #       parameters:
-  #       - in: path
-  #         name: movie
-  #         schema:
-  #           type: integer
-  #         required: true
-  #     responses:
-  #       '200':
-  #         $ref: "../responses/industries.yaml#/components/responses/movies_movie/200"

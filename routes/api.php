@@ -45,5 +45,3 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
-
-Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
