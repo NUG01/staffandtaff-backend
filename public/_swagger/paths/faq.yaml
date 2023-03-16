@@ -1,0 +1,73 @@
+paths:
+  /faq:
+    get:
+      tags:
+        - FAQ
+      summary: Returns all FAQ
+      responses:
+  /faq/{category}:
+    get:
+      tags:
+        - FAQ
+      summary: Returns specific FAQ
+      parameters:
+        - in: path
+          name: category
+          schema:
+            type: integer
+          required: true
+  /faq/create:
+    post:
+      tags:
+        - FAQ
+      summary: Creates new FAQ
+      description: Creates FAQ with category, question and answer
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                category:
+                  type: string
+                  example: Payment
+                question:
+                  type: string
+                  example: Who said payment?
+                answer:
+                  type: string
+                  example: Payment is a large topic!
+              required:  
+                - category
+                - question    
+                - answer    
+  /faq/update/{id}:
+    patch:
+      tags:
+        - FAQ
+      summary: Updates specific FAQ
+      description: Update can also be partial but all parameters are required
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                category:
+                  type: string
+                  example: Payment Section
+                question:
+                  type: string
+                  example: Who said payment?
+                answer:
+                  type: string
+                  example: Payment is a large topic!
+              required:  
+                - category
+                - question    
+                - answer 
+  /faq/delete/{id}:
+    delete:
+      tags:
+        - FAQ
+      summary: Deletes specific industry

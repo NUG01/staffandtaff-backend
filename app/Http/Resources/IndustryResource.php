@@ -13,37 +13,37 @@ class IndustryResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'industry_name' => $this->name,
-            'industry_slug' => $this->slug,
-            'positions' => PositionResource::collection(Position::whereIn('id', (array)$this->children_id)->get()),
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
         ];
     }
 
-    public static function updateIndustryOrPosition($category, $request)
+    public static function updateIndustryOrPosition($industry, $request)
     {
-        $category->update([
+        $industry->update([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
         ]);
     }
 
-    public static function updateChildrenIds($category, $subcategory)
+    public static function updateChildrenIds($industry, $position)
     {
-        $category->update([
-            'children_id' => array_merge($category->children_id, (array)$subcategory->id)
+        $industry->update([
+            'children_id' => array_merge($industry->children_id, (array)$position->id)
         ]);
     }
 
-    public static function destroy($category)
+    public static function destroy($industry)
     {
-        $children_ids = Industry::whereNot('id', $category->id)->pluck('children_id')->toArray();
+        $children_ids = Industry::whereNot('id', $industry->id)->pluck('children_id')->toArray();
         $children_ids = collect($children_ids)->flatten(1)->toArray();
 
-        $result = array_diff($category->children_id, $children_ids);
+        $result = array_diff($industry->children_id, $children_ids);
 
         $result = array_values($result);
 
         DB::table('positions')->whereIn('id', $result)->delete();
-        $category->delete();
+        $industry->delete();
     }
 }

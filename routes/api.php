@@ -1,13 +1,19 @@
 <?php
 
-use App\Http\Controllers\api\{EstablishmentController, IndustryController, JobController, SubscriptionController};
+use App\Http\Controllers\api\{EstablishmentController, IndustryController, JobController, SubscriptionController, FaqController};
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Route,};
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return response()->json(['user' => $request->user()]);
+    return UserResource::make($request->user());
+});
+
+Route::get('/test', function () {
+    return UserResource::collection(User::where('id', Auth()->user()->id)->get());
 });
 
 // Industry and position Routes
@@ -34,15 +40,24 @@ Route::controller(JobController::class)->group(function () {
 
 //Establishment Routes
 Route::controller(EstablishmentController::class)->group(function () {
-    Route::post('/establishment/create', 'store')->name('establishment.store');
+    Route::post('/establishment/store', 'store')->name('establishment.store');
     Route::get('/establishment/{establishment}', 'show')->name('establishment.show');
     Route::patch('/establishment/update/{establishment}', 'update')->name('establishment.update');
 });
 
+//Faq Routes
+Route::controller(FaqController::class)->group(function () {
+    Route::post('/faq/create', 'store')->name('faq.store');
+    Route::get('/faq', 'index')->name('faq.index');
+    Route::get('/faq/{category}', 'getSpecificCategory')->name('faq.category');
+    Route::delete('/faq/update/{id}', 'destroy')->name('faq.destroy');
+    Route::patch('/faq/delete/{id}', 'update')->name('faq.update');
+});
 
+//Stripe Routes
 Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->group(function () {
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
 
-Route::post('user-mail',[AboutController::class,'store'])->name('user.mail');
+Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');

@@ -1,0 +1,30 @@
+components:
+  schemas:
+    index:
+      properties:
+        industry_name:
+          type: string
+          example: Test Industry
+        industry_slug:
+          type: string
+          example: test_industry
+    store:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Test Industry
+      required:
+        - name
+      unique:
+        - name
+    update:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Test Industry
+      required:
+        - name
+      unique:
+        - name

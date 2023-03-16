@@ -9,8 +9,9 @@ class PositionResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'position_name' => $this->name,
-            'position_slug' => $this->slug,
+            'id' => $this->id,
+            'name' => $this->name,
+            'slug' => $this->slug,
         ];
     }
 }
