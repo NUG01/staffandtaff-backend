@@ -55,12 +55,12 @@ paths:
   /payment:
     $ref: "./_swagger/paths/stripe.yaml#/paths/~1payment"
 
-#  /categories:
-#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies"
-#  /category/{category}:
-#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1update"
-#  /movies/{movie}:
-#     $ref: "./_swagger/paths/categories.yaml#/paths/~1movies~1{movie}"
+  /faq:
+      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq"
+  /faq/{category}:
+      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1{category}"
+  /faq/create:
+      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1create"
 #  /quotes:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes"
 #  /quotes/{movie}:
