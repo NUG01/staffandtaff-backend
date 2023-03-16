@@ -1,0 +1,48 @@
+paths:
+  /positions:
+    get:
+      tags:
+        - Position
+      summary: Returns all positions
+      requestBody:
+        description: Returns all positions. Instead of ids there is used slugs!
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/positions.yaml#/components/schemas/index"
+  /position/{position}:
+    get:
+      tags:
+        - Position
+      summary: Returns specific position.
+      parameter:
+      responses:
+  /position/store:
+    post:
+      tags:
+        - Position
+      summary: Inserts unique position.
+      requestBody:
+        description: Slug is created from name!
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/positions.yaml#/components/schemas/store"
+  /position/update/{position}:
+    patch:
+      tags:
+        - Position
+      summary: Updates specific position.
+      requestBody:
+        description: Slug will be regenerated from name!
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/positions.yaml#/components/schemas/update"
+  /position/delete/{position}:
+    delete:
+      tags:
+        - Position
+      summary: Deletes specific position.
+      parameter:
+      responses:

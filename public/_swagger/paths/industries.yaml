@@ -4,17 +4,45 @@ paths:
       tags:
         - Industry
       summary: Returns all industries
-      parameters:
-      responses:
+      requestBody:
+        description: Returns all industries. Instead of ids there is used slugs!
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/industries.yaml#/components/schemas/index"
   /industry/{industry}:
     get:
       tags:
         - Industry
       summary: Returns specific industry
-      parameters:
-        - in: path
-          name: category
-          schema:
-            type: integer
-          required: true
+      parameter:
+      responses:
+  /industry/store:
+    post:
+      tags:
+        - Industry
+      summary: Inserts unique industry.
+      requestBody:
+        description: Slug is created from name!
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/industries.yaml#/components/schemas/store"
+  /industry/update/{industry}:
+    patch:
+      tags:
+        - Industry
+      summary: Updates specific industry
+      requestBody:
+        description: Slug will be regenerated from name!
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/industries.yaml#/components/schemas/update"
+  /industry/delete/{industry}:
+    delete:
+      tags:
+        - Industry
+      summary: Deletes specific industry. This method will also delete all the position that Industry has, but if two industries have common positions those positions won't be deleted!
+      parameter:
       responses:
