@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\{EstablishmentController, IndustryController, JobController, SubscriptionController};
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Http\Controllers\Auth\AboutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Route,};
 
@@ -11,7 +12,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return UserResource::make($request->user());
 });
 
-Route::get('/test', function (){
+Route::get('/test', function () {
     return UserResource::collection(User::where('id', Auth()->user()->id)->get());
 });
 
@@ -49,3 +50,5 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
+
+Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
