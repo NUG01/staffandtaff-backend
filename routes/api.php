@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\{JobController, IndustryController, EstablishmentController, SubscriptionController};
+use App\Http\Controllers\api\{JobController, IndustryController, EstablishmentController, FaqController, SubscriptionController};
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,7 +40,14 @@ Route::controller(EstablishmentController::class)->group(function () {
     Route::patch('/establishment/update/{establishment}', 'update')->name('establishment.update');
 });
 
+//Faq Routes
+Route::controller(FaqController::class)->group(function () {
+    Route::post('/faq/create', 'store')->name('faq.store');
+    Route::get('/faq', 'index')->name('faq.index');
+    Route::get('/faq/{category}', 'getSpecificCategory')->name('faq.category');
+});
 
+//Stripe Routes
 Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->group(function () {
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
