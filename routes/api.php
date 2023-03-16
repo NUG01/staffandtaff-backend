@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\api\{JobController, IndustryController, EstablishmentController, SubscriptionController};
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Models\User;
+use App\Http\Controllers\api\{EstablishmentController, IndustryController, JobController, SubscriptionController};
+use App\Http\Controllers\Auth\AboutController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{App, Auth, Route,};
+use Illuminate\Support\Facades\{Route,};
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -45,3 +44,5 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
+
+Route::post('user-mail',[AboutController::class,'store'])->name('user.mail');
