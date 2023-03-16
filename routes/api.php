@@ -50,6 +50,8 @@ Route::controller(FaqController::class)->group(function () {
     Route::post('/faq/create', 'store')->name('faq.store');
     Route::get('/faq', 'index')->name('faq.index');
     Route::get('/faq/{category}', 'getSpecificCategory')->name('faq.category');
+    Route::delete('/faq/update/{id}', 'destroy')->name('faq.destroy');
+    Route::patch('/faq/delete/{id}', 'update')->name('faq.update');
 });
 
 //Stripe Routes

@@ -75,12 +75,10 @@ paths:
       $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1{category}"
   /faq/create:
       $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1create"
-#  /quotes:
-#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes"
-#  /quotes/{movie}:
-#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{movie}"
-#  /quotes/{quote}/details:
-#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}~1details"
+  /faq/update/{id}:
+      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1update~1{id}"
+  /faq/delete/{id}:
+      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1delete~1{id}"
 #  /quotes/create:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1create"
 #  /quotes/update:

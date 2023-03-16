@@ -41,3 +41,33 @@ paths:
                 - category
                 - question    
                 - answer    
+  /faq/update/{id}:
+    patch:
+      tags:
+        - FAQ
+      summary: Updates specific FAQ
+      description: Update can also be partial but all parameters are required
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                category:
+                  type: string
+                  example: Payment Section
+                question:
+                  type: string
+                  example: Who said payment?
+                answer:
+                  type: string
+                  example: Payment is a large topic!
+              required:  
+                - category
+                - question    
+                - answer 
+  /faq/delete/{id}:
+    delete:
+      tags:
+        - FAQ
+      summary: Deletes specific industry
