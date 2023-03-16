@@ -69,7 +69,6 @@ paths:
   /payment:
     $ref: "./_swagger/paths/stripe.yaml#/paths/~1payment"
 
-<<<<<<< HEAD
   /faq:
       $ref: "./_swagger/paths/faq.yaml#/paths/~1faq"
   /faq/{category}:
@@ -88,7 +87,3 @@ paths:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1update"
 #  /quotes/{quote}:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}"
-=======
-  # Jobs endpoints
-
->>>>>>> b89f99372cbfa102a31f7d8e06a9bd790b88651e
