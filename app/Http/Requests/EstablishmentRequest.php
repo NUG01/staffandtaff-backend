@@ -22,6 +22,7 @@ class EstablishmentRequest extends FormRequest
             'city' => 'required',
             'number_of_employees' => 'required',
             'description' => 'required',
+            'gallery' => 'sometimes',
             'website' => 'sometimes',
             'instagram' => 'sometimes',
             'linkedin' => 'sometimes',

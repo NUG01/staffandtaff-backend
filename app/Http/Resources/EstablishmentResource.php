@@ -16,12 +16,13 @@ class EstablishmentResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'establishment_id' => $this->id,
-            'establishment_name' => $this->establishment_name,
+            'id' => $this->id,
+            'name' => $this->establishment_name,
             'company_name' => $this->company_name,
             'company' => $this->company,
             'country' => $this->country,
             'city' => $this->city,
+            'address' => $this->address,
             'number_of_employees' => $this->number_of_employees,
             'description' => $this->description,
             'start_date' => $this->start_date->format('d/m/Y'),
@@ -35,7 +36,7 @@ class EstablishmentResource extends JsonResource
     {
         $establishment_id = Establishment::create([
             'logo' => $request->logo,
-            'establishment_name' => $request->establishment_name,
+            'name' => $request->establishment_name,
             'company_name' => $request->company_name,
             'country' => $request->country,
             'industry' => $request->industry,
@@ -58,7 +59,7 @@ class EstablishmentResource extends JsonResource
 
         return Auth::user()->update([
             'type' => $establishment_id,
-            'role_id' => Role::RECRUITER,
+            'role_id' => Role::RECRUITER->value,
         ]);
     }
 

@@ -1,13 +1,13 @@
 openapi: 3.0.0
 info:
   title: Staff&Taff
-  description: Staff&Taff helps ob seekers and recruiters to find eachother
+  description: Staff&Taff helps ob seekers and recruiters to find each other
   version: 0.1.9
 
 servers:
   - url: http://localhost:8080/api/v1
     description: local server
-  - url: http://production.app/api
+  - url: https://production.app/api/v1
     description: production server
 
 
@@ -23,6 +23,7 @@ security:
 
 
 paths:
+  #Auth endpoints
   /user:
     $ref: "./_swagger/paths/user.yaml#/paths/~1user"
   /forgot-password:
@@ -37,24 +38,38 @@ paths:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
   /verify-email:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1email-verification"
-  #  /email/verification-notification:
-  #     $ref: "./_swagger/paths/auth.yaml#/paths/~1verification_notification"
+
+  # Industries endpoints
   /industries:
     $ref: "./_swagger/paths/industries.yaml#/paths/~1industries"
   /industry/{industry}:
     $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1{industry}"
-  #  /categories:
-  #     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies"
-  #  /category/{category}:
-  #     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1update"
-  #  /movies/{movie}:
-  #     $ref: "./_swagger/paths/industries.yaml#/paths/~1movies~1{movie}"
-  #  /quotes:
+  /industry/store:
+    $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1store"
+  /industry/update/{industry}:
+    $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1update~1{industry}"
+  /industry/delete/{industry}:
+    $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1delete~1{industry}"
+
+  # Positions endpoints
+  /positions:
+    $ref: "./_swagger/paths/positions.yaml#/paths/~1positions"
+  /position/{position}:
+    $ref: "./_swagger/paths/positions.yaml#/paths/~1position~1{position}"
+  /position/store:
+    $ref: "./_swagger/paths/positions.yaml#/paths/~1position~1store"
+  /position/update/{position}:
+    $ref: "./_swagger/paths/positions.yaml#/paths/~1position~1update~1{position}"
+  /position/delete/{position}:
+    $ref: "./_swagger/paths/positions.yaml#/paths/~1position~1delete~1{position}"
+
+  # Payment endpoints
   /user-intent:
     $ref: "./_swagger/paths/stripe.yaml#/paths/~1user-intent"
   /payment:
     $ref: "./_swagger/paths/stripe.yaml#/paths/~1payment"
 
+<<<<<<< HEAD
   /faq:
       $ref: "./_swagger/paths/faq.yaml#/paths/~1faq"
   /faq/{category}:
@@ -73,3 +88,7 @@ paths:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1update"
 #  /quotes/{quote}:
 #     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}"
+=======
+  # Jobs endpoints
+
+>>>>>>> b89f99372cbfa102a31f7d8e06a9bd790b88651e

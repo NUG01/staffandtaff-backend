@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('establishment_name');
             $table->string('company_name');
             $table->tinyInteger('country');
-            $table->tinyInteger('industry');
             $table->tinyInteger('city');
+            $table->string('address');
+            $table->tinyInteger('industry');
             $table->integer('number_of_employees');
             $table->text('description')->nullable();
             $table->timestamps();

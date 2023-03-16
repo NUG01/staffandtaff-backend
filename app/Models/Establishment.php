@@ -16,8 +16,9 @@ class Establishment extends Model
         'establishment_name',
         'company_name',
         'country',
-        'industry',
         'city',
+        'address',
+        'industry',
         'number_of_employees',
         'description',
     ];

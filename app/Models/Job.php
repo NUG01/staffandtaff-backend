@@ -10,11 +10,12 @@ class Job extends Model
 {
     use HasFactory;
 
-    protected $table = 'ads';
+    protected $table = 'jobs';
 
     protected $fillable = [
         'position',
         'salary',
+        'salary_type',
         'currency',
         'type_of_contract',
         'type_of_attendance',

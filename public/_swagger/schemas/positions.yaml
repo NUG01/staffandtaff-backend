@@ -1,0 +1,30 @@
+components:
+  schemas:
+    index:
+      properties:
+        position_name:
+          type: string
+          example: Test Position
+        position_slug:
+          type: string
+          example: test_position
+    store:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Test Position
+      required:
+        - name
+      unique:
+        - name
+    update:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Test Position
+      required:
+        - name
+      unique:
+        - name
