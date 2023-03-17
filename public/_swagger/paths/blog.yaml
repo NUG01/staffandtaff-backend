@@ -1,0 +1,68 @@
+paths:
+  /blog:
+    get:
+      tags:
+        - Blog
+      summary: Returns all blogs
+      responses:
+  /blog/{id}:
+    get:
+      tags:
+        - Blog
+      summary: Returns specific blog
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+  /blog/create:
+    post:
+      tags:
+        - Blog
+      summary: Creates new blog
+      description: Creates blog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: integer
+                  example: 1
+                title:
+                  type: string
+                  example: Title
+                excerpt:
+                  type: string
+                  example: This blog is about...
+                body:
+                  type: string
+                  example: Lorem ipsum...
+                category_id:
+                  type: integer
+                  example: 1
+                secondary_title:
+                  type: string
+                  example: Title_2
+                secondary_excerpt:
+                  type: string
+                  example: This blog is about...2
+                secondary_body:
+                  type: string
+                  example: Lorem ipsum...2
+                image:
+                  type: image
+                  example: Formdata
+              required:
+                - type
+                - title
+                - excerpt
+                - body
+                - category_id
+  /blog/delete/{id}:
+    delete:
+      tags:
+        - Blog
+      summary: Deletes specific blog

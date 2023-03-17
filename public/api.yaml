@@ -10,7 +10,6 @@ servers:
   - url: https://production.app/api/v1
     description: production server
 
-
 components:
   securitySchemes:
     cookieAuth:
@@ -18,12 +17,9 @@ components:
       in: cookie
       name: access_token
 security:
-  - cookieAuth: [ ]
-
-
+  - cookieAuth: []
 
 paths:
-  #Auth endpoints
   /user:
     $ref: "./_swagger/paths/user.yaml#/paths/~1user"
   /forgot-password:
@@ -38,8 +34,6 @@ paths:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
   /verify-email:
     $ref: "./_swagger/paths/auth.yaml#/paths/~1email-verification"
-
-  # Industries endpoints
   /industries:
     $ref: "./_swagger/paths/industries.yaml#/paths/~1industries"
   /industry/{industry}:
@@ -50,8 +44,6 @@ paths:
     $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1update~1{industry}"
   /industry/delete/{industry}:
     $ref: "./_swagger/paths/industries.yaml#/paths/~1industry~1delete~1{industry}"
-
-  # Positions endpoints
   /positions:
     $ref: "./_swagger/paths/positions.yaml#/paths/~1positions"
   /position/{position}:
@@ -62,26 +54,31 @@ paths:
     $ref: "./_swagger/paths/positions.yaml#/paths/~1position~1update~1{position}"
   /position/delete/{position}:
     $ref: "./_swagger/paths/positions.yaml#/paths/~1position~1delete~1{position}"
-
-  # Payment endpoints
   /user-intent:
     $ref: "./_swagger/paths/stripe.yaml#/paths/~1user-intent"
   /payment:
     $ref: "./_swagger/paths/stripe.yaml#/paths/~1payment"
-
   /faq:
-      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq"
+    $ref: "./_swagger/paths/faq.yaml#/paths/~1faq"
   /faq/{category}:
-      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1{category}"
+    $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1{category}"
   /faq/create:
-      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1create"
+    $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1create"
   /faq/update/{id}:
-      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1update~1{id}"
+    $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1update~1{id}"
   /faq/delete/{id}:
-      $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1delete~1{id}"
-#  /quotes/create:
-#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1create"
-#  /quotes/update:
-#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1update"
-#  /quotes/{quote}:
-#     $ref: "./_swagger/paths/ads.yaml#/paths/~1quotes~1{quote}"
+    $ref: "./_swagger/paths/faq.yaml#/paths/~1faq~1delete~1{id}"
+  /blog:
+    $ref: "./_swagger/paths/blog.yaml#/paths/~1blog"
+  /blog/create:
+    $ref: "./_swagger/paths/blog.yaml#/paths/~1blog~1create"
+  /blog/{id}:
+    $ref: "./_swagger/paths/blog.yaml#/paths/~1blog~1{id}"
+  /blog/delete/{id}:
+    $ref: "./_swagger/paths/blog.yaml#/paths/~1blog~1delete~1{id}"
+  /category:
+    $ref: "./_swagger/paths/categories.yaml#/paths/~1category"
+  /category/create:
+    $ref: "./_swagger/paths/categories.yaml#/paths/~1category~1create"
+  /category/delete/{id}:
+    $ref: "./_swagger/paths/categories.yaml#/paths/~1category~1delete~1{id}"

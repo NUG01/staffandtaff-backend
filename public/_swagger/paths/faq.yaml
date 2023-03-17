@@ -25,7 +25,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
+            schema:
               type: object
               properties:
                 category:
@@ -37,12 +37,12 @@ paths:
                 answer:
                   type: string
                   example: Payment is a large topic!
-              required:  
+              required:
                 - category
-                - question    
-                - answer    
+                - question
+                - answer
   /faq/update/{id}:
-    patch:
+    put:
       tags:
         - FAQ
       summary: Updates specific FAQ
@@ -50,7 +50,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema: 
+            schema:
               type: object
               properties:
                 category:
@@ -62,10 +62,10 @@ paths:
                 answer:
                   type: string
                   example: Payment is a large topic!
-              required:  
+              required:
                 - category
-                - question    
-                - answer 
+                - question
+                - answer
   /faq/delete/{id}:
     delete:
       tags:

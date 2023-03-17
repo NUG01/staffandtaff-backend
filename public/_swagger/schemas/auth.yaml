@@ -15,10 +15,10 @@ components:
         password_confirmation:
           type: string
           example: neqson123
-      required:  
+      required:
         - fullname
-        - email    
-        - password    
+        - email
+        - password
         - password_confirmation
     login:
       type: object
@@ -29,7 +29,7 @@ components:
         password:
           type: string
           example: neqson123
-      required:  
+      required:
         - name
         - password
     email-verification:
@@ -38,24 +38,16 @@ components:
         code:
           type: string
           example: 8bd81d592b5be48078728328e521e7c5411b3a2e
-      required:  
+      required:
         - code
-    # verification_notification:
-    #   type: object
-    #   properties:
-    #     code:
-    #       type: string
-    #       example: 8bd81d592b5be48078728328e521e7c5411b3a2e
-    #   required:  
-    #     - code
     forgot_password:
       type: object
       properties:
         email:
           type: string
           example: neqson@neqson.com
-      required:  
-          - email
+      required:
+        - email
     reset_password:
       type: object
       properties:
@@ -68,10 +60,7 @@ components:
         token:
           type: string
           example: 8bd81d592b5be48078728328e521e7c5411b3a2e
-      required:  
-          - password       
-          - password_confirmation    
-          - code      
-            
-            
-      
+      required:
+        - password
+        - password_confirmation
+        - code

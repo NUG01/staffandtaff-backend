@@ -1,0 +1,29 @@
+paths:
+  /category:
+    get:
+      tags:
+        - Category
+      summary: Returns all categories
+      responses:
+  /category/create:
+    post:
+      tags:
+        - Category
+      summary: Creates new category
+      description: Creates category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  example: Payments
+              required:
+                - category_name
+  /category/delete/{id}:
+    delete:
+      tags:
+        - Category
+      summary: Deletes specific category

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\{EstablishmentController, IndustryController, JobController, SubscriptionController, FaqController};
+use App\Http\Controllers\api\{BlogController, CategoryController, EstablishmentController, IndustryController, JobController, SubscriptionController, FaqController};
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
@@ -51,7 +51,7 @@ Route::controller(FaqController::class)->group(function () {
     Route::get('/faq', 'index')->name('faq.index');
     Route::get('/faq/{category}', 'getSpecificCategory')->name('faq.category');
     Route::delete('/faq/update/{id}', 'destroy')->name('faq.destroy');
-    Route::patch('/faq/delete/{id}', 'update')->name('faq.update');
+    Route::put('/faq/delete/{faq:id}', 'update')->name('faq.update');
 });
 
 //Stripe Routes
@@ -60,41 +60,19 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
 
+//Blog Category Routes
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/category', 'index')->name('category.index');
+    Route::post('/category/create', 'create')->name('category.create');
+    Route::delete('/category/delete/{category:id}', 'destroy')->name('category.destroy');
+});
+
+//Blog Routes
+Route::controller(BlogController::class)->group(function () {
+    Route::get('/blog', 'index')->name('blog.index');
+    Route::post('/blog', 'create')->name('blog.create');
+    Route::get('/blog/{blog:id}', 'getSpecificBlog')->name('blog.specific');
+    Route::delete('/blog/{category:id}', 'destroy')->name('blog.destroy');
+});
+
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
-
-// Route::get('db', function () {
-//     // $frenchCities = json_decode($frenchCities, true);
-//     // $switzCities = json_decode($switzCities, true);
-//     $frenchCities = Storage::disk('local')->get('france.json');
-//     $switzCities = Storage::disk('local')->get('switzerland.json');
-
-//     $cities = json_encode(
-//         array_merge(
-//             json_decode($frenchCities, true),
-//             json_decode($switzCities, true)
-//         )
-//     );
-
-//     $cities = json_decode($cities, true);
-//     foreach ($cities as $key => $value) {
-//         // $city = $value['city'];
-//         // // $country = $value['country'];
-//         // $iso2 = $value['iso2'];
-//         // $lat = $value['lat'];
-//         // $lng = $value['lng'];
-
-//         DB::table('geolocations')->insert([
-//             'country_code' => $value['iso2'],
-//             'city_name' => $value['city'],
-//             'latitude' => $value['lat'],
-//             'longitude' => $value['lng'],
-//         ]);
-
-//         // echo "Id: {$city}, Name: {$country}, code: {$iso2}, lat: {$lat}, lng: {$lng}";
-//         // echo $value['department'];
-//     }
-//     return 'saved';
-
-//     // return json_decode($cities[0]['city']);
-//     // return $cities;
-// });
