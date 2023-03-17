@@ -5,7 +5,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Route,};
+use Illuminate\Support\Facades\{DB, Route, Storage,};
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -61,3 +61,40 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
 });
 
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
+
+// Route::get('db', function () {
+//     // $frenchCities = json_decode($frenchCities, true);
+//     // $switzCities = json_decode($switzCities, true);
+//     $frenchCities = Storage::disk('local')->get('france.json');
+//     $switzCities = Storage::disk('local')->get('switzerland.json');
+
+//     $cities = json_encode(
+//         array_merge(
+//             json_decode($frenchCities, true),
+//             json_decode($switzCities, true)
+//         )
+//     );
+
+//     $cities = json_decode($cities, true);
+//     foreach ($cities as $key => $value) {
+//         // $city = $value['city'];
+//         // // $country = $value['country'];
+//         // $iso2 = $value['iso2'];
+//         // $lat = $value['lat'];
+//         // $lng = $value['lng'];
+
+//         DB::table('geolocations')->insert([
+//             'country_code' => $value['iso2'],
+//             'city_name' => $value['city'],
+//             'latitude' => $value['lat'],
+//             'longitude' => $value['lng'],
+//         ]);
+
+//         // echo "Id: {$city}, Name: {$country}, code: {$iso2}, lat: {$lat}, lng: {$lng}";
+//         // echo $value['department'];
+//     }
+//     return 'saved';
+
+//     // return json_decode($cities[0]['city']);
+//     // return $cities;
+// });

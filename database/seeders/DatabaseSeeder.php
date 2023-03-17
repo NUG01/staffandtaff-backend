@@ -14,6 +14,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +34,8 @@ class DatabaseSeeder extends Seeder
 
         Industry::factory()->createPositions();
 
+
+
         User::create([
             'name' => 'admin',
             'email' => 'admin@staffandtaff.ch',
@@ -41,5 +44,34 @@ class DatabaseSeeder extends Seeder
             'verification_code' => sha1(time()),
             'role_id' => Role::ADMIN,
         ]);
+
+        $frenchCities = Storage::disk('local')->get('france.json');
+        $switzCities = Storage::disk('local')->get('switzerland.json');
+
+        $cities = json_encode(
+            array_merge(
+                json_decode($frenchCities, true),
+                json_decode($switzCities, true)
+            )
+        );
+
+        $cities = json_decode($cities, true);
+        foreach ($cities as $key => $value) {
+            // $city = $value['city'];
+            // // $country = $value['country'];
+            // $iso2 = $value['iso2'];
+            // $lat = $value['lat'];
+            // $lng = $value['lng'];
+
+            DB::table('geolocations')->insert([
+                'country_code' => $value['iso2'],
+                'city_name' => $value['city'],
+                'latitude' => $value['lat'],
+                'longitude' => $value['lng'],
+            ]);
+
+            // echo "Id: {$city}, Name: {$country}, code: {$iso2}, lat: {$lat}, lng: {$lng}";
+            // echo $value['department'];
+        }
     }
 }
