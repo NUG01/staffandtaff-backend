@@ -24,15 +24,18 @@ class RegisteredUserController extends Controller
     public function store(RegisterRequest $request): JsonResponse
     {
 
+        $token = sha1(time());
         $user = User::create([
+            'name' => 'recruiter_' . mt_rand(1000000, 9999999),
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'verification_code' => sha1(time())
+            'verification_code' => $token
         ]);
         //  return response()->json('ok');
         // event(new Registered($user));
+        auth()->login($user);
         if ($user) {
-            $url = config('app.frontend_url') . '/email-confirmation/' . $user->verification_code;
+            $url = config('app.frontend_url') . '/email-confirmation/' . $token;
             MailController::sendVerificationEmail($user->name, $user->email, $url);
             return response()->json('Email sent!');
         }
