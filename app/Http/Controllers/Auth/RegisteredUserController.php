@@ -25,14 +25,13 @@ class RegisteredUserController extends Controller
     {
 
         $user = User::create([
-            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'verification_code' => sha1(time())
         ]);
-    //  return response()->json('ok');
+        //  return response()->json('ok');
         // event(new Registered($user));
-         if ($user) {
+        if ($user) {
             $url = config('app.frontend_url') . '/email-confirmation/' . $user->verification_code;
             MailController::sendVerificationEmail($user->name, $user->email, $url);
             return response()->json('Email sent!');
