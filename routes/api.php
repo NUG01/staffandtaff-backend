@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\{BlogController, CategoryController, EstablishmentController, IndustryController, JobController, SubscriptionController, FaqController};
+use App\Http\Controllers\api\{EstablishmentController, IndustryController, JobController, SubscriptionController, FaqController};
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
@@ -58,21 +58,6 @@ Route::controller(FaqController::class)->group(function () {
 Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->group(function () {
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
-});
-
-//Blog Category Routes
-Route::controller(CategoryController::class)->group(function () {
-    Route::get('/category', 'index')->name('category.index');
-    Route::post('/category/create', 'create')->name('category.create');
-    Route::delete('/category/delete/{category:id}', 'destroy')->name('category.destroy');
-});
-
-//Blog Routes
-Route::controller(BlogController::class)->group(function () {
-    Route::get('/blog', 'index')->name('blog.index');
-    Route::post('/blog', 'create')->name('blog.create');
-    Route::get('/blog/{blog:id}', 'getSpecificBlog')->name('blog.specific');
-    Route::delete('/blog/{category:id}', 'destroy')->name('blog.destroy');
 });
 
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
