@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('logo');
             $table->string('establishment_name');
-            $table->string('company_name');
+            $table->string('company_name')->nullable();
             $table->tinyInteger('country');
             $table->tinyInteger('city');
             $table->string('address');

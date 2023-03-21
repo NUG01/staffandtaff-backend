@@ -14,14 +14,14 @@ class EstablishmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => 'required',
-            'establishment_name' => 'required',
-            'company_name' => 'required',
-            'country' => 'required',
-            'industry' => 'required',
-            'city' => 'required',
-            'number_of_employees' => 'required',
-            'description' => 'required',
+            'logo' => 'sometimes',
+            'establishment_name' => 'required|string',
+            'company_name' => 'sometimes|string',
+            'country' => 'required|integer',
+            'industry' => 'required|integer',
+            'city' => 'required|integer',
+            'number_of_employees' => 'required|integer',
+            'description' => 'required|string',
             'gallery' => 'sometimes',
             'website' => 'sometimes',
             'instagram' => 'sometimes',

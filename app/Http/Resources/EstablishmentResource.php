@@ -32,35 +32,9 @@ class EstablishmentResource extends JsonResource
         ];
     }
 
-    public static function store($request)
+    public static function store()
     {
-        $establishment_id = Establishment::create([
-            'logo' => $request->logo,
-            'name' => $request->establishment_name,
-            'company_name' => $request->company_name,
-            'country' => $request->country,
-            'industry' => $request->industry,
-            'city' => $request->city,
-            'number_of_employees' => $request->number_of_employees,
-            'description' => $request->description,
-        ]);
-
-        EstablishmentLinks::create([
-            'website' => $request->website,
-            'instagram' => $request->instagram,
-            'linkedin' => $request->linkedin,
-            'facebook' => $request->facebook,
-            'twitter' => $request->twitter,
-            'pinterest' => $request->pinterest,
-            'youtube' => $request->youtube,
-            'tik_tok' => $request->tik_tok,
-            'establishment_id' => $establishment_id->id,
-        ]);
-
-        return Auth::user()->update([
-            'type' => $establishment_id,
-            'role_id' => Role::RECRUITER->value,
-        ]);
+        //
     }
 
     public static function update($establishment, $request)
