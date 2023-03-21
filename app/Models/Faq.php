@@ -12,8 +12,6 @@ class Faq extends Model
 
     protected $guarded = ['id'];
 
-
-
     public function category(): Attribute
     {
         return new Attribute(

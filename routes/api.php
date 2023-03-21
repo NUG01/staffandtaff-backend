@@ -1,6 +1,12 @@
 <?php
 
-use App\Http\Controllers\api\{EstablishmentController, IndustryController, JobController, SubscriptionController, FaqController};
+use App\Http\Controllers\api\{EstablishmentController,
+    IndustryController,
+    JobController,
+    SubscriptionController,
+    FaqController,
+    TermsAndConditionController
+};
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
@@ -12,10 +18,6 @@ use App\Http\Controllers\CountriesController;
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return UserResource::make($request->user());
-});
-
-Route::get('/test', function () {
-    return UserResource::collection(User::where('id', Auth()->user()->id)->get());
 });
 
 // Industry and position Routes
@@ -31,7 +33,7 @@ Route::controller(IndustryController::class)->group(function () {
     Route::delete('/position/delete/{position}', 'destroyPosition')->name('position.delete');
 });
 
-//Ad Routes
+//Job Routes
 Route::controller(JobController::class)->group(function () {
     Route::get('/jobs', 'index')->name('ad.index');
     Route::post('/job/store', 'store')->name('ad.store');
@@ -54,6 +56,15 @@ Route::controller(FaqController::class)->group(function () {
     Route::get('/faq/{category}', 'getSpecificCategory')->name('faq.category');
     Route::delete('/faq/update/{id}', 'destroy')->name('faq.destroy');
     Route::put('/faq/delete/{faq:id}', 'update')->name('faq.update');
+});
+
+
+//Terms & conditions, Privacy Policy routes
+Route::controller(TermsAndConditionController::class)->group(function () {
+    Route::get('/terms_and_conditions', 'index')->name('termsAndConditions.index');
+    Route::post('/terms_and_conditions', 'store')->name('termsAndConditions.store');
+    Route::get('/terms_and_conditions/show/{termsAndCondition}', 'show')->name('termsAndConditions.show');
+    Route::patch('/terms_and_conditions/update/{termsAndCondition}', 'update')->name('termsAndConditions.update');
 });
 
 //Stripe Routes
