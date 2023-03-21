@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Geolocation;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +26,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
+
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -47,6 +51,9 @@ class DatabaseSeeder extends Seeder
 
 
 
+
+
+
         $frenchCities = Storage::disk('local')->get('france.json');
         $switzCities = Storage::disk('local')->get('switzerland.json');
 
@@ -57,7 +64,7 @@ class DatabaseSeeder extends Seeder
                     json_decode($switzCities, true)
                 )
             );
-    
+
             $cities = json_decode($cities, true);
             foreach ($cities as $key => $value) {
                 // $city = $value['city'];
@@ -65,7 +72,7 @@ class DatabaseSeeder extends Seeder
                 // $iso2 = $value['iso2'];
                 // $lat = $value['lat'];
                 // $lng = $value['lng'];
-    
+
                 DB::table('geolocations')->insert([
                     'country_code' => $value['iso2'],
                     'city_name' => $value['city'],
