@@ -20,10 +20,8 @@ class SubscriptionController extends Controller
         return response()->json(['intent' => $stripeData]);
     }
 
-
     public function subscribe(Request $request): JsonResponse
     {
-
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = $request->user();
         $paymentMethod = $request->payment_method;

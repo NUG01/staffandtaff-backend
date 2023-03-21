@@ -11,46 +11,43 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
+    public function index()
+    {
+        $this->authorize('administrator', Auth()->user());
+
+        return Faq::query()->filter(request('search'))->get();
+    }
+
     public function store(FaqRequest $request)
     {
-        $this->authorize('admin', Auth()->user());
+        $this->authorize('administrator', Auth()->user());
 
-        $faq = Faq::create([
-            'category' => $request->category,
-            'question' => $request->question,
-            'answer' => $request->answer,
-        ]);
+        $faq = Faq::create($request->validated());
 
         return FaqResource::make($faq);
     }
 
-    public function index()
-    {
-        $this->authorize('admin', Auth()->user());
-        return Faq::query()->filter(request('search'))->get();
-    }
-
     public function getSpecificCategory($category): JsonResponse
     {
+        $this->authorize('administrator', Auth()->user());
 
-        $this->authorize('admin', Auth()->user());
         $faqSection = Faq::where('category', strtolower($category))->get();
+
         return response()->json($faqSection);
+    }
+
+    public function update(FaqRequest $request, Faq $faq): JsonResponse
+    {
+        $this->authorize('administrator', Auth()->user());
+
+        $updatedFaq = $faq->update($request->validated());
+
+        return response()->json($updatedFaq);
     }
 
     public function destroy(Faq $faq): JsonResponse
     {
         $faq->delete();
         return response()->json(['message' => 'Deleted!']);
-    }
-
-    public function update(Request $request, Faq $faq): JsonResponse
-    {
-        $updatedFaq =  $faq->update([
-            'category' => $request->category,
-            'question' => $request->question,
-            'answer' => $request->answer,
-        ]);
-        return response()->json($updatedFaq);
     }
 }
