@@ -22,3 +22,4 @@ Route::get('/', function () {
 Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
 
 require __DIR__ . '/auth.php';
+
