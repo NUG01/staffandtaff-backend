@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
 
 
         // \App\Models\User::factory(10)->create();
@@ -38,8 +37,6 @@ class DatabaseSeeder extends Seeder
 
         Industry::factory()->createPositions();
 
-
-
         User::create([
             'name' => 'admin',
             'email' => 'admin@staffandtaff.ch',
@@ -49,6 +46,7 @@ class DatabaseSeeder extends Seeder
             'role_id' => Role::ADMIN,
         ]);
 
+        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
 
 
 
