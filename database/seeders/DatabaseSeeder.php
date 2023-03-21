@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Geolocation;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -34,8 +37,6 @@ class DatabaseSeeder extends Seeder
 
         Industry::factory()->createPositions();
 
-
-
         User::create([
             'name' => 'admin',
             'email' => 'admin@staffandtaff.ch',
@@ -44,6 +45,10 @@ class DatabaseSeeder extends Seeder
             'verification_code' => sha1(time()),
             'role_id' => Role::ADMIN,
         ]);
+
+        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
+
+
 
 
 
@@ -57,6 +62,21 @@ class DatabaseSeeder extends Seeder
         //             json_decode($switzCities, true)
         //         )
         //     );
+
+        //     $cities = json_decode($cities, true);
+        //     foreach ($cities as $key => $value) {
+        //         // $city = $value['city'];
+        //         // // $country = $value['country'];
+        //         // $iso2 = $value['iso2'];
+        //         // $lat = $value['lat'];
+        //         // $lng = $value['lng'];
+
+        //         DB::table('geolocations')->insert([
+        //             'country_code' => $value['iso2'],
+        //             'city_name' => $value['city'],
+        //             'latitude' => $value['lat'],
+        //             'longitude' => $value['lng'],
+        //         ]);
 
         //     $cities = json_decode($cities, true);
         //     foreach ($cities as $key => $value) {
