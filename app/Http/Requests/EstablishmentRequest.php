@@ -14,7 +14,7 @@ class EstablishmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => 'required',
+            'logo' => 'sometimes',
             'establishment_name' => 'required|string',
             'company_name' => 'sometimes|string',
             'country' => 'required|integer',
