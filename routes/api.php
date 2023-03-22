@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Route, Storage,};
-use App\Http\Controllers\CountriesController;
+
 
 
 // Auth route
@@ -75,6 +75,3 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
 });
 
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
-
-
-
