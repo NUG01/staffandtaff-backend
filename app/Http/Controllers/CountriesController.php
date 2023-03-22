@@ -17,9 +17,6 @@ class CountriesController extends Controller
             $sum = $gl;
         }
         $cc = Countries::where('id','>',$sum)->select('id','name','latitude','longitude','country_code')->get();
-
-
-
        foreach ($cc as $c){
                Geolocation::create([
             'city_name' => $c->name,
@@ -28,6 +25,5 @@ class CountriesController extends Controller
             'country_code' => $c->country_code,
         ]);
        }
-
     }
 }
