@@ -17,14 +17,12 @@ class VerifyEmailController extends Controller
 
     public function __invoke(Request $request): RedirectResponse
     {
-        $user = User::where('confirmation_code', $request->code)->first();
+        $user = User::where('verification_code', $request->code)->first();
 
         if ($user && $user->email_verified_at == null) {
             $user->markEmailAsVerified();
             Auth::login($user);
-            $user::update([
-                'email_verified_at' => now(),
-            ]);
+
             return response()->json('Email verified!');
             // event(new Verified($request->user()));
         }
