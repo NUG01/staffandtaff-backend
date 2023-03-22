@@ -27,6 +27,10 @@ class JobResource extends JsonResource
             'description' => $this->description,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
+            'country_code' => $this->country_code,
+            'city_name' => $this->city_name,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
         ];
     }
 

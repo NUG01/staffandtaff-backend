@@ -15,6 +15,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
     Route::post('/reset-password', [NewPasswordController::class, 'store']);
 });
+
 Route::post('/verify-email', VerifyEmailController::class)->middleware(['auth', 'signed', 'throttle:6,1']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth');
 

@@ -25,6 +25,10 @@ class JobRequest extends FormRequest
             'start_date' => 'required',
             'end_date' => 'required',
             'description' => 'sometimes',
+            'country_code' => 'required',
+            'city_name' => 'required',
+            'longitude' => 'required',
+            'latitude' => 'sometimes',
         ];
     }
 }

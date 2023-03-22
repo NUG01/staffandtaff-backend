@@ -23,6 +23,10 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
+            $table->string('country_code');
+            $table->string('city_name');
+            $table->decimal('longitude', 11, 8);
+            $table->decimal('latitude', 11, 8);
             $table->timestamps();
         });
     }
