@@ -80,5 +80,3 @@ Route::post('pp',[CountriesController::class,'pp'])->name('pp');
 Route::get('ll',[CountriesController::class,'last'])->name('ll');
 
 
-//Route::post('/verify-email', VerifyEmailController::class)->middleware(['auth', 'signed', 'throttle:6,1']);
-Route::post('/verify-email', VerifyEmailController::class)->middleware([ 'throttle:6,1']);
