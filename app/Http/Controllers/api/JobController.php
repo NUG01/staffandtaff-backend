@@ -87,34 +87,6 @@ class JobController extends Controller
             })->get();
 
         return response()->json($jobs);
-
-
-
-        // $jobs = Job::query()
-        //     ->when(FacadesRequest::has('lng'), function ($query) {
-        //         $query->select('*')->selectRaw('ST_Distance(
-        //             ST_SRID(Point(longitude, latitude), 4326),
-        //             ST_SRID(Point(?, ?), 4326)
-        //         ) as distance', [request()->lng, request()->lat])
-        //             ->whereRaw('ST_Distance(
-        //             ST_SRID(Point(longitude, latitude), 4326),
-        //             ST_SRID(Point(?, ?), 4326)
-        //         ) <= ?', [...[request()->lng, request()->lat], ((request()->distance) * 1000)]);
-        //     })->when(FacadesRequest::has('contract_type'), function ($query) {
-        //         $query->where('type_of_contract', request()->contract_type);
-        //     })->get();
-
-
-
-
-
-        // ->where('type_of_contract', request()->contract_type)->get();
-        // $jobs = Job::query()
-        //     ->when(FacadesRequest::has('lng'), function ($query) {
-        //         $query->selectDistanceTo([request()->lng, request()->lat])
-        //             ->withinDistanceTo([request()->lng, request()->lat], ((request()->distance) * 1000));
-        //     })
-        //     ->where('type_of_contract', request()->contract_type)->get();
     }
 
     /**
