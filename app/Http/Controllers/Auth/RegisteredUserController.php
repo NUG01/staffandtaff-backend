@@ -33,7 +33,6 @@ class RegisteredUserController extends Controller
         ]);
         //  return response()->json('ok');
         // event(new Registered($user));
-        auth()->login($user);
         if ($user) {
             $url = config('app.frontend_url') . '/email-confirmation/' . 'email=' . $user->email . '&token=' . $token;
             MailController::sendVerificationEmail($user->name, $user->email, $url);
