@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\api\{EstablishmentController,
     IndustryController,
     JobController,
@@ -79,3 +80,4 @@ Route::post('pp',[CountriesController::class,'pp'])->name('pp');
 Route::get('ll',[CountriesController::class,'last'])->name('ll');
 
 
+Route::post('/verify-email', VerifyEmailController::class)->middleware(['auth', 'signed', 'throttle:6,1']);

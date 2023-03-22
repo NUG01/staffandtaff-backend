@@ -22,6 +22,9 @@ class VerifyEmailController extends Controller
         if ($user && $user->email_verified_at == null) {
             $user->markEmailAsVerified();
             Auth::login($user);
+            $user::update([
+                'email_verified_at' => now(),
+            ]);
             return response()->json('Email verified!');
             // event(new Verified($request->user()));
         }
