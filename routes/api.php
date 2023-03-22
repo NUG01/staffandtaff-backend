@@ -12,11 +12,11 @@ use App\Http\Controllers\api\{
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
+use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Request as FacadesRequest, Route, Storage,};
-use App\Http\Controllers\CountriesController;
-use App\Models\Geolocation;
-use App\Models\Job;
+
+
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -38,6 +38,7 @@ Route::controller(IndustryController::class)->group(function () {
 
 //Job Routes
 Route::controller(JobController::class)->group(function () {
+    Route::get('/jobs', 'index')->name('ad.index');
     Route::post('/job/store', 'store')->name('ad.store');
     Route::get('/job/{job}', 'show')->name('ad.show');
     Route::patch('/job/update/{job}', 'update')->name('ad.update');
@@ -120,6 +121,3 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
 });
 
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
-
-
-Route::post('pp', [CountriesController::class, 'pp'])->name('pp');
