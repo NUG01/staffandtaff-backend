@@ -28,6 +28,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'email' => $this->email,
+            'verified' => boolval($this->email_verified_at),
             'type' => $query,
             'role' => $roles,
         ];
