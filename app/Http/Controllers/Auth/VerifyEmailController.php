@@ -15,7 +15,7 @@ use Symfony\Component\Uid\NilUlid;
 class VerifyEmailController extends Controller
 {
 
-    public function __invoke(Request $request): RedirectResponse
+    public function __invoke(Request $request)
     {
         $user = User::where('verification_code', $request->code)->first();
 
