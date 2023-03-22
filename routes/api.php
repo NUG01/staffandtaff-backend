@@ -15,8 +15,7 @@ use App\Http\Controllers\Auth\AboutController;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Request as FacadesRequest, Route, Storage,};
-
-
+use AmrShawky\LaravelCurrency\Facade\Currency;
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -44,50 +43,6 @@ Route::controller(JobController::class)->group(function () {
     Route::patch('/job/update/{job}', 'update')->name('ad.update');
     Route::delete('/job/delete/{job}', 'delete')->name('ad.delete');
 });
-
-
-
-
-Route::get('/jobs', function (Request $request) {
-
-    $coords = null;
-    if (!FacadesRequest::has('search')) {
-        return response()->json(Job::all());
-    }
-
-    // $coords = [request()->lat, request()->lng];
-    $coords = [request()->lng, request()->lat];
-    // $parameters = ['coords' => $coords, 'distance' => FacadesRequest::has('distance') ? request()->distance : null];
-    $jobs = Job::query()
-        ->when(FacadesRequest::has('lng'), function ($query) {
-            $query->select('*')->selectRaw('ST_Distance(
-                ST_SRID(Point(longitude, latitude), 4326),
-                ST_SRID(Point(?, ?), 4326)
-            ) as distance', [request()->lng, request()->lat])
-                ->whereRaw('ST_Distance(
-                ST_SRID(Point(longitude, latitude), 4326),
-                ST_SRID(Point(?, ?), 4326)
-            ) <= ?', [...[request()->lng, request()->lat], ((request()->distance) * 1000)]);
-        })->when(FacadesRequest::has('contract_type'), function ($query) {
-            $query->where('type_of_contract', request()->contract_type);
-        })->get();
-
-
-
-
-
-    // ->where('type_of_contract', request()->contract_type)->get();
-    // $jobs = Job::query()
-    //     ->when(FacadesRequest::has('lng'), function ($query) {
-    //         $query->selectDistanceTo([request()->lng, request()->lat])
-    //             ->withinDistanceTo([request()->lng, request()->lat], ((request()->distance) * 1000));
-    //     })
-    //     ->where('type_of_contract', request()->contract_type)->get();
-    return $jobs;
-})->name('ad.index');
-
-
-
 
 //Establishment Routes
 Route::controller(EstablishmentController::class)->group(function () {
