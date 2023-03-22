@@ -37,11 +37,11 @@ Route::controller(IndustryController::class)->group(function () {
 
 //Job Routes
 Route::controller(JobController::class)->group(function () {
-    Route::get('/jobs', 'index')->name('ad.index');
-    Route::post('/job/store', 'store')->name('ad.store');
-    Route::get('/job/{job}', 'show')->name('ad.show');
-    Route::patch('/job/update/{job}', 'update')->name('ad.update');
-    Route::delete('/job/delete/{job}', 'delete')->name('ad.delete');
+    Route::get('/jobs', 'index')->name('job.index');
+    Route::post('/job/store', 'store')->name('job.store');
+    Route::get('/job/{job}', 'show')->name('job.show');
+    Route::patch('/job/update/{job}', 'update')->name('job.update');
+    Route::delete('/job/delete/{job}', 'delete')->name('job.delete');
 });
 
 //Establishment Routes
