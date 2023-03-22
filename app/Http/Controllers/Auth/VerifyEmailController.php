@@ -3,23 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\VerificationRequest;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Uid\NilUlid;
 
 class VerifyEmailController extends Controller
 {
 
-    public function __invoke(Request $request)
+    public function __invoke(VerificationRequest $request): JsonResponse
     {
-        $user = User::where('verification_code', $request->code)->first();
+        $user = User::where('email', $request->email)->where('verification_code', $request->code)->first();
 
-        if ($user && $user->email_verified_at == null) {
+        if ($user && $user->email_verified_at === null) {
             $user->markEmailAsVerified();
             Auth::login($user);
 
@@ -31,9 +28,10 @@ class VerifyEmailController extends Controller
             return response()->json('Email is already verified!', 400);
         }
 
+        return response()->json('Something went wrong', 400);
 
-        return redirect()->intended(
-            config('app.frontend_url') . RouteServiceProvider::HOME . '?verified=1'
-        );
+        // return redirect()->intended(
+        //     config('app.frontend_url') . RouteServiceProvider::HOME . '?verified=1'
+        // );
     }
 }

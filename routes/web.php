@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Geolocation;
+use App\Models\Job;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +23,5 @@ Route::get('/', function () {
 
 Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
 
-require __DIR__ . '/auth.php';
 
+require __DIR__ . '/auth.php';

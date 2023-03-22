@@ -75,8 +75,6 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
 });
 
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
-Route::get('ss',[CountriesController::class,'ss'])->name('ss');
-Route::post('pp',[CountriesController::class,'pp'])->name('pp');
-Route::get('ll',[CountriesController::class,'last'])->name('ll');
+
 
 

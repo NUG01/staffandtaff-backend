@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Geolocation;
+use App\Models\Job;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,10 +31,10 @@ class DatabaseSeeder extends Seeder
 
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
 
         Industry::factory()->createPositions();
 
@@ -45,44 +46,28 @@ class DatabaseSeeder extends Seeder
             'verification_code' => sha1(time()),
             'role_id' => Role::ADMIN,
         ]);
-
         DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
-
-
-
-
-
-        $frenchCities = Storage::disk('local')->get('france.json');
-        $switzCities = Storage::disk('local')->get('switzerland.json');
-
-        if($frenchCities && $switzCities){
-            $cities = json_encode(
-                array_merge(
-                    json_decode($frenchCities, true),
-                    json_decode($switzCities, true)
-                )
-            );
-
-            $cities = json_decode($cities, true);
-            foreach ($cities as $key => $value) {
-                // $city = $value['city'];
-                // // $country = $value['country'];
-                // $iso2 = $value['iso2'];
-                // $lat = $value['lat'];
-                // $lng = $value['lng'];
-
-                DB::table('geolocations')->insert([
-                    'country_code' => $value['iso2'],
-                    'city_name' => $value['city'],
-                    'latitude' => $value['lat'],
-                    'longitude' => $value['lng'],
-                ]);
-
-        }
-
-
-            // echo "Id: {$city}, Name: {$country}, code: {$iso2}, lat: {$lat}, lng: {$lng}";
-            // echo $value['department'];
+        for ($i = 1; $i < 10; $i++) {
+            $city = Geolocation::where('id', $i)->first();
+            Job::create([
+                'id' => $i,
+                'position' => 'ok',
+                'salary' => 200,
+                'salary_type' => $i,
+                'currency' => 'EU',
+                'type_of_contract' => $i,
+                'type_of_attendance' => $i,
+                'period_type' => $i,
+                'period' => 'year',
+                'availability' => $i,
+                'description' => 'text',
+                'start_date' => now(),
+                'end_date' => now(),
+                'country_code' => $city->country_code,
+                'city_name' => $city->city_name,
+                'longitude' => $city->longitude,
+                'latitude' => $city->latitude,
+            ]);
         }
     }
 }
