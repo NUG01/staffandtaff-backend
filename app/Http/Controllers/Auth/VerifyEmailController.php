@@ -14,7 +14,7 @@ class VerifyEmailController extends Controller
 
     public function __invoke(VerificationRequest $request): JsonResponse
     {
-        $user = User::where('email', $request->email)->where('confirmation_code', $request->code)->first();
+        $user = User::where('email', $request->email)->where('verification_code', $request->code)->first();
 
         if ($user && $user->email_verified_at === null) {
             $user->markEmailAsVerified();
