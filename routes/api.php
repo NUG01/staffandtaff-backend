@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\api\{
-    EstablishmentController,
+use App\Http\Controllers\api\{EstablishmentController,
     IndustryController,
     JobController,
     SubscriptionController,
@@ -13,10 +12,9 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Controllers\Auth\AboutController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{DB, Request as FacadesRequest, Route, Storage,};
+use Illuminate\Support\Facades\{DB, Route, Storage,};
 use App\Http\Controllers\CountriesController;
-use App\Models\Geolocation;
-use App\Models\Job;
+
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -38,24 +36,13 @@ Route::controller(IndustryController::class)->group(function () {
 
 //Job Routes
 Route::controller(JobController::class)->group(function () {
+    Route::get('/jobs', 'index')->name('ad.index');
     Route::post('/job/store', 'store')->name('ad.store');
     Route::get('/job/{job}', 'show')->name('ad.show');
     Route::patch('/job/update/{job}', 'update')->name('ad.update');
     Route::delete('/job/delete/{job}', 'delete')->name('ad.delete');
 });
 
-Route::get('/jobs', function () {
-
-    if (!FacadesRequest::has('search')) {
-        return response()->json(Job::all());
-    }
-
-    // $coords = [request()->lat, request()->lng];
-    $coords = [request()->lng, request()->lat];
-
-    $cities = Job::query()->selectDistanceTo($coords)->withinDistanceTo($coords, ((request()->distance) * 1000))->get();
-    return $cities;
-})->name('ad.index');
 //Establishment Routes
 Route::controller(EstablishmentController::class)->group(function () {
     Route::post('/establishment/store', 'store')->name('establishment.store');
@@ -90,4 +77,4 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
 
 
-Route::post('pp', [CountriesController::class, 'pp'])->name('pp');
+
