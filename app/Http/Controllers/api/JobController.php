@@ -19,6 +19,7 @@ class JobController extends Controller
     public function index()
     {
 
+
         if (!FacadesRequest::has('search')) {
             return response()->json(Job::all());
         }
@@ -89,8 +90,23 @@ class JobController extends Controller
             })->when(!empty(request()->establishment_name), function ($query, $terms = null) {
                 collect(explode(' ', $terms))->filter()->each(function ($term) use ($query) {
                     $term = '%' . $term . '%';
-                    $query->where('establishemnt.name', 'like', $term);
+                    return $query->establishment;
+                    $query->with(['establishemnt' => fn ($query) => $query->where('name', 'like', $term)])
+                        ->whereHas(
+                            'establishemnt',
+                            fn ($query) =>
+                            $query->where('name', 'like', $term)
+                        );
                 });
+                // });
+                // })->when(!empty(request()->establishment_name), function ($query, $terms = null) {
+                //     collect(explode(' ', $terms))->filter()->each(function ($term) use ($query) {
+                //         $term = '%' . $term . '%';
+                //         return $query->establishment;
+                //         $query->withWhereHas('establishemnt', function ($query) use ($term) {
+                //             $query->where('name', 'like', $term);
+                //         });
+                //     });
                 //  function ($query) use ($term) {
                 //     $query->where('name', 'like', $term);
                 // });

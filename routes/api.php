@@ -16,6 +16,7 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Request as FacadesRequest, Route, Storage,};
 use AmrShawky\LaravelCurrency\Facade\Currency;
+use App\Models\Establishment;
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
