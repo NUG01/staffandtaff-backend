@@ -11,6 +11,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\Establishment;
+use App\Models\User;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 
@@ -21,8 +22,15 @@ class JobController extends Controller
 
 
         if (!FacadesRequest::has('search')) {
-            return response()->json(Job::all());
+            return response()->json(Job::with('establishment')->get());
         }
+
+
+        //if not returned, URL should be like this
+        //__________________________________________ 
+
+        //--- ?search={always empty}&currency={EUR(default) or CHF}&lng={longitude}&lat={latitude}&distance={distance in km's}&contract_type={id:contract}&category={id:position}&start_date={date}&end_date={date}&min_range={integer}&max_range={integer}&period={string}&establishment_name={whatever user inputs:string}
+
 
 
         $baseCurrency = 1;
@@ -87,37 +95,23 @@ class JobController extends Controller
             })->when(!empty(request()->period), function ($query) {
                 $query->where('salary', '=', request()->period);
                 //text filter
-            })->when(!empty(request()->establishment_name), function ($query, $terms = null) {
-                collect(explode(' ', $terms))->filter()->each(function ($term) use ($query) {
+            })->when(!empty(request()->establishment_name), function ($query) {
+                // $query->join('establishments', 'jobs.establishment_id', '=', 'establishments.id', function())
+                $query->join('establishments', 'jobs.establishment_id', '=', 'establishments.id');
+            })
+            ->when(!empty(request()->establishment_name), function ($query) {
+                collect(explode(' ', request()->establishment_name))->filter()->each(function ($term) use ($query) {
                     $term = '%' . $term . '%';
-                    return $query->establishment;
-                    $query->with(['establishemnt' => fn ($query) => $query->where('name', 'like', $term)])
-                        ->whereHas(
-                            'establishemnt',
-                            fn ($query) =>
-                            $query->where('name', 'like', $term)
-                        );
+
+                    $query->where('name', 'like', $term);
                 });
-                // });
-                // })->when(!empty(request()->establishment_name), function ($query, $terms = null) {
-                //     collect(explode(' ', $terms))->filter()->each(function ($term) use ($query) {
-                //         $term = '%' . $term . '%';
-                //         return $query->establishment;
-                //         $query->withWhereHas('establishemnt', function ($query) use ($term) {
-                //             $query->where('name', 'like', $term);
-                //         });
-                //     });
-                //  function ($query) use ($term) {
-                //     $query->where('name', 'like', $term);
-                // });
-                // $query->where(function ($query) use ($establishment) {
-                //     $query->where('establishment_id', '=', $establishment->id);
-                // });
-                // });
-            })->get();
+            })
+            ->get()
+            ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
 
         return response()->json($jobs);
     }
+
 
     /**
      * @throws AuthorizationException
