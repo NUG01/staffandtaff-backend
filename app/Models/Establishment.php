@@ -27,4 +27,8 @@ class Establishment extends Model
     {
         return $this->hasMany(Gallery::class, 'establishment_id');
     }
+    public function jobs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Job::class);
+    }
 }

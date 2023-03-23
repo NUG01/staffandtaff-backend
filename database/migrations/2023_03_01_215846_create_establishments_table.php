@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('establishments', function (Blueprint $table) {
             $table->id();
             $table->string('logo');
-            $table->string('establishment_name');
+            $table->string('name');
             $table->string('company_name')->nullable();
             $table->tinyInteger('country');
             $table->tinyInteger('city');

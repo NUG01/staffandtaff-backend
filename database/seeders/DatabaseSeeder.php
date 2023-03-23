@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Enum\Role;
 use App\Models\Admin;
+use App\Models\Establishment;
 use App\Models\Industry;
 use App\Models\Talent;
 use App\Models\User;
@@ -31,10 +32,10 @@ class DatabaseSeeder extends Seeder
 
         // \App\Models\User::factory(10)->create();
 
-//        \App\Models\User::factory()->create([
-//            'name' => 'Test User',
-//            'email' => 'test@example.com',
-//        ]);
+        //        \App\Models\User::factory()->create([
+        //            'name' => 'Test User',
+        //            'email' => 'test@example.com',
+        //        ]);
 
         Industry::factory()->createPositions();
 
@@ -50,7 +51,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 1; $i < 10; $i++) {
             $city = Geolocation::where('id', $i)->first();
             Job::create([
-                'id' => $i,
+                'establishment_id' => $i % 2 == 1 ? 1 : 2,
                 'position' => 'ok',
                 'salary' => 200,
                 'salary_type' => $i,
@@ -67,6 +68,19 @@ class DatabaseSeeder extends Seeder
                 'city_name' => $city->city_name,
                 'longitude' => $city->longitude,
                 'latitude' => $city->latitude,
+            ]);
+            Establishment::create([
+                'id' => $i,
+                'logo' => 'logo',
+                'name' => 'establishment_name',
+                'company_name' => 'company_name',
+                'country' => 1,
+                'city' => 1,
+                'address' => 'address',
+                'industry' => 1,
+                'number_of_employees' => 2,
+                'description' => 'description',
+
             ]);
         }
     }

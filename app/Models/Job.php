@@ -54,4 +54,10 @@ class Job extends Model
                 ST_SRID(Point(?, ?), 4326)
             ) <= ?', [...$coords, $distance]);
     }
+
+
+    public function establishment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Establishment::class);
+    }
 }

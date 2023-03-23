@@ -10,6 +10,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 use AmrShawky\LaravelCurrency\Facade\Currency;
+use App\Models\Establishment;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 
@@ -84,6 +85,19 @@ class JobController extends Controller
                 //period filter
             })->when(!empty(request()->period), function ($query) {
                 $query->where('salary', '=', request()->period);
+                //text filter
+            })->when(!empty(request()->establishment_name), function ($query, $terms = null) {
+                collect(explode(' ', $terms))->filter()->each(function ($term) use ($query) {
+                    $term = '%' . $term . '%';
+                    $query->where('establishemnt.name', 'like', $term);
+                });
+                //  function ($query) use ($term) {
+                //     $query->where('name', 'like', $term);
+                // });
+                // $query->where(function ($query) use ($establishment) {
+                //     $query->where('establishment_id', '=', $establishment->id);
+                // });
+                // });
             })->get();
 
         return response()->json($jobs);
