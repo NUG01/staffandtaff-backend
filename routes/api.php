@@ -7,6 +7,7 @@ use App\Http\Controllers\api\{
     JobController,
     SubscriptionController,
     FaqController,
+    GeolocationController,
     TermsAndConditionController
 };
 use App\Http\Resources\UserResource;
@@ -17,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{DB, Request as FacadesRequest, Route, Storage,};
 use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\Establishment;
+use App\Models\Geolocation;
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -50,6 +52,12 @@ Route::controller(EstablishmentController::class)->group(function () {
     Route::post('/establishment/store', 'store')->name('establishment.store');
     Route::get('/establishment/{establishment}', 'show')->name('establishment.show');
     Route::patch('/establishment/update/{establishment}', 'update')->name('establishment.update');
+});
+
+//Geolocation Routes
+Route::controller(GeolocationController::class)->group(function () {
+    Route::get('/city/{city:id}', 'index')->name('geolocation.index');
+    Route::post('/cities', 'show')->name('geolocation.show');
 });
 
 //Faq Routes

@@ -1,0 +1,14 @@
+components:
+  schemas:
+    cities:
+      type: object
+      properties:
+        city_name:
+          type: string
+          example: paris
+        country_code:
+          type: string
+          example: FR
+      required:
+        - city_namename
+        - country_code

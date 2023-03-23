@@ -1,0 +1,12 @@
+paths:
+  /cities:
+    post:
+      tags:
+        - Geolocation
+      summary: Receives inputed words adn country code
+      requestBody:
+        description: Returns requested cities
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/cities.yaml#/components/schemas/cities"

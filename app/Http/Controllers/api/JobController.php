@@ -109,7 +109,7 @@ class JobController extends Controller
             ->get()
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
 
-        return response()->json($jobs);
+        return response()->json(['filtered_jobs' => $jobs]);
     }
 
 

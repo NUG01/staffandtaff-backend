@@ -82,3 +82,5 @@ paths:
     $ref: "./_swagger/paths/categories.yaml#/paths/~1category~1create"
   /category/delete/{id}:
     $ref: "./_swagger/paths/categories.yaml#/paths/~1category~1delete~1{id}"
+  /cities:
+    $ref: "./_swagger/paths/cities.yaml#/paths/~1cities"
