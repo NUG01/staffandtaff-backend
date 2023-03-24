@@ -14,7 +14,7 @@ class GeolocationController extends Controller
     public function show(Request $request)
     {
 
-        $cities = Geolocation::where('city_name', 'like', '%' . $request->city_name . '%')->where('country_code', '=', $request->country_code)->get();
+        $cities = Geolocation::where('city_name', 'like', $request->city_name . '%')->where('country_code', '=', $request->country_code)->get();
 
         return response()->json(['cities' => $cities]);
     }
