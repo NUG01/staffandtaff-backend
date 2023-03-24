@@ -47,7 +47,9 @@ class DatabaseSeeder extends Seeder
             'verification_code' => sha1(time()),
             'role_id' => Role::ADMIN,
         ]);
-        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
+        DB::unprepared(file_get_contents(__DIR__ . '/HRtable.sql'));
+        DB::unprepared(file_get_contents(__DIR__ . '/FRtable.sql'));
+//        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
         for ($i = 1; $i < 10; $i++) {
             $city = Geolocation::where('id', $i)->first();
             Job::create([
