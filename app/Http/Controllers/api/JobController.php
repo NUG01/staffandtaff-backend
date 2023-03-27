@@ -22,7 +22,7 @@ class JobController extends Controller
 
 
         if (!FacadesRequest::has('search')) {
-            return response()->json(Job::with('establishment')->get());
+            return response()->json(Job::with(['establishment:id,name'])->get());
         }
 
 
@@ -93,7 +93,7 @@ class JobController extends Controller
                 $query->where('salary', '>=', request()->max_range);
                 //period filter
             })->when(!empty(request()->period), function ($query) {
-                $query->where('salary', '=', request()->period);
+                $query->where('period_type', '=', request()->period);
                 //text filter
             })->when(!empty(request()->establishment_name), function ($query) {
                 // $query->join('establishments', 'jobs.establishment_id', '=', 'establishments.id', function())
