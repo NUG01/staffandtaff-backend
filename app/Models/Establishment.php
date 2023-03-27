@@ -13,7 +13,7 @@ class Establishment extends Model
 
     protected $fillable = [
         'logo',
-        'establishment_name',
+        'name',
         'company_name',
         'country',
         'city',

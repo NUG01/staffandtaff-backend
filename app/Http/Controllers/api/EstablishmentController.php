@@ -25,8 +25,9 @@ class EstablishmentController extends Controller
             $this->authorize('recruiter', Auth()->user());
         }
 
+        $logoPath = null;
 
-        $logoPath = $request->file('logo')->store('logos');
+        if ($request->file('logo')) $logoPath = $request->file('logo')->store('logos');
 
         $establishment = Establishment::create([
             'logo' => $logoPath,
