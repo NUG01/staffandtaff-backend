@@ -25,11 +25,12 @@ class EstablishmentController extends Controller
             $this->authorize('recruiter', Auth()->user());
         }
 
+
         $logoPath = $request->file('logo')->store('logos');
 
         $establishment = Establishment::create([
             'logo' => $logoPath,
-            'establishment_name' => $request->establishment_name,
+            'name' => $request->establishment_name,
             'company_name' => $request->company_name,
             'country' => $request->country,
             'industry' => $request->industry,

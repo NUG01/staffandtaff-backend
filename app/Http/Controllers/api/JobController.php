@@ -107,11 +107,11 @@ class JobController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(JobRequest $request): JobResource
+    public function store(JobRequest $request)
     {
         // $this->authorize('recruiter', Auth()->user());
 
-        $ad = Job::create([
+        $job = Job::create([
             'position' => $request->position,
             'salary' => $request->salary,
             'currency' => $request->currency,
@@ -128,9 +128,8 @@ class JobController extends Controller
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
         ]);
-        JobResource::createImages($ad, $request);
 
-        return JobResource::make($ad);
+        return response()->json('Job added succesfully!');
     }
 
     public function show(Job $job): JobResource
