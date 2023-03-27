@@ -8,6 +8,7 @@ use App\Http\Requests\EstablishmentRequest;
 use App\Http\Resources\EstablishmentResource;
 use App\Models\Establishment;
 use App\Models\SocialLinks;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,13 +20,13 @@ class EstablishmentController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(EstablishmentRequest $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function store(EstablishmentRequest $request)
     {
         if (Auth::user()->role_id !== null) {
             $this->authorize('recruiter', Auth()->user());
         }
 
-        $logoPath = null;
+        $logoPath = '/logos/default.png';
 
         if ($request->file('logo')) $logoPath = $request->file('logo')->store('logos');
 
@@ -43,12 +44,14 @@ class EstablishmentController extends Controller
 
         EstablishmentResource::store($request, $establishment);
 
-        Auth::user()->update([
-            'type' => $establishment->id,
-            'role_id' => Role::RECRUITER->value,
-        ]);
+        $user = auth()->user();
 
-        return EstablishmentResource::collection(Establishment::where('id', $establishment->id)->get());
+        $user->type = $establishment->id;
+        $user->role_id = Role::RECRUITER->value;
+        $user->save();
+
+        // return EstablishmentResource::collection($establishment);
+        return response()->json($establishment);
     }
 
     public function show(Establishment $establishment): EstablishmentResource
