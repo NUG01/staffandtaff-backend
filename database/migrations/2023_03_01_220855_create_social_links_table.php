@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('establishment_links', function (Blueprint $table) {
+        Schema::create('social_links', function (Blueprint $table) {
             $table->id();
             $table->string('website')->nullable();
             $table->string('instagram')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('pinterest')->nullable();
             $table->string('youtube')->nullable();
             $table->string('tik_tok')->nullable();
-            $table->integer('establishment_id');
+            $table->integer('user_type_id');
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('establishment_links');
+        Schema::dropIfExists('social_links');
     }
 };

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EstablishmentLinks extends Model
+class SocialLinks extends Model
 {
     use HasFactory;
 
-    protected $table = 'establishment_links';
+    protected $table = 'social_links';
 
     protected $fillable = [
         'website',
@@ -20,6 +20,6 @@ class EstablishmentLinks extends Model
         'pinterest',
         'youtube',
         'tik_tok',
-        'establishment_id',
+        'user_type_id',
     ];
 }

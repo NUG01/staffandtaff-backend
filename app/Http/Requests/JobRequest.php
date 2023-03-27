@@ -14,6 +14,7 @@ class JobRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'establishment_id' => 'required',
             'position' => 'required',
             'salary' => 'required',
             'currency' => 'required',

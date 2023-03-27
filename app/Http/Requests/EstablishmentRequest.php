@@ -17,7 +17,7 @@ class EstablishmentRequest extends FormRequest
             'logo' => 'sometimes',
             'establishment_name' => 'required|string',
             'company_name' => 'sometimes|string',
-            'country' => 'required|integer',
+            'country' => 'required|string',
             'industry' => 'required|integer',
             'city' => 'required|integer',
             'number_of_employees' => 'required|integer',

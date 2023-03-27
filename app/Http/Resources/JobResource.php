@@ -33,16 +33,4 @@ class JobResource extends JsonResource
             'latitude' => $this->latitude,
         ];
     }
-
-    public static function createImages($ad, $request)
-    {
-        foreach ($request->images as $image) {
-            $imageName = time() . Str::random(10) . '.' . $image->getClientOriginalExtension();
-            $gallery = Gallery::create([
-                'name' => $imageName,
-                'ad_id' => $ad->id,
-            ]);
-            $gallery->move(public_path('/assets/gallery/'), $imageName);
-        }
-    }
 }
