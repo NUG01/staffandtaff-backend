@@ -22,7 +22,7 @@ class JobController extends Controller
 
 
         if (!FacadesRequest::has('search')) {
-            return response()->json(Job::with(['establishment:id,name'])->get());
+            return response()->json(Job::with(['establishment:id,name'])->paginate(12));
         }
 
 
@@ -106,7 +106,7 @@ class JobController extends Controller
                     $query->where('name', 'like', $term);
                 });
             })
-            ->get()
+            ->get(12)
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
 
         return response()->json(['filtered_jobs' => $jobs]);
@@ -120,7 +120,23 @@ class JobController extends Controller
     {
         $this->authorize('recruiter', Auth()->user());
 
-        $ad = Job::create($request->validated());
+        $ad = Job::create([
+            'position' => $request->position,
+            'salary' => $request->salary,
+            'currency' => $request->currency,
+            'type_of_contract' => $request->type_of_contract,
+            'type_of_attendance' => $request->type_of_attendance,
+            'period_type' => $request->period_type,
+            'period' => $request->period,
+            'availability' => $request->availability,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'description' => $request->description,
+            'country_code' => $request->country_code,
+            'city_name' => $request->city_name,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+        ]);
         JobResource::createImages($ad, $request);
 
         return JobResource::make($ad);

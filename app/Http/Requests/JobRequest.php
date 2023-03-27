@@ -14,21 +14,21 @@ class JobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'position' => 'required',
+            'position' => 'required|integer',
             'salary' => 'required',
-            'currency' => 'required',
+            'currency' => 'required|string',
             'type_of_contract' => 'required',
             'type_of_attendance' => 'required',
-            'period_type' => 'required',
-            'period' => 'required',
+            'period_type' => 'required|integer',
+            'period' => 'required|string',
             'availability' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
-            'description' => 'sometimes',
+            'end_date' => 'sometimes',
+            'description' => 'required|string|min:3|max:1000',
             'country_code' => 'required',
             'city_name' => 'required',
             'longitude' => 'required',
-            'latitude' => 'sometimes',
+            'latitude' => 'required',
         ];
     }
 }
