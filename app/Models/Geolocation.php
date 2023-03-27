@@ -9,5 +9,10 @@ class Geolocation extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'country_code',
+        'city_name',
+        'longitude',
+        'latitude'
+    ];
 }

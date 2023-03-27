@@ -12,12 +12,12 @@ class Gallery extends Model
     protected $table = 'galleries';
 
     protected $fillable = [
-        'name',
+        'path',
         'establishment_id',
     ];
 
-    public function ad()
+    public function job(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        $this->belongsTo(Establishment::class, 'establishment_id');
+        return $this->belongsTo(Establishment::class, 'establishment_id', 'id');
     }
 }

@@ -19,35 +19,27 @@ class JobController extends Controller
 {
     public function index()
     {
-
-
         if (!FacadesRequest::has('search')) {
             return response()->json(Job::with(['establishment:id,name'])->paginate(12));
         }
 
-
         //if not returned, URL should be like this
-        //__________________________________________ 
+        //__________________________________________
 
         //--- ?search={always empty}&currency={EUR(default) or CHF}&lng={longitude}&lat={latitude}&distance={distance in km's}&contract_type={id:contract}&category={id:position}&start_date={date}&end_date={date}&min_range={integer}&max_range={integer}&period={string}&establishment_name={whatever user inputs:string}
 
-
-
         $baseCurrency = 1;
 
-        $EUR_TO_CHF =  Currency::convert()
+        $EUR_TO_CHF = Currency::convert()
             ->from('EUR')
             ->to('CHF')
             ->get();
 
 
-        $CHF_TO_EUR =  Currency::convert()
+        $CHF_TO_EUR = Currency::convert()
             ->from('CHF')
             ->to('EUR')
             ->get();
-
-
-
 
         if (!empty(request()->currency) && request()->currency == 'CHF') {
             $baseCurrency = $CHF_TO_EUR;
@@ -58,7 +50,6 @@ class JobController extends Controller
                 request()->max_range *= $baseCurrency;
             };
         };
-
 
         $coords = [request()->lng, request()->lat];
         $jobs = Job::query()
