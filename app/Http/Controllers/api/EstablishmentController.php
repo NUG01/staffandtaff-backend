@@ -31,13 +31,14 @@ class EstablishmentController extends Controller
 
         $establishment = Establishment::create([
             'logo' => $logoPath,
-            'name' => $request->establishment_name,
+            'name' => $request->name,
             'company_name' => $request->company_name,
             'country' => $request->country,
             'industry' => $request->industry,
             'city' => $request->city,
             'number_of_employees' => $request->number_of_employees,
             'description' => $request->description,
+            'address' => $request->address,
         ]);
 
         EstablishmentResource::store($request, $establishment);
