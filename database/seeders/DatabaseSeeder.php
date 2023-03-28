@@ -49,8 +49,8 @@ class DatabaseSeeder extends Seeder
             'role_id' => Role::ADMIN,
         ]);
 
-//        DB::unprepared(file_get_contents(__DIR__ . '/CHtable.sql'));
-//        DB::unprepared(file_get_contents(__DIR__ . '/FRtable.sql'));
+        //        DB::unprepared(file_get_contents(__DIR__ . '/CHtable.sql'));
+        //        DB::unprepared(file_get_contents(__DIR__ . '/FRtable.sql'));
         DB::unprepared(file_get_contents(__DIR__ . '/FR&CHtable.sql'));
 
         for ($i = 1; $i < 10; $i++) {
@@ -64,7 +64,6 @@ class DatabaseSeeder extends Seeder
                 'type_of_contract' => $i,
                 'type_of_attendance' => $i,
                 'period_type' => $i,
-                'period' => 'year',
                 'availability' => $i,
                 'description' => 'text',
                 'start_date' => now(),
