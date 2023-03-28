@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Enum\Role;
 use App\Models\Admin;
 use App\Models\Establishment;
+use App\Models\Faq;
 use App\Models\Industry;
 use App\Models\Talent;
 use App\Models\User;
@@ -48,8 +49,8 @@ class DatabaseSeeder extends Seeder
             'role_id' => Role::ADMIN,
         ]);
         DB::unprepared(file_get_contents(__DIR__ . '/HRtable.sql'));
-//        DB::unprepared(file_get_contents(__DIR__ . '/FRtable.sql'));
-//        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
+        //        DB::unprepared(file_get_contents(__DIR__ . '/FRtable.sql'));
+        //        DB::unprepared(file_get_contents(__DIR__ . '/HR&FRtable.sql'));
         for ($i = 1; $i < 10; $i++) {
             $city = Geolocation::where('id', $i)->first();
             Job::create([
@@ -83,6 +84,12 @@ class DatabaseSeeder extends Seeder
                 'number_of_employees' => 2,
                 'description' => 'description',
 
+            ]);
+
+            Faq::create([
+                'category' => 'category_' . $i,
+                'question' => 'question_' . $i,
+                'answer' => 'answer_' . $i,
             ]);
         }
     }
