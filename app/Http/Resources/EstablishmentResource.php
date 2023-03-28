@@ -19,6 +19,7 @@ class EstablishmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'logo' => $this->logo,
             'name' => $this->name,
             'company_name' => $this->company_name,
             'industry' => IndustryResource::collection(Industry::where('id', $this->industry)->get()),
@@ -32,7 +33,7 @@ class EstablishmentResource extends JsonResource
         ];
     }
 
-    public static function store($establishment, $request)
+    public static function storeImages($establishment, $request)
     {
         if (request()->has('file')) {
             for ($i = 0; $i < count(request()->file('file')); $i++) {
@@ -43,11 +44,11 @@ class EstablishmentResource extends JsonResource
                 ]);
             }
 
-            self::update($establishment, $request);
+            self::storeOrUpdateSocialLinks($establishment, $request);
         }
     }
 
-    public static function update($establishment, $request)
+    public static function storeOrUpdateSocialLinks($establishment, $request)
     {
         $items = [
             'website' => $request->website,

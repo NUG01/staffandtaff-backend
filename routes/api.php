@@ -62,7 +62,6 @@ Route::controller(FaqController::class)->group(function () {
     Route::put('/faq/delete/{faq:id}', 'update')->name('faq.update');
 });
 
-
 //Terms & conditions, Privacy Policy routes
 Route::controller(TermsAndConditionController::class)->group(function () {
     Route::get('/terms_and_conditions', 'index')->name('termsAndConditions.index');

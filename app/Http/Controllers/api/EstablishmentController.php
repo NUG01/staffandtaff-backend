@@ -35,7 +35,7 @@ class EstablishmentController extends Controller
 
         $establishment = Establishment::create($validated);
 
-        EstablishmentResource::store($request, $establishment);
+        EstablishmentResource::storeImages($request, $establishment);
 
         Auth::user()->update(['role_id' => Role::RECRUITER->value]);
 
@@ -54,14 +54,14 @@ class EstablishmentController extends Controller
     {
         $this->authorize('recruiter', Auth()->user());
 
-        $logoPath = '/logos/default.png';
+        $logoPath = $establishment->logo;
 
         if ($request->file('logo')) $logoPath = $request->file('logo')->store('logos');
 
         $validated = $request->validated();
         $validated['logo'] = $logoPath;
 
-        EstablishmentResource::update($establishment, $request);
+        EstablishmentResource::storeImages($request, $establishment);
 
         return EstablishmentResource::make($establishment->update($validated));
     }
