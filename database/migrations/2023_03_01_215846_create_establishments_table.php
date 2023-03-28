@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('establishments', function (Blueprint $table) {
             $table->id();
-            $table->string('logo');
+            $table->string('logo')->default('/logos/default.png');
             $table->string('name');
             $table->string('company_name')->nullable();
-            $table->tinyInteger('country');
-            $table->tinyInteger('city');
+            $table->string('country');
+            $table->integer('city');
             $table->string('address');
             $table->tinyInteger('industry');
             $table->integer('number_of_employees');

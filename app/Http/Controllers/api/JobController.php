@@ -19,35 +19,27 @@ class JobController extends Controller
 {
     public function index()
     {
-
-
         if (!FacadesRequest::has('search')) {
-            return response()->json(Job::with('establishment')->get());
+            return response()->json(Job::with(['establishment:id,name'])->paginate(12));
         }
 
-
         //if not returned, URL should be like this
-        //__________________________________________ 
+        //__________________________________________
 
         //--- ?search={always empty}&currency={EUR(default) or CHF}&lng={longitude}&lat={latitude}&distance={distance in km's}&contract_type={id:contract}&category={id:position}&start_date={date}&end_date={date}&min_range={integer}&max_range={integer}&period={string}&establishment_name={whatever user inputs:string}
 
-
-
         $baseCurrency = 1;
 
-        $EUR_TO_CHF =  Currency::convert()
+        $EUR_TO_CHF = Currency::convert()
             ->from('EUR')
             ->to('CHF')
             ->get();
 
 
-        $CHF_TO_EUR =  Currency::convert()
+        $CHF_TO_EUR = Currency::convert()
             ->from('CHF')
             ->to('EUR')
             ->get();
-
-
-
 
         if (!empty(request()->currency) && request()->currency == 'CHF') {
             $baseCurrency = $CHF_TO_EUR;
@@ -58,7 +50,6 @@ class JobController extends Controller
                 request()->max_range *= $baseCurrency;
             };
         };
-
 
         $coords = [request()->lng, request()->lat];
         $jobs = Job::query()
@@ -93,7 +84,7 @@ class JobController extends Controller
                 $query->where('salary', '>=', request()->max_range);
                 //period filter
             })->when(!empty(request()->period), function ($query) {
-                $query->where('salary', '=', request()->period);
+                $query->where('period_type', '=', request()->period);
                 //text filter
             })->when(!empty(request()->establishment_name), function ($query) {
                 // $query->join('establishments', 'jobs.establishment_id', '=', 'establishments.id', function())
@@ -106,7 +97,7 @@ class JobController extends Controller
                     $query->where('name', 'like', $term);
                 });
             })
-            ->get()
+            ->get(12)
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
 
         return response()->json(['filtered_jobs' => $jobs]);
@@ -116,14 +107,29 @@ class JobController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(JobRequest $request): JobResource
+    public function store(JobRequest $request)
     {
-        $this->authorize('recruiter', Auth()->user());
+        // $this->authorize('recruiter', Auth()->user());
 
-        $ad = Job::create($request->validated());
-        JobResource::createImages($ad, $request);
+        $job = Job::create([
+            'position' => $request->position,
+            'salary' => $request->salary,
+            'currency' => $request->currency,
+            'type_of_contract' => $request->type_of_contract,
+            'type_of_attendance' => $request->type_of_attendance,
+            'period_type' => $request->period_type,
+            'period' => $request->period,
+            'availability' => $request->availability,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'description' => $request->description,
+            'country_code' => $request->country_code,
+            'city_name' => $request->city_name,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+        ]);
 
-        return JobResource::make($ad);
+        return response()->json('Job added succesfully!');
     }
 
     public function show(Job $job): JobResource

@@ -21,7 +21,6 @@ class VerifyEmailController extends Controller
             Auth::login($user);
 
             return response()->json('Email verified!');
-            // event(new Verified($request->user()));
         }
 
         if ($user && $user->email_verified_at) {
@@ -29,9 +28,5 @@ class VerifyEmailController extends Controller
         }
 
         return response()->json('Something went wrong', 400);
-
-        // return redirect()->intended(
-        //     config('app.frontend_url') . RouteServiceProvider::HOME . '?verified=1'
-        // );
     }
 }

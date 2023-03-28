@@ -13,7 +13,7 @@ class Establishment extends Model
 
     protected $fillable = [
         'logo',
-        'establishment_name',
+        'name',
         'company_name',
         'country',
         'city',
@@ -25,7 +25,7 @@ class Establishment extends Model
 
     public function gallery(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Gallery::class, 'establishment_id');
+        return $this->hasMany(Gallery::class, 'establishment_id', 'id');
     }
     public function jobs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
