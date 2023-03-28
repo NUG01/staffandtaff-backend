@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('country_code');
             $table->string('city_name');
-            $table->decimal('longitude', 11, 8);
-            $table->decimal('latitude', 11, 8);
+            $table->double('longitude', 11, 8);
+            $table->double('latitude', 11, 8);
             $table->timestamps();
         });
     }

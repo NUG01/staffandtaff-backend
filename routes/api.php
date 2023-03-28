@@ -20,6 +20,7 @@ use AmrShawky\LaravelCurrency\Facade\Currency;
 use App\Models\Establishment;
 use App\Models\Geolocation;
 use App\Http\Controllers\api\CommentController;
+use App\Http\Controllers\CountryController;
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -88,3 +89,5 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
 
 Route::post('comment',[CommentController::class,'store'])->name('comment');
+
+
