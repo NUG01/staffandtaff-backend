@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Observers\JobObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Job extends Model
 {
@@ -64,5 +65,10 @@ class Job extends Model
     public function establishment(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Establishment::class);
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->HasMany(Like::class);
     }
 }

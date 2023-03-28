@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\api\{EstablishmentController,
+use App\Http\Controllers\api\{
+    EstablishmentController,
     FaqController,
     GeolocationController,
     IndustryController,
     JobController,
+    LikeController,
     SubscriptionController,
-    TermsAndConditionController};
+    TermsAndConditionController
+};
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\Auth\AboutController;
 use App\Http\Resources\UserResource;
@@ -38,6 +41,7 @@ Route::controller(JobController::class)->group(function () {
     Route::get('/job/{job}', 'show')->name('job.show');
     Route::patch('/job/update/{job}', 'update')->name('job.update');
     Route::delete('/job/delete/{job}', 'delete')->name('job.delete');
+    Route::post('/job-like',  'like')->name('job.like');
 });
 
 //Establishment Routes
@@ -76,8 +80,7 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
 
+
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
 
-Route::post('comment',[CommentController::class,'store'])->name('comment');
-
-
+Route::post('comment', [CommentController::class, 'store'])->name('comment');

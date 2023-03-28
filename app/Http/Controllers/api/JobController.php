@@ -10,8 +10,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 use AmrShawky\LaravelCurrency\Facade\Currency;
-use App\Models\Establishment;
-use App\Models\User;
+use App\Models\Like;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 
@@ -20,7 +21,7 @@ class JobController extends Controller
     public function index()
     {
         if (!FacadesRequest::has('search')) {
-            return response()->json(Job::with(['establishment:id,name'])->paginate(12));
+            return response()->json(Job::with(['establishment:id,name', 'likes'])->paginate(12));
         }
 
         //if not returned, URL should be like this
@@ -61,7 +62,7 @@ class JobController extends Controller
                         ->selectDistanceTo($coords)
                         ->withinDistanceTo($coords, ((request()->distance) * 1000));
                 }
-            //contract filter
+                //contract filter
             )->when(!empty(request()->contract_type), function ($query) {
                 $query->where('type_of_contract', request()->contract_type);
                 //category filter
@@ -97,7 +98,7 @@ class JobController extends Controller
                     $query->where('name', 'like', $term);
                 });
             })
-            ->get(12)
+            ->with(['establishment:id,name', 'likes'])->get(12)
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
 
         return response()->json(['filtered_jobs' => $jobs]);
@@ -148,5 +149,25 @@ class JobController extends Controller
         return JobResource::collection(Cache::remember('jobs', 60 * 60 * 24, function () {
             return Job::all();
         }));
+    }
+
+    public function like(Request $request)
+    {
+
+        $validated = $request->validate([
+            'id' => 'required|integer|exists:job,id',
+        ]);
+
+        $like = Like::where('job_id', $validated['id'])->first();
+
+        if ($like) {
+            $like->delete();
+            return response()->json('Unliked!');
+        };
+        Like::create([
+            'job_id' => $validated['id'],
+            'user_id' => Auth::user()->id,
+        ]);
+        return response()->json('Liked!');
     }
 }
