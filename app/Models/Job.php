@@ -25,6 +25,11 @@ class Job extends Model
         'description',
         'start_date',
         'end_date',
+        'country_code',
+        'city_name',
+        'longitude',
+        'latitude',
+        'establishment_id',
     ];
 
     protected $observers = [

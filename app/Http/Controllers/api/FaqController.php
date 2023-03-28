@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FaqRequest;
 use App\Http\Resources\FaqResource;
 use App\Models\Faq;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,12 +14,13 @@ class FaqController extends Controller
 {
     public function index()
     {
-        $this->authorize('administrator', Auth()->user());
-
         return Faq::query()->filter(request('search'))->get();
     }
 
-    public function store(FaqRequest $request)
+    /**
+     * @throws AuthorizationException
+     */
+    public function store(FaqRequest $request): FaqResource
     {
         $this->authorize('administrator', Auth()->user());
 
@@ -29,13 +31,14 @@ class FaqController extends Controller
 
     public function getSpecificCategory($category): JsonResponse
     {
-        $this->authorize('administrator', Auth()->user());
-
         $faqSection = Faq::where('category', strtolower($category))->get();
 
         return response()->json($faqSection);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function update(FaqRequest $request, Faq $faq): JsonResponse
     {
         $this->authorize('administrator', Auth()->user());
@@ -45,9 +48,15 @@ class FaqController extends Controller
         return response()->json($updatedFaq);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function destroy(Faq $faq): JsonResponse
     {
+        $this->authorize('administrator', Auth()->user());
+
         $faq->delete();
+
         return response()->json(['message' => 'Deleted!']);
     }
 }

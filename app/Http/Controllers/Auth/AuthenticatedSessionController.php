@@ -19,8 +19,7 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        // removed for postmen testing
-//        $request->session()->regenerate();
+        $request->session()->regenerate();
 
         return response()->json(['status' => 'logged in']);
     }

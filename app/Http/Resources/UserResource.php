@@ -19,9 +19,7 @@ class UserResource extends JsonResource
         };
 
         $query = match ($request->user()->role_id) {
-            Role::ADMIN->value => null,
             Role::RECRUITER->value => EstablishmentResource::collection(Establishment::where('id', $this->type)->get()),
-            Role::SEEKER->value => null,
             default => null,
         };
 

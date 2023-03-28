@@ -19,7 +19,7 @@ class EstablishmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'establishment_name' => $this->establishment_name,
+            'name' => $this->establishment_name,
             'company_name' => $this->company_name,
             'industry' => IndustryResource::collection(Industry::where('id', $this->industry)->get()),
             'country' => $this->country,
@@ -32,7 +32,7 @@ class EstablishmentResource extends JsonResource
         ];
     }
 
-    public static function store($request, $establishment)
+    public static function store($establishment, $request)
     {
         if (request()->has('file')) {
             for ($i = 0; $i < count(request()->file('file')); $i++) {
@@ -43,48 +43,12 @@ class EstablishmentResource extends JsonResource
                 ]);
             }
 
-            $user_type_id = SocialLinks::where('user_type_id', $establishment->id);
-
-            if ($user_type_id->get()->count() > 0) {
-                return $user_type_id->update([
-                    'website' => $request->website,
-                    'instagram' => $request->instagram,
-                    'linkedin' => $request->linkedin,
-                    'facebook' => $request->facebook,
-                    'twitter' => $request->twitter,
-                    'pinterest' => $request->pinterest,
-                    'youtube' => $request->youtube,
-                    'tik_tok' => $request->tik_tok,
-                ]);
-            }
-
-            return SocialLinks::create([
-                'website' => $request->website,
-                'instagram' => $request->instagram,
-                'linkedin' => $request->linkedin,
-                'facebook' => $request->facebook,
-                'twitter' => $request->twitter,
-                'pinterest' => $request->pinterest,
-                'youtube' => $request->youtube,
-                'tik_tok' => $request->tik_tok,
-                'user_type_id' => $establishment->id,
-            ]);
+            self::update($establishment, $request);
         }
     }
 
     public static function update($establishment, $request)
     {
-        $establishment->update([
-            'logo' => $request->logo,
-            'establishment_name' => $request->establishment_name,
-            'company_name' => $request->company_name,
-            'country' => $request->country,
-            'industry' => $request->industry,
-            'city' => $request->city,
-            'number_of_employees' => $request->number_of_employees,
-            'description' => $request->description,
-        ]);
-
         $items = [
             'website' => $request->website,
             'instagram' => $request->instagram,
@@ -97,11 +61,11 @@ class EstablishmentResource extends JsonResource
             'user_type_id' => $establishment->id,
         ];
 
-        $social_links = SocialLinks::where('establishment_id', $establishment->id);
+        $user_type_id = SocialLinks::where('establishment_id', $establishment->id);
 
-        match ($social_links->get()) {
-            [] => SocialLinks::create($items),
-            default => $social_links->update($items),
+        match ($user_type_id->get()) {
+            [] => $establishment = SocialLinks::create($items),
+            default => $establishment = $user_type_id->update($items),
         };
 
         return $establishment;

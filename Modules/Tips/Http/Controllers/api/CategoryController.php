@@ -18,25 +18,16 @@ class CategoryController extends Controller
         }));
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function store(CategoryRequest $request): CategoryResource
     {
-        $this->authorize('administration', Auth()->user());
-
         return CategoryResource::make(Category::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
         ]));
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function update(Category $category, CategoryRequest $request): \Illuminate\Http\JsonResponse
     {
-        $this->authorize('administration', Auth()->user());
         $category->update([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),

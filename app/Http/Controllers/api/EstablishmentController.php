@@ -20,7 +20,7 @@ class EstablishmentController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(EstablishmentRequest $request)
+    public function store(EstablishmentRequest $request): EstablishmentResource
     {
         if (Auth::user()->role_id !== null) {
             $this->authorize('recruiter', Auth()->user());
@@ -30,28 +30,16 @@ class EstablishmentController extends Controller
 
         if ($request->file('logo')) $logoPath = $request->file('logo')->store('logos');
 
-        $establishment = Establishment::create([
-            'logo' => $logoPath,
-            'name' => $request->name,
-            'company_name' => $request->company_name,
-            'country' => $request->country,
-            'industry' => $request->industry,
-            'city' => $request->city,
-            'number_of_employees' => $request->number_of_employees,
-            'description' => $request->description,
-            'address' => $request->address,
-        ]);
+        $validated = $request->validated();
+        $validated['logo'] = $logoPath;
+
+        $establishment = Establishment::create($validated);
 
         EstablishmentResource::store($request, $establishment);
 
-        $user = auth()->user();
+        Auth::user()->update(['role_id' => Role::RECRUITER->value]);
 
-        $user->type = $establishment->id;
-        $user->role_id = Role::RECRUITER->value;
-        $user->save();
-
-        // return EstablishmentResource::collection($establishment);
-        return response()->json($establishment);
+        return EstablishmentResource::make($establishment);
     }
 
     public function show(Establishment $establishment): EstablishmentResource
@@ -66,8 +54,15 @@ class EstablishmentController extends Controller
     {
         $this->authorize('recruiter', Auth()->user());
 
-        $updated_establishment = EstablishmentResource::update($establishment, $request);
+        $logoPath = '/logos/default.png';
 
-        return EstablishmentResource::make($updated_establishment);
+        if ($request->file('logo')) $logoPath = $request->file('logo')->store('logos');
+
+        $validated = $request->validated();
+        $validated['logo'] = $logoPath;
+
+        EstablishmentResource::update($establishment, $request);
+
+        return EstablishmentResource::make($establishment->update($validated));
     }
 }

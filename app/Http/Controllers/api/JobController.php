@@ -61,7 +61,7 @@ class JobController extends Controller
                         ->selectDistanceTo($coords)
                         ->withinDistanceTo($coords, ((request()->distance) * 1000));
                 }
-                //contract filter
+            //contract filter
             )->when(!empty(request()->contract_type), function ($query) {
                 $query->where('type_of_contract', request()->contract_type);
                 //category filter
@@ -107,29 +107,16 @@ class JobController extends Controller
     /**
      * @throws AuthorizationException
      */
-    public function store(JobRequest $request)
+    public function store(JobRequest $request, $establishment): JobResource
     {
-        // $this->authorize('recruiter', Auth()->user());
+        $this->authorize('recruiter', Auth()->user());
 
-        $job = Job::create([
-            'position' => $request->position,
-            'salary' => $request->salary,
-            'currency' => $request->currency,
-            'type_of_contract' => $request->type_of_contract,
-            'type_of_attendance' => $request->type_of_attendance,
-            'period_type' => $request->period_type,
-            'period' => $request->period,
-            'availability' => $request->availability,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-            'description' => $request->description,
-            'country_code' => $request->country_code,
-            'city_name' => $request->city_name,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
-        ]);
+        $validated = $request->validated();
+        $validated['establishment_id'] = $establishment;
 
-        return response()->json('Job added succesfully!');
+        $job = Job::create($validated);
+
+        return JobResource::make($job);
     }
 
     public function show(Job $job): JobResource

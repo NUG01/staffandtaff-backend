@@ -31,23 +31,18 @@ class TipController extends Controller
         }));
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function store(TipRequest $request): TipResource
     {
-        $this->authorize('administration', Auth()->user());
+        // Default არ ვიცი ექნება თუ არა
+        $logoPath = '/logos/default.png';
 
-        $tip = Tip::create([
-            'title' => $request->title,
-            'slug' => str_slug($request->title, '_'),
-            'description' => $request->description,
-            'category' => $request->category,
-            'target_audience' => $request->target_audience,
-            'cover_image' => $request->cover_image,
-        ]);
+        if ($request->file('cover_image')) $logoPath = $request->file('cover_image')->store('cover_images');
 
-        return TipResource::make($tip);
+        $validated = $request->validated();
+        $validated['cover_image'] = $logoPath;
+        $validated['slug'] = str_slug($request->title, '_');
+
+        return TipResource::make(Tip::create($validated));
     }
 
     public function show(Tip $tip): TipResource
@@ -55,21 +50,17 @@ class TipController extends Controller
         return TipResource::make($tip);
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function update(Tip $tip, TipRequest $request): \Illuminate\Http\JsonResponse
     {
-        $this->authorize('administration', Auth()->user());
+        $logoPath = '/logos/default.png';
 
-        $tip->update([
-            'title' => $request->title,
-            'slug' => str_slug($request->title, '_'),
-            'description' => $request->description,
-            'category' => $request->category,
-            'target_audience' => $request->target_audience,
-            'cover_image' => $request->cover_image,
-        ]);
+        if ($request->file('cover_image')) $logoPath = $request->file('cover_image')->store('cover_images');
+
+        $validated = $request->validated();
+        $validated['cover_image'] = $logoPath;
+        $validated['slug'] = str_slug($request->title, '_');
+
+        $tip->update($validated);
 
         return response()->json(['message' => 'Tip has been updated']);
     }

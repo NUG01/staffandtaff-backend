@@ -14,8 +14,10 @@ class JobRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'country_code' => 'required|string|max:5',
             'position' => 'required',
             'salary' => 'required',
+            'salary_type' => 'required',
             'currency' => 'required|string',
             'type_of_contract' => 'required',
             'type_of_attendance' => 'required',
@@ -25,7 +27,6 @@ class JobRequest extends FormRequest
             'start_date' => 'required',
             'end_date' => 'sometimes',
             'description' => 'required|string|min:3|max:1000',
-            'country_code' => 'required',
             'city_name' => 'required',
             'longitude' => 'required',
             'latitude' => 'required',

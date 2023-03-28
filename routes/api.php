@@ -1,26 +1,17 @@
 <?php
 
-use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\api\{
-    EstablishmentController,
+use App\Http\Controllers\api\{EstablishmentController,
+    FaqController,
+    GeolocationController,
     IndustryController,
     JobController,
     SubscriptionController,
-    FaqController,
-    GeolocationController,
-    TermsAndConditionController
-};
-use App\Http\Resources\UserResource;
-use App\Models\User;
-use App\Http\Controllers\Auth\AboutController;
-use App\Models\Job;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{DB, Request as FacadesRequest, Route, Storage,};
-use AmrShawky\LaravelCurrency\Facade\Currency;
-use App\Models\Establishment;
-use App\Models\Geolocation;
+    TermsAndConditionController};
 use App\Http\Controllers\api\CommentController;
-use App\Http\Controllers\CountryController;
+use App\Http\Controllers\Auth\AboutController;
+use App\Http\Resources\UserResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\{Route,};
 
 // Auth route
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
@@ -43,7 +34,7 @@ Route::controller(IndustryController::class)->group(function () {
 //Job Routes
 Route::controller(JobController::class)->group(function () {
     Route::get('/jobs', 'index')->name('job.index');
-    Route::post('/job/store', 'store')->name('job.store');
+    Route::post('/job/store/{establishment}', 'store')->name('job.store');
     Route::get('/job/{job}', 'show')->name('job.show');
     Route::patch('/job/update/{job}', 'update')->name('job.update');
     Route::delete('/job/delete/{job}', 'delete')->name('job.delete');

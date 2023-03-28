@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Geolocation;
 use App\Models\Industry;
 use App\Models\Gallery;
 use App\Models\Position;
@@ -14,10 +15,10 @@ class JobResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'position' => PositionResource::collection(Position::where('id', $this->position)),
+            'position' => PositionResource::collection(Position::where('id', $this->position)->get()),
             'salary' => $this->salary,
             'salary_type' => $this->salary_type,
-            'city' => $this->city,
+            'city_name' => GeolocationResource::collection(Geolocation::where('id', $this->city_name)->get()),
             'currency' => $this->currency,
             'type_of_contract' => $this->type_of_contract,
             'type_of_attendance' => $this->type_of_attendance,
@@ -28,7 +29,6 @@ class JobResource extends JsonResource
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'country_code' => $this->country_code,
-            'city_name' => $this->city_name,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
         ];

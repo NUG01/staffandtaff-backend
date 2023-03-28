@@ -35,12 +35,10 @@ class IndustryController extends Controller
     {
         $this->authorize('administrator', Auth()->user());
 
-        $industry = Industry::create([
+        return IndustryResource::make(Industry::create([
             'name' => $request->name,
             'slug' => str_slug($request->name, '_'),
-        ]);
-
-        return IndustryResource::make($industry);
+        ]));
     }
 
     /**
