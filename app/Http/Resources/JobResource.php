@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Establishment;
 use App\Models\Geolocation;
+use App\Models\Like;
 use App\Models\Position;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -27,6 +29,8 @@ class JobResource extends JsonResource
             'country_code' => $this->country_code,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
+            'likes' => Like::where('job_id', $this->id)->get(),
+            'establishment' => Establishment::where('id', $this->establishment_id)->get(['name', 'id']),
         ];
     }
 }
