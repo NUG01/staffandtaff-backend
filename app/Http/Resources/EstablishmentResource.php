@@ -19,7 +19,7 @@ class EstablishmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->establishment_name,
+            'name' => $this->name,
             'company_name' => $this->company_name,
             'industry' => IndustryResource::collection(Industry::where('id', $this->industry)->get()),
             'country' => $this->country,
