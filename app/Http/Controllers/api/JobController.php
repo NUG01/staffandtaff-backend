@@ -21,7 +21,12 @@ class JobController extends Controller
     public function index()
     {
         if (!FacadesRequest::has('search')) {
+<<<<<<< HEAD
             return response()->json(Job::with(['establishment:id,name', 'likes'])->paginate(12));
+=======
+//            return response()->json(Job::with(['establishment:id,name'])->paginate(12));
+            return JobResource::collection(Job::with(['establishment:id,name'])->paginate(12));
+>>>>>>> 1dfccb30069005c58662e3e205bed045f89af075
         }
 
         //if not returned, URL should be like this
@@ -98,10 +103,15 @@ class JobController extends Controller
                     $query->where('name', 'like', $term);
                 });
             })
+<<<<<<< HEAD
             ->with(['establishment:id,name', 'likes'])->get(12)
+=======
+            ->get()
+>>>>>>> 1dfccb30069005c58662e3e205bed045f89af075
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
 
-        return response()->json(['filtered_jobs' => $jobs]);
+//        return response()->json(['filtered_jobs' => $jobs]);
+        return JobResource::collection($jobs);
     }
 
 
