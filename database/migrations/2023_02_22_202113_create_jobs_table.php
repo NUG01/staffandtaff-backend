@@ -19,10 +19,9 @@ return new class extends Migration
             $table->tinyInteger('type_of_contract');
             $table->tinyInteger('type_of_attendance');
             $table->tinyInteger('period_type');
-            $table->string('period');
             $table->tinyInteger('availability')->default(0);
             $table->text('description')->nullable();
-            $table->date('start_date');
+            $table->date('start_date')->nullable();
             $table->date('end_date');
             $table->string('country_code');
             $table->string('city_name');

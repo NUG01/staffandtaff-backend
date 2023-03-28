@@ -3,11 +3,8 @@
 namespace App\Http\Resources;
 
 use App\Models\Geolocation;
-use App\Models\Industry;
-use App\Models\Gallery;
 use App\Models\Position;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Str;
 
 class JobResource extends JsonResource
 {
@@ -15,16 +12,15 @@ class JobResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'position' => PositionResource::collection(Position::where('id', $this->position)->get()),
+            'position' => Position::where('id', $this->position)->value('name'),
             'salary' => $this->salary,
             'salary_type' => $this->salary_type,
-            'city_name' => GeolocationResource::collection(Geolocation::where('id', $this->city_name)->get()),
-            'currency' => $this->currency,
-            'type_of_contract' => $this->type_of_contract,
-            'type_of_attendance' => $this->type_of_attendance,
-            'period_type' => $this->period_type,
-            'period' => $this->period,
-            'availability' => $this->availability,
+            'city_name' => Geolocation::where('id', $this->city_name)->value('city_name'),
+            'currency' => config('job-assets.currency')[$this->currency],
+            'type_of_contract' => config('job-assets.type-of-contract')[$this->type_of_contract],
+            'type_of_attendance' => config('job-assets.type-of-attendance')[$this->type_of_attendance],
+            'period_type' => config('job-assets.period-type')[$this->period_type],
+            'availability' => config('job-assets.availability')[$this->availability],
             'description' => $this->description,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,

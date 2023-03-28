@@ -22,7 +22,6 @@ class JobRequest extends FormRequest
             'type_of_contract' => 'required',
             'type_of_attendance' => 'required',
             'period_type' => 'required|integer',
-            'period' => 'required|string',
             'availability' => 'required',
             'start_date' => 'required',
             'end_date' => 'sometimes',

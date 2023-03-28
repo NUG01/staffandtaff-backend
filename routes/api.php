@@ -40,6 +40,8 @@ Route::controller(JobController::class)->group(function () {
     Route::delete('/job/delete/{job}', 'delete')->name('job.delete');
 });
 
+Route::get('/job_assets', fn() => response()->json(config('job-assets')));
+
 //Establishment Routes
 Route::controller(EstablishmentController::class)->group(function () {
     Route::post('/establishment/store', 'store')->name('establishment.store');

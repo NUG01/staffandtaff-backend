@@ -63,6 +63,8 @@ class EstablishmentController extends Controller
 
         EstablishmentResource::storeImages($request, $establishment);
 
-        return EstablishmentResource::make($establishment->update($validated));
+        $updated = $establishment->update($validated);
+
+        return EstablishmentResource::make($updated);
     }
 }
