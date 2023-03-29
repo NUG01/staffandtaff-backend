@@ -55,8 +55,9 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 1; $i < 10; $i++) {
             $city = Geolocation::where('id', $i)->first();
+            $i = $i % 2 == 1 ? 1 : 2;
             Job::create([
-                'establishment_id' => $i % 2 == 1 ? 1 : 2,
+                'establishment_id' => $i,
                 'position' => 'ok',
                 'salary' => 200,
                 'salary_type' => $i,
@@ -74,7 +75,6 @@ class DatabaseSeeder extends Seeder
                 'latitude' => $city->latitude,
             ]);
             Establishment::create([
-                'id' => $i,
                 'logo' => 'logo',
                 'name' => 'establishment_name',
                 'company_name' => 'company_name',

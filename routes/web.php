@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\JobResource;
 use App\Models\Geolocation;
 use App\Models\Job;
 use Illuminate\Support\Facades\App;
@@ -25,6 +26,8 @@ Route::get('/', function () {
 Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');
 
 Route::get('ok', function (Request $request) {
+
+    return JobResource::collection(Job::paginate(12));
 
 
     $coords = [8.48335, 47.1313];
