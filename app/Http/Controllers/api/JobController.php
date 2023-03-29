@@ -20,10 +20,8 @@ class JobController extends Controller
     public function index()
     {
         if (!FacadesRequest::has('search')) {
-
 //            return JobResource::collection(Job::paginate(12));
-             return response()->json(Job::paginate(12));
-
+            return response()->json(Job::paginate(12));
         }
 
         //if not returned, URL should be like this
@@ -61,7 +59,7 @@ class JobController extends Controller
                         ->selectDistanceTo($coords)
                         ->withinDistanceTo($coords, ((request()->distance) * 1000));
                 }
-                //contract filter
+            //contract filter
             )->when(!empty(request()->contract_type), function ($query) {
                 $query->where('type_of_contract', request()->contract_type);
                 //category filter111111
@@ -103,15 +101,19 @@ class JobController extends Controller
         return JobResource::collection($jobs);
         //        return response()->json($jobs);
     }
+
     /**
      * @throws AuthorizationException
      */
     public function store(JobRequest $request, $establishment): JobResource
     {
         $this->authorize('recruiter', Auth()->user());
+
         $validated = $request->validated();
         $validated['establishment_id'] = $establishment;
+
         $job = Job::create($validated);
+
         return JobResource::make($job);
     }
 
