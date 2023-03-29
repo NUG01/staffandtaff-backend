@@ -12,6 +12,7 @@ class Establishment extends Model
     protected $table = 'establishments';
 
     protected $fillable = [
+        'id',
         'logo',
         'name',
         'company_name',

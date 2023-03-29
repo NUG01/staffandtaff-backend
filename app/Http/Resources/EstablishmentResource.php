@@ -28,13 +28,14 @@ class EstablishmentResource extends JsonResource
             'address' => $this->address,
             'number_of_employees' => $this->number_of_employees,
             'description' => $this->description,
-            'social_media_links' => SocialLinksResource::collection(SocialLinks::where('establishment_id', $this->id)->get()),
+            'social_media_links' => SocialLinksResource::collection(SocialLinks::where('user_type_id', $this->id)->get()),
             'gallery' => GalleryResource::collection(Gallery::where('establishment_id', $this->id)->get()),
         ];
     }
 
     public static function storeImages($request, $establishment)
     {
+        self::storeOrUpdateSocialLinks($request, $establishment);
         if (request()->has('file')) {
             for ($i = 0; $i < count(request()->file('file')); $i++) {
                 $currentImage = request()->file('file')[$i]->store('gallery');
@@ -43,8 +44,6 @@ class EstablishmentResource extends JsonResource
                     'path' => $currentImage,
                 ]);
             }
-
-            self::storeOrUpdateSocialLinks($request, $establishment);
         }
     }
 
@@ -59,20 +58,15 @@ class EstablishmentResource extends JsonResource
             'pinterest' => $request->pinterest,
             'youtube' => $request->youtube,
             'tik_tok' => $request->tik_tok,
-            'establishment_id' => $establishment->id,
+            'user_type_id' => $establishment->id,
         ];
 
-        $linksArePresent = SocialLinks::where('establishment_id', $establishment->id)->get();
+        $linksArePresent = SocialLinks::where('user_type_id', $establishment->id)->get();
+
         if ($linksArePresent->isNotEmpty()) {
-            SocialLinks::where('establishment_id', $establishment->id)->update($links);
+            return SocialLinks::where('user_type_id', $establishment->id)->update($links);
         }
 
-        if ($linksArePresent->isEmpty()) {
-            SocialLinks::create($links);
-        }
-        // match ($user_type_id) {
-        //     // [] => $establishment = SocialLinks::create($items),
-        // };
-        return $establishment;
+        return SocialLinks::create($links);
     }
 }
