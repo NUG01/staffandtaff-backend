@@ -22,9 +22,8 @@ class JobController extends Controller
     {
         if (!FacadesRequest::has('search')) {
 
-
-            // return response()->json(Job::with(['establishment:id,name', 'likes'])->paginate(12));
-            return JobResource::collection(Job::with(['establishment:id,name', 'likes'])->paginate(12));
+//            return JobResource::collection(Job::paginate(12));
+            return response()->json(Job::paginate(12));
 
         }
 
