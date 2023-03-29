@@ -15,7 +15,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
-
 class JobController extends Controller
 {
     public function index()
@@ -39,12 +38,10 @@ class JobController extends Controller
             ->to('CHF')
             ->get();
 
-
         $CHF_TO_EUR = Currency::convert()
             ->from('CHF')
             ->to('EUR')
             ->get();
-
         if (!empty(request()->currency) && request()->currency == 'CHF') {
             $baseCurrency = $CHF_TO_EUR;
             if (!empty(request()->min_range)) {
@@ -54,7 +51,6 @@ class JobController extends Controller
                 request()->max_range *= $baseCurrency;
             };
         };
-
         $coords = [request()->lng, request()->lat];
         $jobs = Job::query()
             //location filter
@@ -97,34 +93,25 @@ class JobController extends Controller
             ->when(!empty(request()->establishment_name), function ($query) {
                 collect(explode(' ', request()->establishment_name))->filter()->each(function ($term) use ($query) {
                     $term = '%' . $term . '%';
-
                     $query->where('name', 'like', $term);
                 });
             })
-
             //        return response()->json(['filtered_jobs' => $jobs]);
             ->with(['establishment:id,name', 'likes'])
             ->get(12)
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
-
-
         return JobResource::collection($jobs);
         //        return response()->json($jobs);
     }
-
-
     /**
      * @throws AuthorizationException
      */
     public function store(JobRequest $request, $establishment): JobResource
     {
         $this->authorize('recruiter', Auth()->user());
-
         $validated = $request->validated();
         $validated['establishment_id'] = $establishment;
-
         $job = Job::create($validated);
-
         return JobResource::make($job);
     }
 
@@ -139,9 +126,7 @@ class JobController extends Controller
     public function update(Job $job, JobRequest $request): JobResource
     {
         $this->authorize('recruiter', Auth()->user());
-
         $updated = $job->update($request->validated());
-
         return JobResource::make($updated);
     }
 
@@ -151,9 +136,7 @@ class JobController extends Controller
     public function destroy(Job $job): AnonymousResourceCollection
     {
         $this->authorize('recruiter', Auth()->user());
-
         $job->delete();
-
         return JobResource::collection(Cache::remember('jobs', 60 * 60 * 24, function () {
             return Job::all();
         }));
@@ -161,13 +144,10 @@ class JobController extends Controller
 
     public function like(Request $request)
     {
-
         $validated = $request->validate([
             'id' => 'required|integer|exists:job,id',
         ]);
-
         $like = Like::where('job_id', $validated['id'])->first();
-
         if ($like) {
             $like->delete();
             return response()->json('Unliked!');
