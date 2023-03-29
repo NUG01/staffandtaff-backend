@@ -17,8 +17,8 @@ class JobResource extends JsonResource
             'position' => Position::where('id', $this->position)->value('name'),
             'salary' => $this->salary,
             'salary_type' => $this->salary_type,
-            'city_name' => Geolocation::where('id', $this->city_name)->value('city_name'),
-            'currency' => config('job-assets.currency')[$this->currency],
+            'city_name' => $this->city_name,
+            'currency' => $this->currency,
             'type_of_contract' => config('job-assets.type-of-contract')[$this->type_of_contract],
             'type_of_attendance' => config('job-assets.type-of-attendance')[$this->type_of_attendance],
             'period_type' => config('job-assets.period-type')[$this->period_type],
@@ -29,8 +29,9 @@ class JobResource extends JsonResource
             'country_code' => $this->country_code,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
-            'likes' => Like::where('job_id', $this->id)->get(),
-            'establishment' => Establishment::where('id', $this->establishment_id)->get(['name', 'id']),
+            'likes' => $this->likes,
+            'establishment' => $this->establishment,
+            // 'establishment' => Establishment::where('id', $this->establishment_id)->get(['name', 'id']),
         ];
     }
 }

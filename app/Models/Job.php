@@ -21,7 +21,7 @@ class Job extends Model
         'type_of_contract',
         'type_of_attendance',
         'period_type',
-        'period',
+        // 'period',
         'availability',
         'description',
         'start_date',
