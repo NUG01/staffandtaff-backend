@@ -21,7 +21,8 @@ class JobController extends Controller
     public function index()
     {
         if (!FacadesRequest::has('search')) {
-            return JobResource::collection(Job::paginate(12));
+//            return JobResource::collection(Job::paginate(12));
+            return response()->json(Job::paginate(12));
         }
 
         //if not returned, URL should be like this
@@ -65,7 +66,7 @@ class JobController extends Controller
                 //contract filter
             )->when(!empty(request()->contract_type), function ($query) {
                 $query->where('type_of_contract', request()->contract_type);
-                //category filter
+                //category filter111111
             })->when(!empty(request()->category), function ($query) {
                 $query->where('category', request()->category);
                 //start date filter
@@ -99,10 +100,12 @@ class JobController extends Controller
                 });
             })
             ->with(['establishment:id,name', 'likes'])
-            ->get()
+            ->get(12)
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
 
+
         return JobResource::collection($jobs);
+//        return response()->json($jobs);
     }
 
 
@@ -159,7 +162,7 @@ class JobController extends Controller
             'id' => 'required|integer|exists:job,id',
         ]);
 
-        $like = Like::where('job_id', $validated['id'])->first();
+            $like = Like::where('job_id', $validated['id'])->first();
 
         if ($like) {
             $like->delete();
