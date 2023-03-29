@@ -55,18 +55,17 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 1; $i < 10; $i++) {
             $city = Geolocation::where('id', $i)->first();
-//            $i = $i % 2 == 1 ? 1 : 2;
             Job::create([
-                'establishment_id' => $i,
+                'establishment_id' => $i % 2 == 1 ? 1 : 2,
                 'position' => 'ok',
                 'salary' => 200,
-                'salary_type' => $i,
+                'salary_type' => $i % 2 == 1 ? 1 : 2,
                 'currency' => 'EU',
-                'type_of_contract' => $i,
-                'type_of_attendance' => $i,
-                'period_type' => $i,
-//                'period' =>'year',
-                'availability' => $i,
+                'type_of_contract' => $i % 2 == 1 ? 1 : 2,
+                'type_of_attendance' => $i % 2 == 1 ? 1 : 2,
+                'period_type' => $i % 2 == 1 ? 1 : 2,
+                //                'period' =>'year',
+                'availability' => $i % 2 == 1 ? 1 : 2,
                 'description' => 'text',
                 'start_date' => now(),
                 'end_date' => now(),
@@ -89,9 +88,9 @@ class DatabaseSeeder extends Seeder
             ]);
 
             Faq::create([
-                'category' => 'category_' . $i,
-                'question' => 'question_' . $i,
-                'answer' => 'answer_' . $i,
+                'category' => 'category_' . $i % 2 == 1 ? 1 : 2,
+                'question' => 'question_' . $i % 2 == 1 ? 1 : 2,
+                'answer' => 'answer_' . $i % 2 == 1 ? 1 : 2,
             ]);
         }
     }

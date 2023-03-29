@@ -30,10 +30,21 @@ class EstablishmentController extends Controller
 
         if ($request->file('logo')) $logoPath = $request->file('logo')->store('logos');
 
-        $validated = $request->validated();
-        $validated['logo'] = $logoPath;
+        // $validated = $request->validated();
 
-        $establishment = Establishment::create($validated);
+        $establishment = Establishment::create(
+            [
+                'logo' => $logoPath,
+                'name' => $request->name,
+                'company_name' => $request->company_name,
+                'country' => $request->country,
+                'industry' => $request->industry,
+                'city' => $request->city,
+                'number_of_employees' => $request->number_of_employees,
+                'description' => $request->description,
+                'address' => $request->address,
+            ]
+        );
 
         EstablishmentResource::storeImages($request, $establishment);
 

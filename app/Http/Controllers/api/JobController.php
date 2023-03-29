@@ -22,8 +22,8 @@ class JobController extends Controller
     {
         if (!FacadesRequest::has('search')) {
 
-//            return JobResource::collection(Job::paginate(12));
-            return response()->json(Job::paginate(12));
+            return JobResource::collection(Job::paginate(12));
+            // return response()->json(Job::paginate(12));
 
         }
 
@@ -109,7 +109,7 @@ class JobController extends Controller
 
 
         return JobResource::collection($jobs);
-//        return response()->json($jobs);
+        //        return response()->json($jobs);
     }
 
 
@@ -166,7 +166,7 @@ class JobController extends Controller
             'id' => 'required|integer|exists:job,id',
         ]);
 
-            $like = Like::where('job_id', $validated['id'])->first();
+        $like = Like::where('job_id', $validated['id'])->first();
 
         if ($like) {
             $like->delete();

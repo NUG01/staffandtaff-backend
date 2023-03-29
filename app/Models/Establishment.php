@@ -25,10 +25,14 @@ class Establishment extends Model
 
     public function gallery(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Gallery::class, 'establishment_id', 'id');
+        return $this->hasMany(Gallery::class);
     }
     public function jobs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Job::class);
+    }
+    public function links(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(SocialLinks::class);
     }
 }

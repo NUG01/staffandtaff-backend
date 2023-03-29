@@ -28,12 +28,12 @@ class EstablishmentResource extends JsonResource
             'address' => $this->address,
             'number_of_employees' => $this->number_of_employees,
             'description' => $this->description,
-            'social_media_links' => SocialLinksResource::collection(SocialLinks::where('user_type_id', $this->id)->get()),
+            'social_media_links' => SocialLinksResource::collection(SocialLinks::where('establishment_id', $this->id)->get()),
             'gallery' => GalleryResource::collection(Gallery::where('establishment_id', $this->id)->get()),
         ];
     }
 
-    public static function storeImages($establishment, $request)
+    public static function storeImages($request, $establishment)
     {
         if (request()->has('file')) {
             for ($i = 0; $i < count(request()->file('file')); $i++) {
@@ -44,13 +44,13 @@ class EstablishmentResource extends JsonResource
                 ]);
             }
 
-            self::storeOrUpdateSocialLinks($establishment, $request);
+            self::storeOrUpdateSocialLinks($request, $establishment);
         }
     }
 
-    public static function storeOrUpdateSocialLinks($establishment, $request)
+    public static function storeOrUpdateSocialLinks($request, $establishment)
     {
-        $items = [
+        $links = [
             'website' => $request->website,
             'instagram' => $request->instagram,
             'linkedin' => $request->linkedin,
@@ -59,16 +59,20 @@ class EstablishmentResource extends JsonResource
             'pinterest' => $request->pinterest,
             'youtube' => $request->youtube,
             'tik_tok' => $request->tik_tok,
-            'user_type_id' => $establishment->id,
+            'establishment_id' => $establishment->id,
         ];
 
-        $user_type_id = SocialLinks::where('establishment_id', $establishment->id);
+        $linksArePresent = SocialLinks::where('establishment_id', $establishment->id)->get();
+        if ($linksArePresent->isNotEmpty()) {
+            SocialLinks::where('establishment_id', $establishment->id)->update($links);
+        }
 
-        match ($user_type_id->get()) {
-            [] => $establishment = SocialLinks::create($items),
-            default => $establishment = $user_type_id->update($items),
-        };
-
+        if ($linksArePresent->isEmpty()) {
+            SocialLinks::create($links);
+        }
+        // match ($user_type_id) {
+        //     // [] => $establishment = SocialLinks::create($items),
+        // };
         return $establishment;
     }
 }

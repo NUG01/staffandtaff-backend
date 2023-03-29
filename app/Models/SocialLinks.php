@@ -20,6 +20,11 @@ class SocialLinks extends Model
         'pinterest',
         'youtube',
         'tik_tok',
-        'user_type_id',
+        'establishment_id',
     ];
+
+    public function establishemnt(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(SocialLinks::class);
+    }
 }
