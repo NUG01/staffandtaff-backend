@@ -6,7 +6,6 @@ use App\Http\Controllers\api\{
     GeolocationController,
     IndustryController,
     JobController,
-    LikeController,
     StripeController,
     SubscriptionController,
     TermsAndConditionController
@@ -42,7 +41,7 @@ Route::controller(JobController::class)->group(function () {
     Route::get('/job/{job}', 'show')->name('job.show');
     Route::patch('/job/update/{job}', 'update')->name('job.update');
     Route::delete('/job/delete/{job}', 'delete')->name('job.delete');
-    Route::post('/job-like',  'like')->name('job.like');
+    Route::post('/job-like', 'like')->name('job.like');
 });
 
 Route::get('/job_assets', fn () => response()->json(config('job-assets')));
@@ -82,7 +81,6 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
-
 
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
 
