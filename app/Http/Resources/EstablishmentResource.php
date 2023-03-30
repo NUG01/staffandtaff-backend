@@ -6,6 +6,7 @@ use App\Enum\Role;
 use App\Models\Establishment;
 use App\Models\Geolocation;
 use App\Models\Industry;
+use App\Models\Job;
 use App\Models\SocialLinks;
 use App\Models\Gallery;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -30,6 +31,7 @@ class EstablishmentResource extends JsonResource
             'description' => $this->description,
             'social_media_links' => SocialLinksResource::collection(SocialLinks::where('user_type_id', $this->id)->get()),
             'gallery' => GalleryResource::collection(Gallery::where('establishment_id', $this->id)->get()),
+            'jobs' => JobResource::collection(Job::where('establishment_id', $this->id)->get()),
         ];
     }
 

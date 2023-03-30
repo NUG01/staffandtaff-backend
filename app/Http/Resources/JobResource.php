@@ -12,7 +12,7 @@ class JobResource extends JsonResource
 {
     public function toArray($request): array
     {
-        return [
+        $array = [
             'id' => $this->id,
             'position' => Position::where('id', $this->position)->value('name'),
             'salary' => $this->salary,
@@ -30,8 +30,10 @@ class JobResource extends JsonResource
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'likes' => $this->likes,
-            'establishment' => $this->establishment,
-            // 'establishment' => Establishment::where('id', $this->establishment_id)->get(['name', 'id']),
         ];
+
+        if (request()->routeIs('job.index')) $array['establishment'] = $this->establishment;
+
+        return $array;
     }
 }

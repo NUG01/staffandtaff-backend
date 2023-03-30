@@ -129,7 +129,9 @@ class JobController extends Controller
     public function update(Job $job, JobRequest $request): JobResource
     {
         $this->authorize('recruiter', Auth()->user());
+
         $updated = $job->update($request->validated());
+
         return JobResource::make($updated);
     }
 
@@ -139,7 +141,9 @@ class JobController extends Controller
     public function destroy(Job $job): AnonymousResourceCollection
     {
         $this->authorize('recruiter', Auth()->user());
+
         $job->delete();
+
         return JobResource::collection(Cache::remember('jobs', 60 * 60 * 24, function () {
             return Job::all();
         }));
@@ -151,14 +155,17 @@ class JobController extends Controller
             'id' => 'required|integer|exists:job,id',
         ]);
         $like = Like::where('job_id', $validated['id'])->first();
+
         if ($like) {
             $like->delete();
             return response()->json('Unliked!');
         };
+
         Like::create([
             'job_id' => $validated['id'],
             'user_id' => Auth::user()->id,
         ]);
+
         return response()->json('Liked!');
     }
 }

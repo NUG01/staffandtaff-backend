@@ -19,7 +19,7 @@ class UserResource extends JsonResource
         };
 
         $query = match ($request->user()->role_id) {
-            Role::RECRUITER->value => EstablishmentResource::collection(Establishment::where('id', $this->type)->get()),
+            Role::RECRUITER->value => EstablishmentResource::collection(Establishment::whereIn('id', $this->type)->get()),
             default => null,
         };
 
