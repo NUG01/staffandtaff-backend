@@ -17,7 +17,6 @@ class JobRequest extends FormRequest
             'country_code' => 'required|string|max:5',
             'position' => 'required',
             'salary' => 'required',
-            'salary_type' => 'required',
             'currency' => 'required|string',
             'type_of_contract' => 'required',
             'type_of_attendance' => 'required',
