@@ -97,7 +97,7 @@ class JobController extends Controller
             })
             //        return response()->json(['filtered_jobs' => $jobs]);
             ->with(['establishment:id,name', 'likes'])
-            ->get(12)
+            ->get()
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
         return JobResource::collection($jobs);
         //        return response()->json($jobs);
