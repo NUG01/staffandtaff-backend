@@ -71,7 +71,7 @@ class JobController extends Controller
                 $query->whereDate('start_date', '<=', request()->start_date);
                 //start-end date filter
             })->when(!empty(request()->start_date) && !empty(request()->end_date), function ($query) {
-                $query->whereDate('start_date', '<=', request()->start_date)->whereDate('end_data', '>=', request()->end_date);
+                $query->whereDate('start_date', '<=', request()->start_date)->whereDate('end_date', '>=', request()->end_date);
                 //min-max range filter
             })->when(!empty(request()->min_range) && !empty(request()->max_range), function ($query) {
                 $query->whereBetween('salary', [request()->min_range, request()->max_range]);
@@ -99,8 +99,8 @@ class JobController extends Controller
             ->with(['establishment:id,name', 'likes'])
             ->get()
             ->makeHidden(['number_of_employees', 'industry', 'address', 'city', 'country', 'logo']);
-        return JobResource::collection($jobs);
-        //        return response()->json($jobs);
+        // return JobResource::collection($jobs);
+               return response()->json($jobs);
     }
 
     /**
