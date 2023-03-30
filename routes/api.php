@@ -7,6 +7,7 @@ use App\Http\Controllers\api\{
     IndustryController,
     JobController,
     LikeController,
+    StripeController,
     SubscriptionController,
     TermsAndConditionController
 };
@@ -44,7 +45,7 @@ Route::controller(JobController::class)->group(function () {
     Route::post('/job-like',  'like')->name('job.like');
 });
 
-Route::get('/job_assets', fn() => response()->json(config('job-assets')));
+Route::get('/job_assets', fn () => response()->json(config('job-assets')));
 
 //Establishment Routes
 Route::controller(EstablishmentController::class)->group(function () {
@@ -86,3 +87,5 @@ Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->
 Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
 
 Route::post('comment', [CommentController::class, 'store'])->name('comment');
+
+Route::post('cancel-subscription', [StripeController::class, 'handleCustomerDeleted'])->name('stripe.cancel');
