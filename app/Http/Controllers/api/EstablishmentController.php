@@ -38,9 +38,14 @@ class EstablishmentController extends Controller
 
         EstablishmentResource::storeImages($request, $establishment);
 
+        $type = match (Auth::user()->type) {
+            null => (array)$establishment->id,
+            default => array_merge(Auth::user()->type, (array)$establishment->id),
+        };
+
         Auth::user()->update([
             'role_id' => Role::RECRUITER->value,
-            'type' => array_merge(Auth::user()->type, (array)$establishment->id),
+            'type' => $type,
         ]);
 
         return EstablishmentResource::make($establishment);
