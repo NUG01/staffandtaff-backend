@@ -12,6 +12,8 @@ class PositionResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'hotel' => $this->hotel,
+            'restaurant' => $this->restaurant,
         ];
     }
 }

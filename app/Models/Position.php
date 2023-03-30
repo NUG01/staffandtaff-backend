@@ -15,6 +15,8 @@ class Position extends Model
     protected $fillable = [
         'name',
         'slug',
+        'hotel',
+        'restaurant',
     ];
 
     protected $observers = [
