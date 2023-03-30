@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('pinterest')->nullable();
             $table->string('youtube')->nullable();
             $table->string('tik_tok')->nullable();
-            $table->foreignId('establishment_id');
+            $table->foreignId('user_type_id');
             $table->timestamps();
         });
     }
