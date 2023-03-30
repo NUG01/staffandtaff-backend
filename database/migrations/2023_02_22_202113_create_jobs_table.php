@@ -14,12 +14,10 @@ return new class extends Migration
             $table->string('establishment_id');
             $table->string('position');
             $table->integer('salary');
-            $table->integer('salary_type');
             $table->tinyText('currency');
             $table->tinyInteger('type_of_contract');
             $table->tinyInteger('type_of_attendance');
             $table->tinyInteger('period_type');
-//             $table->string('period');
             $table->tinyInteger('availability')->default(0);
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();
