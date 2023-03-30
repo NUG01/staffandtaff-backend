@@ -23,163 +23,163 @@ class IndustryFactory extends Factory
         $restaurant_sub_1 = Position::create([
             'name' => 'Direction/Gérance',
             'slug' => 'direction_gerance',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_2 = Position::create([
             'name' => 'Manager',
             'slug' => 'manager',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_3 = Position::create([
             'name' => 'Barman/Barmaid/Mixologue',
             'slug' => 'barman_Barmaid_mixologue',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_4 = Position::create([
             'name' => 'Apprenti',
             'slug' => 'apprenti',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_5 = Position::create([
             'name' => 'Autre',
             'slug' => 'autre',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_6 = Position::create([
             'name' => 'Administratif',
             'slug' => 'administratif',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_7 = Position::create([
             'name' => "Hôte/Hôtesse d'accueil",
             'slug' => "hote_hotesse_daccueil",
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
         //
         $restaurant_sub_8 = Position::create([
             'name' => 'Voiturier',
             'slug' => 'voiturier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_9 = Position::create([
             'name' => 'Chef de rang',
             'slug' => 'chef_de_rang',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_10 = Position::create([
             'name' => "Maître d’hôtel",
             'slug' => "maitre_d_hotel",
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_11 = Position::create([
             'name' => 'Chef exécutif',
             'slug' => 'chef_executif',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_12 = Position::create([
             'name' => 'Chef de cuisine',
             'slug' => 'chef_de_cuisine',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_13 = Position::create([
             'name' => 'Second de cuisine',
             'slug' => 'second_de_cuisine',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_14 = Position::create([
             'name' => 'Chef de partie',
             'slug' => 'chef_de_partie',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_15 = Position::create([
             'name' => 'Commis',
             'slug' => 'commis',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_16 = Position::create([
             'name' => 'Cuisinier',
             'slug' => 'cuisinier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_17 = Position::create([
             'name' => 'Aide cuisinier',
             'slug' => 'aide_cuisinier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_18 = Position::create([
             'name' => 'Chef pâtissier',
             'slug' => 'chef_patissier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_19 = Position::create([
             'name' => 'Second pâtissier',
             'slug' => 'second_patissier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_20 = Position::create([
             'name' => 'Chef de partie pâtisserie',
             'slug' => 'chef_de_partie_patisserie',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_21 = Position::create([
             'name' => 'Commis pâtissier',
             'slug' => 'commis_patissier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_22 = Position::create([
             'name' => 'Chef Sommelier',
             'slug' => 'chef_sommelier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_23 = Position::create([
             'name' => 'Sommelier',
             'slug' => 'sommelier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_24 = Position::create([
             'name' => 'Casserolier',
             'slug' => 'casserolier',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_25 = Position::create([
             'name' => 'Plongeur',
             'slug' => 'plongeur',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_26 = Position::create([
             'name' => 'Serveur',
             'slug' => 'serveur',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $restaurant_sub_27 = Position::create([
             'name' => 'Runner',
             'slug' => 'runner',
-            'restarurant' => 1,
+            'restaurant' => 1,
         ]);
 
         $hotel_sub_1 = Position::create([
