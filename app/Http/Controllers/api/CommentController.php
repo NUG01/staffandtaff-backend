@@ -13,7 +13,7 @@ class CommentController extends Controller
     {
         Comment::create([
             'user_id' => Auth::user()->id,
-            'etablissement_id' => $request->etablissement_id,
+            'establishment_id' => $request->establishment_id,
             'rating' => $request->rating,
             'comment' => $request->comment,
         ]);
