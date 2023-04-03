@@ -12,9 +12,13 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
-        return Faq::query()->filter(request('search'))->get();
+        $faqs = Faq::query()->filter(request('search'))->get()->groupBy('category');
+
+        return response()->json([
+            'faqs' => $faqs
+        ]);
     }
 
     /**

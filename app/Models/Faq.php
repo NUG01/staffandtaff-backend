@@ -26,7 +26,7 @@ class Faq extends Model
             collect(explode(' ', $terms))->filter()->each(function ($term) use ($query) {
                 $term = '%' . $term . '%';
                 $query->where(function ($query) use ($term) {
-                    $query->where('category', 'like', $term)
+                    $query->orWhere('category', 'like', $term)
                         ->orWhere('question', 'like', $term)
                         ->orWhere('answer', 'like', $term);
                 });

@@ -2,22 +2,18 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Request;
+use App\Models\Faq;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FaqResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray($request): array
     {
         return [
+            'id' => $this->id,
             'category' => $this->category,
             'question' => $this->question,
-            'answer' => $this->answer
+            'answer' => $this->answer,
         ];
     }
 }
