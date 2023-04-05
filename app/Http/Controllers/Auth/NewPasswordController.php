@@ -25,17 +25,6 @@ class NewPasswordController extends Controller
      */
     public function store(NewPasswordRequest $request): JsonResponse
     {
-        // $status = Password::reset(
-        //     $request->only('email', 'password', 'password_confirmation', 'token'),
-        //     function ($user) use ($request) {
-        //         $user->forceFill([
-        //             'password' => Hash::make($request->password),
-        //             'remember_token' => Str::random(60),
-        //         ])->save();
-
-        //         event(new PasswordReset($user));
-        //     }
-        // );
 
         $passwordResetColumn = DB::table('password_resets')->where([
             ['email', '=', $request->email],
@@ -53,14 +42,5 @@ class NewPasswordController extends Controller
         };
 
         return response()->json('Password can not be updated!', 400);
-
-
-        // if ($status != Password::PASSWORD_RESET) {
-        //     throw ValidationException::withMessages([
-        //         'email' => [__($status)],
-        //     ]);
-        // }
-
-        // return response()->json(['status' => __($status)]);
     }
 }
