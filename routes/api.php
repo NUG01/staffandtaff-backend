@@ -8,7 +8,9 @@ use App\Http\Controllers\api\{
     JobController,
     StripeController,
     SubscriptionController,
-    TermsAndConditionController
+    TermsAndConditionController,
+    RatingController,
+
 };
 use App\Http\Controllers\admin\{
     EstablishmentController as AdminEstablishmentController,
@@ -94,6 +96,9 @@ Route::post('comment', [CommentController::class, 'store'])->name('comment');
 
 Route::post('cancel-subscription', [StripeController::class, 'handleCustomerDeleted'])->name('stripe.cancel');
 
+// rating
+Route::post('recruiter/rating/{rating?}', [RatingController::class, 'recruiterRating'])->name('recruiter.rating');
+Route::post('establishment/rating/{rating?}', [RatingController::class, 'establishmentRating'])->name('establishment.rating');
 
 
 
@@ -122,3 +127,4 @@ Route::controller(AdminJobController::class)->group(function () {
 Route::controller(AdminStatController::class)->group(function () {
     Route::get('/admin/stats', 'index')->name('admin.stat.index');
 });
+
