@@ -35,4 +35,10 @@ class Establishment extends Model
     {
         return $this->hasOne(SocialLinks::class);
     }
+
+    public function getTableColumns()
+    {
+
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
 }

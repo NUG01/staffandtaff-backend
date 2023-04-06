@@ -17,6 +17,7 @@ class Cors
     {
         return $next($request)
             ->header('Access-Control-Allow-Origin', 'https://dev.staffandtaff.com')
+            ->header('Access-Control-Allow-Origin', 'https://admin.staffandtaff.com')
             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE, OPTIONS');
     }
 }

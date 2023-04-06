@@ -12,6 +12,10 @@ use App\Http\Controllers\api\{
     RatingController,
 
 };
+use App\Http\Controllers\admin\{
+    EstablishmentController as AdminEstablishmentController,
+    JobController as AdminJobController,
+};
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\Auth\AboutController;
 use App\Http\Resources\UserResource;
@@ -90,5 +94,18 @@ Route::post('comment', [CommentController::class, 'store'])->name('comment');
 
 Route::post('cancel-subscription', [StripeController::class, 'handleCustomerDeleted'])->name('stripe.cancel');
 
+// rating
 Route::post('recruiter/rating/{rating?}', [RatingController::class, 'recruiterRating'])->name('recruiter.rating');
 Route::post('establishment/rating/{rating?}', [RatingController::class, 'establishmentRating'])->name('establishment.rating');
+
+
+//Admin
+Route::controller(AdminEstablishmentController::class)->group(function () {
+    Route::get('/admin/establishments', 'index')->name('establishment.index');
+});
+
+
+Route::controller(AdminJobController::class)->group(function () {
+    Route::get('/admin/jobs', 'index')->name('establishment.index');
+});
+

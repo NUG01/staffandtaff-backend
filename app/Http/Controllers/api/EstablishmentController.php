@@ -20,6 +20,7 @@ class EstablishmentController extends Controller
     /**
      * @throws AuthorizationException
      */
+
     public function store(EstablishmentRequest $request): EstablishmentResource
     {
         if (Auth::user()->role_id !== null) {
