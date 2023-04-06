@@ -8,7 +8,9 @@ use App\Http\Controllers\api\{
     JobController,
     StripeController,
     SubscriptionController,
-    TermsAndConditionController
+    TermsAndConditionController,
+    RatingController,
+
 };
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\Auth\AboutController;
@@ -87,3 +89,6 @@ Route::post('user-mail', [AboutController::class, 'store'])->name('user.mail');
 Route::post('comment', [CommentController::class, 'store'])->name('comment');
 
 Route::post('cancel-subscription', [StripeController::class, 'handleCustomerDeleted'])->name('stripe.cancel');
+
+Route::post('recruiter/rating/{rating?}', [RatingController::class, 'recruiterRating'])->name('recruiter.rating');
+Route::post('establishment/rating/{rating?}', [RatingController::class, 'establishmentRating'])->name('establishment.rating');
