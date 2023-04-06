@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('geolocations', function (Blueprint $table) {
             $table->id();
-
             $table->string('country_code')->index();
             $table->string('city_name')->index();
             $table->double('longitude', 11, 8);

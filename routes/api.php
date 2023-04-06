@@ -13,6 +13,8 @@ use App\Http\Controllers\api\{
 use App\Http\Controllers\admin\{
     EstablishmentController as AdminEstablishmentController,
     JobController as AdminJobController,
+    UsersController as AdminUserController,
+    StatController as AdminStatController,
 };
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\Auth\AboutController;
@@ -94,12 +96,29 @@ Route::post('cancel-subscription', [StripeController::class, 'handleCustomerDele
 
 
 
+
 //Admin
 Route::controller(AdminEstablishmentController::class)->group(function () {
-    Route::get('/admin/establishments', 'index')->name('establishment.index');
+    Route::get('/admin/establishments', 'index')->name('admin.establishment.index');
+    Route::get('/admin/establishment/{est}', 'establishmentDetails')->name('admin.establishment.details');
+    Route::delete('/admin/establishments/delete/{est}', 'destroy')->name('admin.establishment.delete');
+    Route::post('/admin/establishments/update', 'update')->name('admin.establishment.update');
+});
+
+
+Route::controller(AdminUserController::class)->group(function () {
+    Route::get('/admin/users', 'index')->name('admin.user.index');
+    Route::get('/admin/user/{user}', 'userDetails')->name('admin.user.details');
+    Route::delete('/admin/user/delete/{user}', 'destroy')->name('admin.user.delete');
 });
 
 
 Route::controller(AdminJobController::class)->group(function () {
-    Route::get('/admin/jobs', 'index')->name('establishment.index');
+    Route::get('/admin/jobs', 'index')->name('admin.job.index');
+    Route::get('/admin/job/{job}', 'jobDetails')->name('admin.job.details');
+    Route::delete('/admin/jobs/delete/{job}', 'destroy')->name('admin.job.delete');
+});
+
+Route::controller(AdminStatController::class)->group(function () {
+    Route::get('/admin/stats', 'index')->name('admin.stat.index');
 });
