@@ -47,7 +47,17 @@ class EstablishmentController extends Controller
 
     public function update(UpdateEstablishmentRequest $request)
     {
-        return response()->json($request);
+
+        Establishment::where('id', $request->id)->update([
+            'name' => $request->name,
+            'company_name' => $request->company_name,
+            'address' => $request->address,
+            'country' => $request->country,
+            'industry' => $request->industry_id,
+            'number_of_employees' => $request->number_of_employees,
+            'description' => $request->description,
+        ]);
+        return response()->json(['message' => 'Updated successfully!']);
     }
 
     private static function getColumnNames()

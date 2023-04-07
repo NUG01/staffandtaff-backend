@@ -22,13 +22,14 @@ class UpdateEstablishmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'company_name' => ['required'],
-            'address' => ['required'],
-            'country' => ['required'],
-            'industry_id' => ['required'],
-            'number_of_employees' => ['required'],
-            'description' => ['required'],
+            'id' => ['required'],
+            'name' => ['required', 'string'],
+            'company_name' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'country' => ['required', 'string'],
+            'industry_id' => ['required', 'integer'],
+            'number_of_employees' => ['required', 'integer'],
+            'description' => ['required', 'string', 'min:2', 'max:1000'],
         ];
     }
 }

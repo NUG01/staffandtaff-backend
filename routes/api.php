@@ -10,7 +10,6 @@ use App\Http\Controllers\api\{
     SubscriptionController,
     TermsAndConditionController,
     RatingController,
-
 };
 use App\Http\Controllers\admin\{
     EstablishmentController as AdminEstablishmentController,
@@ -120,6 +119,7 @@ Route::controller(AdminUserController::class)->group(function () {
 
 Route::controller(AdminJobController::class)->group(function () {
     Route::get('/admin/jobs', 'index')->name('admin.job.index');
+    Route::post('/admin/jobs/update', 'update')->name('admin.job.update');
     Route::get('/admin/job/{job}', 'jobDetails')->name('admin.job.details');
     Route::delete('/admin/jobs/delete/{job}', 'destroy')->name('admin.job.delete');
 });
@@ -127,4 +127,3 @@ Route::controller(AdminJobController::class)->group(function () {
 Route::controller(AdminStatController::class)->group(function () {
     Route::get('/admin/stats', 'index')->name('admin.stat.index');
 });
-
