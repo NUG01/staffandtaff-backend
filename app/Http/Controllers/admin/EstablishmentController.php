@@ -48,7 +48,7 @@ class EstablishmentController extends Controller
     public function update(UpdateEstablishmentRequest $request)
     {
 
-        Establishment::where('id', $request->id)->update([
+        $est = Establishment::where('id', $request->id)->update([
             'name' => $request->name,
             'company_name' => $request->company_name,
             'address' => $request->address,
@@ -57,6 +57,7 @@ class EstablishmentController extends Controller
             'number_of_employees' => $request->number_of_employees,
             'description' => $request->description,
         ]);
+        if (!$est)  return response()->json(['message' => 'Update failed!'], 400);
         return response()->json(['message' => 'Updated successfully!']);
     }
 

@@ -37,6 +37,7 @@ class JobController extends Controller
             ],
         ];
 
+
         return response()->json($jobData);
     }
 
@@ -45,7 +46,7 @@ class JobController extends Controller
         $est = Establishment::where('name', $request->establishment)->first();
         if (!$est) return response()->json(['message' => 'Establishment with given name does not exist!'], 400);
 
-        Job::where('id', $request->id)->update([
+        $job = Job::where('id', $request->id)->update([
             'establishment_id' => $est->id,
             'position' => $request->position,
             'salary' => $request->salary,
@@ -56,10 +57,13 @@ class JobController extends Controller
             'availability' => $request->availability,
             'description' => $request->description,
             'country_code' => $request->country_code,
-            'city_name' => $request->city,
+            'city_name' => $request->city['city'],
             'longitude' => $request->longitude,
             'latitude' => $request->latitude,
         ]);
+
+        if (!$job)  return response()->json(['message' => 'Update failed!'], 400);
+
         return response()->json(['message' => 'Job updated successfully!']);
     }
 
