@@ -29,6 +29,7 @@ class JobController extends Controller
             'period' => $job->period_type,
             'availability' => $job->availability,
             'description' => $job->description,
+            'city' => $job->city_name,
             'location' => [
                 'country_code' => $job->country_code,
                 'city' => $job->city_name,

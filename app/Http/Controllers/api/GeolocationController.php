@@ -11,8 +11,7 @@ class GeolocationController extends Controller
 {
     public function show(Request $request): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        $cities = Geolocation::where('city_name', 'like', $request->city_name . '%')->where('country_code', '=', $request->country_code)->get();
-
+        $cities = Geolocation::where('city_name', 'like',  $request->city_name . '%')->where('country_code', '=', $request->country_code)->get();
         return GeolocationResource::collection($cities);
     }
 }
