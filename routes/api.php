@@ -16,6 +16,7 @@ use App\Http\Controllers\admin\{
     JobController as AdminJobController,
     UsersController as AdminUserController,
     StatController as AdminStatController,
+    AuthController as AdminAuthController,
 };
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\Auth\AboutController;
@@ -126,4 +127,9 @@ Route::controller(AdminJobController::class)->group(function () {
 
 Route::controller(AdminStatController::class)->group(function () {
     Route::get('/admin/stats', 'index')->name('admin.stat.index');
+});
+
+Route::controller(AdminAuthController::class)->group(function () {
+    Route::post('/admin-login', 'adminLogin')->name('admin.login');
+    Route::get('/admin-user', 'admin')->name('admin.user');
 });
