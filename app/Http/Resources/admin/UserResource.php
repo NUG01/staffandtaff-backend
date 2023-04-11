@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\admin;
 
+use App\Http\Controllers\admin\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,7 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'role' => 'role',
+            'role' => UsersController::role($this->role_id)
         ];
     }
 }

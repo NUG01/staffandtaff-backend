@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\{
     UsersController as AdminUserController,
     StatController as AdminStatController,
     AuthController as AdminAuthController,
+    PaymentController as AdminPaymentController,
 };
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\Auth\AboutController;
@@ -113,7 +114,10 @@ Route::controller(AdminEstablishmentController::class)->group(function () {
 
 Route::controller(AdminUserController::class)->group(function () {
     Route::get('/admin/users', 'index')->name('admin.user.index');
+    Route::get('/admin/user', 'show')->middleware('auth:sanctum')->name('admin.user.show');
     Route::get('/admin/user/{user}', 'userDetails')->name('admin.user.details');
+    Route::post('/admin/user/update', 'update')->name('admin.user.update');
+    Route::post('/admin/update', 'updateAdmin')->name('admin.update');
     Route::delete('/admin/user/delete/{user}', 'destroy')->name('admin.user.delete');
 });
 
@@ -129,7 +133,14 @@ Route::controller(AdminStatController::class)->group(function () {
     Route::get('/admin/stats', 'index')->name('admin.stat.index');
 });
 
+
 Route::controller(AdminAuthController::class)->group(function () {
     Route::post('/admin-login', 'adminLogin')->name('admin.login');
     Route::get('/admin-user', 'admin')->name('admin.user');
+});
+
+Route::controller(AdminPaymentController::class)->group(function () {
+    Route::get('/subscriptions', 'index')->name('subscriptions.index');
+    Route::get('/admin/subscription/{id}', 'show')->name('subscriptions.show');
+    Route::delete('/admin/payment/delete/{id}', 'destroy')->name('subscriptions.delete');
 });

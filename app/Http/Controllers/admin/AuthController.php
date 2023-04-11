@@ -31,11 +31,12 @@ class AuthController extends Controller
     public function admin()
     {
 
+
         $user = Auth::user();
+        if (!$user || $user->role_id != 1) return response()->json(['message' => 'Not an admin!'], 401);
         if ($user->role_id == 1) {
 
             return response()->json(['user' => Auth::user()]);
         }
-        return response()->json(['message' => 'Not an admin!'], 401);
     }
 }
