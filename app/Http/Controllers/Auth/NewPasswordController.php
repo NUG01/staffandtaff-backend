@@ -29,7 +29,7 @@ class NewPasswordController extends Controller
         $passwordResetColumn = DB::table('password_resets')->where([
             ['email', '=', $request->email],
             ['token', '=', $request->token],
-            ['created_at', '<=', Carbon::now()->subDays(1)->toDateTimeString()],
+            // ['created_at', '<=', Carbon::now()->subDays(1)->toDateTimeString()],
         ])->latest()->first();
 
         if ($passwordResetColumn) {
