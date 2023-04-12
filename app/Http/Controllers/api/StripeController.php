@@ -11,6 +11,8 @@ class StripeController extends CashierController
 {
     protected function handleCustomerDeleted(array $payload)
     {
+
+
         if ($user = $this->getUserByStripeId($payload['data']['object']['id'])) {
             $user->subscriptions->each(function (Subscription $subscription) {
                 $subscription->skipTrial()->markAsCancelled();
