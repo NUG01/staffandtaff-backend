@@ -20,13 +20,13 @@ class VerifyEmailController extends Controller
             $user->markEmailAsVerified();
             Auth::login($user);
 
-            return response()->json('Email verified!');
+            return response()->json(['message' => 'Email verified!']);
         }
 
         if ($user && $user->email_verified_at) {
-            return response()->json('Email is already verified!', 400);
+            return response()->json(['error' => 'Email is already verified!'], 400);
         }
 
-        return response()->json('Something went wrong', 400);
+        return response()->json(['error' => 'Something went wrong'], 400);
     }
 }

@@ -24,15 +24,7 @@ class PasswordResetLinkController extends Controller
         $request->validate([
             'email' => ['required', 'email', 'exists:users,email'],
         ]);
-        // $status = Password::sendResetLink(
-        //     $request->only('email')
-        // );
 
-        // if ($status != Password::RESET_LINK_SENT) {
-        //     throw ValidationException::withMessages([
-        //         'email' => [__($status)],
-        //     ]);
-        // }
 
         $user = User::where('email', $request->email)->first();
         $token = Str::random(32);
@@ -44,9 +36,9 @@ class PasswordResetLinkController extends Controller
                 'created_at' => Carbon::now(),
             ]);
             MailController::sendPasswordResetEmail($user->name, $user->email, $url);
-            return response()->json('Email sent!');
+            return response()->json(['message' => 'Email sent!']);
         }
 
-        return response()->json('Email can not be sent!');
+        return response()->json(['error' => 'Email can not be sent!'], 400);
     }
 }

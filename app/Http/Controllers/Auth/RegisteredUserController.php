@@ -36,9 +36,9 @@ class RegisteredUserController extends Controller
         if ($user) {
             $url = config('app.frontend_url') . '/email-confirmation/' . 'email=' . $user->email . '&token=' . $token;
             MailController::sendVerificationEmail($user->name, $user->email, $url);
-            return response()->json('Email sent!');
+            return response()->json(['message'=>'Email sent!']);
         }
 
-        return response()->json('Email can not be sent!');
+        return response()->json(['error'=>'Email can not be sent!'], 400);
     }
 }

@@ -38,9 +38,9 @@ class NewPasswordController extends Controller
                 'password' => bcrypt($request->password),
             ]);
             DB::table('password_resets')->where('email', $user->email)->delete();
-            return response()->json('Password updated!');
+            return response()->json(['message' => 'Password updated!']);
         };
 
-        return response()->json('Password can not be updated!', 400);
+        return response()->json(['error' => 'Password can not be updated!'], 400);
     }
 }

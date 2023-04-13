@@ -86,7 +86,8 @@ Route::controller(TermsAndConditionController::class)->group(function () {
 });
 
 //Stripe Routes
-Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->group(function () {
+// Route::middleware(['auth:sanctum'])->controller(SubscriptionController::class)->group(function () {
+Route::middleware(['auth'])->controller(SubscriptionController::class)->group(function () {
     Route::get('/user-intent', 'userIntent')->name('stripe.payment');
     Route::post('/payment', 'subscribe')->name('stripe.subscribe');
 });
