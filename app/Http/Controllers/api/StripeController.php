@@ -9,22 +9,18 @@ use Laravel\Cashier\Subscription;
 
 class StripeController extends CashierController
 {
-    protected function handleCustomerDeleted(array $payload)
+
+
+    protected function handleCustomerSubscriptionDeleted(array $payload)
     {
-
-
-        if ($user = $this->getUserByStripeId($payload['data']['object']['id'])) {
-            $user->subscriptions->each(function (Subscription $subscription) {
-                $subscription->skipTrial()->markAsCancelled();
+        if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
+            $user->subscriptions->filter(function ($subscription) use ($payload) {
+                return $subscription->stripe_id === $payload['data']['object']['id'];
+            })->each(function ($subscription) {
+                $subscription->markAsCanceled();
             });
-
-            $user->forceFill([
-                'stripe_id' => null,
-                'trial_ends_at' => null,
-                'card_brand' => null,
-                'card_last_four' => null,
-            ])->save();
         }
+
         return $this->successMethod();
     }
 }

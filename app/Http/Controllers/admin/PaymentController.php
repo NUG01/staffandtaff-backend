@@ -32,4 +32,15 @@ class PaymentController extends Controller
         DB::table('subscriptions')->where('stripe_id', $id)->delete();
         return response()->json('Deleted!');
     }
+
+
+    public function cancelSubscription(Request $request)
+    {
+
+        $subscription = DB::table('subscriptions')->where('stripe_id', $request->id)->first();
+        $user = User::find($subscription->user_id);
+        $user->subscription($subscription->name)->cancel();
+
+        return response()->json($subscription);
+    }
 }

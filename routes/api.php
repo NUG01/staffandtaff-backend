@@ -135,6 +135,7 @@ Route::controller(AdminStatController::class)->group(function () {
 });
 
 
+
 Route::controller(AdminAuthController::class)->group(function () {
     Route::post('/admin-login', 'adminLogin')->name('admin.login');
     Route::get('/admin-user', 'admin')->name('admin.user');
@@ -144,4 +145,5 @@ Route::controller(AdminPaymentController::class)->group(function () {
     Route::get('/subscriptions', 'index')->name('subscriptions.index');
     Route::get('/admin/subscription/{id}', 'show')->name('subscriptions.show');
     Route::delete('/admin/payment/delete/{id}', 'destroy')->name('subscriptions.delete');
+    Route::post('/admin/cancel-subscription', 'cancelSubscription')->name('admin.stripe.cancel');
 });
