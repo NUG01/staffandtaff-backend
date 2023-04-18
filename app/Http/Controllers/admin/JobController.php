@@ -47,6 +47,7 @@ class JobController extends Controller
         $est = Establishment::where('name', $request->establishment)->first();
         if (!$est) return response()->json(['message' => 'Establishment with given name does not exist!'], 400);
 
+
         $job = Job::where('id', $request->id)->update([
             'establishment_id' => $est->id,
             'position' => $request->position,
