@@ -21,10 +21,11 @@ class EstablishmentController extends Controller
 
         return AdminEstablishmentResource::collection(Establishment::all());
     }
-    public function updateImage(Request $request, Gallery $image)
+    public function updateImage(Request $request, $id)
     {
+        $image = Gallery::find($id);
 
-        if ($request->file('image')) $imagePath = $request->file('image')->store('gallery');
+        $imagePath = $request->file('image')->store('gallery');
 
         $image->update([
             'path' => $imagePath,
