@@ -23,11 +23,11 @@ class EstablishmentController extends Controller
     }
     public function updateImage(Request $request, $id)
     {
-        $image = Gallery::find($id);
+        // $image = Gallery::where('id', $id)->first();
 
         $imagePath = $request->file('image')->store('gallery');
 
-        $image->update([
+        Gallery::where('id', $id)->update([
             'path' => $imagePath,
         ]);
 
