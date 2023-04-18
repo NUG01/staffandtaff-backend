@@ -6,7 +6,7 @@ use App\Models\Job;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +21,10 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
+});
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
 });
 
 Route::get('/swagger', fn () => App::isProduction() ? response(status: 403) : view('swagger'))->name('swagger');

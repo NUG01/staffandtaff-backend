@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\UpdateEstablishmentRequest;
 use App\Http\Resources\admin\EstablishmentResource as AdminEstablishmentResource;
 use App\Models\Establishment;
+use App\Models\Gallery;
 use App\Models\Geolocation;
 use App\Models\Industry;
 use App\Models\User;
@@ -19,6 +20,18 @@ class EstablishmentController extends Controller
     {
 
         return AdminEstablishmentResource::collection(Establishment::all());
+    }
+    public function updateImage(Request $request, Gallery $image)
+    {
+
+        if ($request->file('image')) $imagePath = $request->file('image')->store('gallery');
+
+        $image->update([
+            'path' => $imagePath,
+        ]);
+
+
+        return response()->noContent();
     }
 
     public function establishmentDetails(Establishment $est)
@@ -34,6 +47,7 @@ class EstablishmentController extends Controller
             'number_of_employees' => $est->number_of_employees,
             'description' => $est->description,
             'industry' => Industry::where('id', $est->industry)->first(),
+            'gallery' => $est->gallery,
         ];
 
         return response()->json($estData);

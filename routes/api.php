@@ -110,6 +110,7 @@ Route::controller(AdminEstablishmentController::class)->group(function () {
     Route::get('/admin/establishment/{est}', 'establishmentDetails')->name('admin.establishment.details');
     Route::delete('/admin/establishments/delete/{est}', 'destroy')->name('admin.establishment.delete');
     Route::post('/admin/establishments/update', 'update')->name('admin.establishment.update');
+    Route::patch('/admin/establishments-gallery/update/{image:id}', 'updateImage')->name('admin.establishment.image.update');
 });
 
 
