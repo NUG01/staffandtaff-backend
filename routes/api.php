@@ -109,7 +109,7 @@ Route::post('establishment/rating/{rating?}', [RatingController::class, 'establi
 Route::controller(AdminEstablishmentController::class)->group(function () {
     Route::get('/admin/establishments', 'index')->name('admin.establishment.index');
     Route::get('/admin/establishment/{est}', 'establishmentDetails')->name('admin.establishment.details');
-    Route::delete('/admin/establishments/delete/{est}', 'destroy')->name('admin.establishment.delete');
+    Route::delete('/admin/establishment/delete/{est}', 'destroy')->name('admin.establishment.delete');
     Route::post('/admin/establishments/update', 'update')->name('admin.establishment.update');
     Route::post('/admin/establishments-gallery/update/{id}', 'updateImage')->name('admin.establishment.image.update');
 });
@@ -129,7 +129,7 @@ Route::controller(AdminJobController::class)->group(function () {
     Route::get('/admin/jobs', 'index')->name('admin.job.index');
     Route::post('/admin/jobs/update', 'update')->name('admin.job.update');
     Route::get('/admin/job/{job}', 'jobDetails')->name('admin.job.details');
-    Route::delete('/admin/jobs/delete/{job}', 'destroy')->name('admin.job.delete');
+    Route::delete('/admin/job/delete/{job}', 'destroy')->name('admin.job.delete');
 });
 
 Route::controller(AdminStatController::class)->group(function () {

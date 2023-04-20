@@ -5,7 +5,6 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FaqRequest;
 use App\Http\Resources\admin\FaqResource;
-use App\Http\Resources\FaqResource as ResourcesFaqResource;
 use App\Models\Faq;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,9 +19,16 @@ class FaqController extends Controller
     public function store(FaqRequest $request)
     {
 
-        $faq = Faq::create($request->validated());
+        $faqData = [
+            'category' => $request->category,
+            'question' => $request->question,
+            'answer' => ($request->answer),
+        ];
 
-        return ResourcesFaqResource::make($faq);
+        $faq = Faq::create($faqData);
+
+        return response()->json(Faq::latest()->first());
+        // return response()->noContent();
     }
 
     public function show(Faq $faq)
