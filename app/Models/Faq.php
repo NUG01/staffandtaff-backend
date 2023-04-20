@@ -12,6 +12,10 @@ class Faq extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'answer'            => CleanHtml::class,
+    ];
+
     public function category(): Attribute
     {
         return new Attribute(

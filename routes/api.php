@@ -137,6 +137,9 @@ Route::controller(AdminStatController::class)->group(function () {
 });
 Route::controller(AdminFaqController::class)->group(function () {
     Route::get('/admin/faqs', 'index')->name('admin.faq.index');
+    Route::post('admin/faq/create', 'store')->name('faq.admin.store');
+    Route::delete('/admin/faq/delete/{id}', 'destroy')->name('admin.faq.delete');
+    Route::get('/admin/faq/{faq:id}', 'show')->name('admin.faq.index');
 });
 
 
