@@ -27,8 +27,7 @@ class FaqController extends Controller
 
         $faq = Faq::create($faqData);
 
-        return response()->json(Faq::latest()->first());
-        // return response()->noContent();
+        return response()->noContent();
     }
 
     public function show(Faq $faq)
@@ -42,6 +41,17 @@ class FaqController extends Controller
             'created_at' => (Carbon::createFromFormat('Y-m-d H:i:s', $faq['created_at']))->format('Y-m-d'),
         ];
         return response()->json($data);
+    }
+
+    public function update(FaqRequest $request, $id)
+    {
+        Faq::where('id', $id)->update([
+            'category' => $request->category,
+            'answer' => $request->answer,
+            'question' => $request->question,
+        ]);
+
+        return response()->noContent();
     }
 
     public function destroy($id)
