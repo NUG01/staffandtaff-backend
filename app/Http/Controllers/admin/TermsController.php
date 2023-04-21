@@ -15,9 +15,18 @@ class TermsController extends Controller
     public function create(Request $request)
     {
 
-        $term = Term::updateOrCreate([
-            'body' => $request->body
-        ]);
+        $term = Term::where('id', 1);
+
+        if ($term) {
+
+            $term->update([
+                'body' => $request->body
+            ]);
+        } else {
+            Term::create([
+                'body' => $request->body,
+            ]);
+        }
         return response()->json($term);
     }
 }
