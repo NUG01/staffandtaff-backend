@@ -15,7 +15,7 @@ class TermsController extends Controller
     public function create(Request $request)
     {
 
-        $term = Term::where('id', 1);
+        $term = Term::where('id', 1)->first();
 
         if ($term) {
 
