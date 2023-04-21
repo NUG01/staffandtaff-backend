@@ -15,9 +15,8 @@ class TermsController extends Controller
     public function create(Request $request)
     {
 
-        $data = $request->validated();
         $term = Term::updateOrCreate([
-            'body' => $data->body
+            'body' => $request->body
         ]);
         return response()->json($term);
     }
