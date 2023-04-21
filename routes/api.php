@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\{
     AuthController as AdminAuthController,
     PaymentController as AdminPaymentController,
     FaqController as AdminFaqController,
+    TermsController,
 };
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\Auth\AboutController;
@@ -134,6 +135,10 @@ Route::controller(AdminJobController::class)->group(function () {
 
 Route::controller(AdminStatController::class)->group(function () {
     Route::get('/admin/stats', 'index')->name('admin.stat.index');
+});
+Route::controller(TermsController::class)->group(function () {
+    Route::get('/admin/terms', 'index')->name('admin.term.index');
+    Route::post('/admin/terms/store', 'create')->name('admin.term.create');
 });
 Route::controller(AdminFaqController::class)->group(function () {
     Route::get('/admin/faqs', 'index')->name('admin.faq.index');
