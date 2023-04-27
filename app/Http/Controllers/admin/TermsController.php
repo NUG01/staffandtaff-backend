@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Term;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TermsController extends Controller
 {
@@ -15,7 +16,7 @@ class TermsController extends Controller
     public function create(Request $request)
     {
 
-        $term = Term::where('id', 1);
+        $term = DB::table('terms_and_conditions')->where('id', 1)->first();
 
         if ($term) {
 

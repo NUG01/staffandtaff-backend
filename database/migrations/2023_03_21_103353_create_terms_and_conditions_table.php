@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('terms_and_conditions', function (Blueprint $table) {
             $table->id();
-            $table->longText('text');
+            $table->longText('body');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class UsersController extends Controller
     public function index()
     {
 
-        return UserResource::collection(User::all());
+        return UserResource::collection(User::where('role_id', '!=', 1)->get());
     }
     public function show()
     {
