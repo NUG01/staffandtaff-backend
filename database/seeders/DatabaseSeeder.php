@@ -49,6 +49,23 @@ class DatabaseSeeder extends Seeder
             'role_id' => Role::ADMIN,
         ]);
 
+        User::create([
+            'name' => 'user',
+            'email' => 'user@staffandtaff.ch',
+            'email_verified_at' => now(),
+            'password' => Hash::make('user123'),
+            'verification_code' => sha1(time()),
+            'role_id' => Role::SEEKER,
+        ]);
+        User::create([
+            'name' => 'recruiter',
+            'email' => 'recruiter@staffandtaff.ch',
+            'email_verified_at' => now(),
+            'password' => Hash::make('recruiter123'),
+            'verification_code' => sha1(time()),
+            'role_id' => Role::RECRUITER,
+        ]);
+
         //        DB::unprepared(file_get_contents(__DIR__ . '/CHtable.sql'));
         //        DB::unprepared(file_get_contents(__DIR__ . '/FRtable.sql'));
         DB::unprepared(file_get_contents(__DIR__ . '/FR&CHtable.sql'));
