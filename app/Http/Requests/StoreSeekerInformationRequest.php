@@ -38,16 +38,9 @@ class StoreSeekerInformationRequest extends FormRequest
             'pinterest' => ['sometimes'],
             'youtube' => ['sometimes'],
             'tik_tok' => ['sometimes'],
-            'experience_position' => ['required'],
-            'experience_start_date' => ['sometimes', 'date'],
-            'experience_end_date' => ['sometimes', 'date'],
-            'experience_more_info' => ['digits_between:0,1000'],
-            'education_field_of_study' => ['required'],
-            'education_establishment' => ['required'],
-            'education_certification_type' => ['sometimes'],
-            'education_graduation_day' => ['sometimes'],
-            'education_graduation_month' => ['sometimes'],
-            'education_graduation_year' => ['sometimes'],
+            'experience' => ['array', 'required'],
+            'education' => ['array', 'required'],
+            'cover_letter' => ['max:1000']
         ];
     }
 }
