@@ -10,6 +10,7 @@ use App\Http\Controllers\api\{
     SubscriptionController,
     TermsAndConditionController,
     RatingController,
+    SeekerController,
 };
 use App\Http\Controllers\admin\{
     EstablishmentController as AdminEstablishmentController,
@@ -63,6 +64,14 @@ Route::controller(EstablishmentController::class)->group(function () {
     Route::get('/establishment/{establishment}', 'show')->name('establishment.show');
     Route::patch('/establishment/update/{establishment}', 'update')->name('establishment.update');
 });
+
+
+//Seeker Routes
+Route::controller(SeekerController::class)->group(function () {
+    Route::post('/seeker-information/store', 'store')->name('seeker.information.store');
+    Route::get('positions/{position}', 'getPositions')->name('seeker.information.positions');
+});
+
 
 //Geolocation Routes
 Route::controller(GeolocationController::class)->group(function () {

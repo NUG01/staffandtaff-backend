@@ -26,14 +26,14 @@ class RegisteredUserController extends Controller
 
         $token = sha1(time());
         $user = User::create([
-            'name' => 'recruiter_' . mt_rand(1000000, 9999999),
+            'name' => $request->user_type.'_' . mt_rand(1000000, 9999999),
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'verification_code' => $token
         ]);
 
         if ($user) {
-            $url = config('app.frontend_url') . '/email-confirmation/' . 'email=' . $user->email . '&token=' . $token;
+            $url = config('app.frontend_url') . '/email-confirmation/' . 'email=' . $user->email . '&token=' . $token . '&type=' . $request->user_type;
             MailController::sendVerificationEmail($user->name, $user->email, $url);
             return response()->json(['message' => 'Email sent!']);
         }

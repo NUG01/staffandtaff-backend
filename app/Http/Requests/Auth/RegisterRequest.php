@@ -28,6 +28,7 @@ class RegisterRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required_with:password_confirm', 'same:password_confirm', Rules\Password::defaults()],
             'password_confirm' => ['required'],
+            'user_type' => ['sometimes'],
         ];
     }
 }
