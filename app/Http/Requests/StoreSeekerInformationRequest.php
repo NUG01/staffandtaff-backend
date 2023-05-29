@@ -15,26 +15,40 @@ class StoreSeekerInformationRequest extends FormRequest
 
     public function rules(): array
     {
+    
         return [
-            'fullname' => ['required', 'string'],
-            'birthdate' => ['required', 'date'],
-            'gender' => ['required'],
-            'desired_position' => ['required', 'exists:positions,name'],
-            'current_position' => ['sometimes'],
-            'desired_country' => ['sometimes'],
-            'desired_city' => ['sometimes'],
-            'more_info' => ['digits_between:0,1000'],
-            'website' => ['sometimes'],
-            'instagram' => ['sometimes'],
-            'linkedin' => ['sometimes'],
-            'facebook' => ['sometimes'],
-            'twitter' => ['sometimes'],
-            'pinterest' => ['sometimes'],
-            'youtube' => ['sometimes'],
-            'tik_tok' => ['sometimes'],
-            'experience' => ['array', 'required'],
-            'education' => ['array', 'required'],
-            'cover_letter' => ['max:1000']
+            'information.fullname' => ['required', 'string'],
+            'information.birthdate' => ['required', 'date'],
+            'information.gender' => ['required'],
+            'information.desired_position' => ['required'],
+            'information.current_position' => ['sometimes'],
+            'information.desired_country' => ['sometimes'],
+            'information.desired_city' => ['sometimes'],
+            'information.more_info' => ['max:1000'],
+            'information.social_links' => ['array','sometimes'],
+            'information.cover_letter' => ['max:1000'],
+
+             'education'=>['array',  
+             'education.*.studyField' => ['required', 'string', 'in:yes,no'],
+             'education.*.establishment' => ['required', 'string', 'in:yes,no'],
+             'education.*.date.day' => ['sometimes','in:yes,no'],
+             'education.*.date.year' => ['required','in:yes,no'],
+             'education.*.date.year' => ['required','in:yes,no'],
+             'education.*.certification' => ['sometimes', 'in:yes,no'],    
+            ],
+
+            'experience'=>['array',  
+            'experience.*.position' => ['required', 'string', 'in:yes,no'],
+            'experience.*.establishment' => ['required', 'string', 'in:yes,no'],
+            'experience.*.date.day' => ['sometimes','in:yes,no'],
+            'experience.*.date.year' => ['required','in:yes,no'],
+            'experience.*.date.year' => ['required','in:yes,no'],
+            'experience.*.finishDate.day' => ['sometimes','in:yes,no'],
+            'experience.*.finishDate.year' => ['required','in:yes,no'],
+            'experience.*.finishDate.year' => ['required','in:yes,no'],
+            'experience.*.info' => ['sometimes', 'in:yes,no'],
+        ],
+            'letter' => ['sometimes', 'max:1000'],
         ];
     }
 }

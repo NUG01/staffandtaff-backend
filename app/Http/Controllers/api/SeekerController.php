@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSeekerInformationRequest;
 use App\Models\Education;
 use App\Models\Experience;
+use App\Models\SeekerInformation;
 use App\Models\SocialLinks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,59 +16,67 @@ class SeekerController extends Controller
 {
     public function store(StoreSeekerInformationRequest $request)
     {
-        return response()->json($request);
-
-
+        
         $data = [
-            'fullname' => $request->fullname,
-            'birthdate' => $request->birthdate,
-            'gender' => $request->gender,
-            'desired_position' => $request->desired_position,
-            'current_position' => $request->current_position,
-            'desired_country' => $request->desired_country,
-            'desired_city' => $request->desired_city,
-            'more_info' => $request->more_info,
-            'cover_letter' => $request->cover_letter,
+            'fullname' => $request->information['fullname'],
+            'birthdate' => $request->information['birthdate'],
+            'gender' => $request->information['gender'],
+            'desired_position' => $request->information['desired_position'],
+            'current_position' => $request->information['current_position'],
+            'desired_country' => $request->information['desired_country'],
+            'desired_city' => $request->information['desired_city'],
+            'more_info' => $request->information['more_info'],
         ];
 
+
+      $seeker_info= SeekerInformation::create($data);
+        
+
         $links = [
-            'website' => $request->website,
-            'instagram' => $request->instagram,
-            'linkedin' => $request->linkedin,
-            'facebook' => $request->facebook,
-            'twitter' => $request->twitter,
-            'pinterest' => $request->pinterest,
-            'youtube' => $request->youtube,
-            'tik_tok' => $request->tik_tok,
+            'website' => $request->information['social_links']['website'],
+            'instagram' => $request->information['social_links']['instagram'],
+            'linkedin' => $request->information['social_links']['linkedin'],
+            'facebook' => $request->information['social_links']['facebook'],
+            'twitter' => $request->information['social_links']['twitter'],
+            'pinterest' => $request->information['social_links']['pinterest'],
+            'youtube' => $request->information['social_links']['youtube'],
+            'tik_tok' => $request->information['social_links']['tiktok'],
             'user_type_id' => Auth::user()->id,
         ];
 
-        SocialLinks::create($links);
+
+       $social_links= SocialLinks::create($links);
 
 
         for ($i = 0; $i < count($request->experience); $i++) {
+            $date=$request->experience[$i]['date']['day'].'-'.$request->experience[$i]['date']['month'].'-'.$request->experience[$i]['date']['year'];
+            $end_date=$request->experience[$i]['finishDate']['day'].'-'.$request->experience[$i]['finishDate']['month'].'-'.$request->experience[$i]['finishDate']['year'];
             Experience::create([
                 'user_id' => Auth::user()->id,
-                'position' => $request->experience_position,
-                'start_date' => $request->experience_start_date,
-                'end_date' => $request->experience_end_date,
-                'more_info' => $request->experience_more_info,
-                'establishment' => $request->establishment,
-                'more_info' => $request->experience_more_info,
+                'position' => $request->experience[$i]['position'],
+                'start_date' => date('Y-m-d', strtotime($date)),
+                'end_date' => date('Y-m-d', strtotime($end_date)),
+                'establishment' => $request->experience[$i]['establishment'],
+                'more_info' => $request->experience[$i]['info'],
 
             ]);
         }
+
         for ($i = 0; $i < count($request->education); $i++) {
+            $date=$request->education[$i]['date']['day'].'-'.$request->education[$i]['date']['month'].'-'.$request->education[$i]['date']['year'];
             Education::create([
                 'user_id' => Auth::user()->id,
-                'establishment' => $request->education_establishment,
-                'certification_type' => $request->education_certification_type,
-                'field_of_study' => $request->education_field_of_study,
-                'graduation_day' => $request->education_graduation_day,
-                'graduation_month' => $request->education_graduation_month,
-                'graduation_year' => $request->education_graduation_year,
+                // 'establishment' => $request->education[$i]['establishment'],
+                'establishment' =>'ok',
+                'certification_type' => $request->education[$i]['certification'],
+                'field_of_study' => $request->education[$i]['studyField'],
+                'graduation_date' => date('Y-m-d', strtotime($date)),
             ]);
         }
+
+        return response()->json(['data'=>$seeker_info]);
+
+   
     }
 
 
