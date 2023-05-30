@@ -77,8 +77,6 @@ class SeekerController extends Controller
         }
 
         return response()->json(['data'=>$seeker_info, 'exp'=>$seeker_info->experiences, 'edu'=>$seeker_info->educations]);
-
-   
     }
 
 
