@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('position');
             $table->date('start_date');
             $table->date('end_date');
-            $table->text('more_info');
+            $table->text('more_info')->nullable();
             $table->string('establishment');
+            $table->foreignId('seeker_information_id');
             $table->timestamps();
         });
     }

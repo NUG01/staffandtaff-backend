@@ -26,6 +26,7 @@ class SeekerController extends Controller
             'desired_country' => $request->information['desired_country'],
             'desired_city' => $request->information['desired_city'],
             'more_info' => $request->information['more_info'],
+            'cover_letter' => $request->letter,
         ];
 
 
@@ -45,12 +46,12 @@ class SeekerController extends Controller
         ];
 
 
-       $social_links= SocialLinks::create($links);
+        SocialLinks::create($links);
 
 
         for ($i = 0; $i < count($request->experience); $i++) {
-            $date=$request->experience[$i]['date']['day'].'-'.$request->experience[$i]['date']['month'].'-'.$request->experience[$i]['date']['year'];
-            $end_date=$request->experience[$i]['finishDate']['day'].'-'.$request->experience[$i]['finishDate']['month'].'-'.$request->experience[$i]['finishDate']['year'];
+            $date=($request->experience[$i]['date']['day'] ? $request->experience[$i]['date']['day']: 1 ).'-'.$request->experience[$i]['date']['month'].'-'.$request->experience[$i]['date']['year'];
+            $end_date=($request->experience[$i]['finishDate']['day'] ? $request->experience[$i]['finishDate']['day']  : 1).'-'.$request->experience[$i]['finishDate']['month'].'-'.$request->experience[$i]['finishDate']['year'];
             Experience::create([
                 'user_id' => Auth::user()->id,
                 'position' => $request->experience[$i]['position'],
@@ -58,23 +59,24 @@ class SeekerController extends Controller
                 'end_date' => date('Y-m-d', strtotime($end_date)),
                 'establishment' => $request->experience[$i]['establishment'],
                 'more_info' => $request->experience[$i]['info'],
+                'seeker_information_id'=> $seeker_info->id
 
             ]);
         }
 
         for ($i = 0; $i < count($request->education); $i++) {
-            $date=$request->education[$i]['date']['day'].'-'.$request->education[$i]['date']['month'].'-'.$request->education[$i]['date']['year'];
+            $date=($request->education[$i]['date']['day'] ? $request->education[$i]['date']['day'] :  1).'-'.$request->education[$i]['date']['month'].'-'.$request->education[$i]['date']['year'];
             Education::create([
                 'user_id' => Auth::user()->id,
-                // 'establishment' => $request->education[$i]['establishment'],
-                'establishment' =>'ok',
+                'establishment' => $request->education[$i]['establishment'],
                 'certification_type' => $request->education[$i]['certification'],
                 'field_of_study' => $request->education[$i]['studyField'],
                 'graduation_date' => date('Y-m-d', strtotime($date)),
+                'seeker_information_id'=> $seeker_info->id
             ]);
         }
 
-        return response()->json(['data'=>$seeker_info]);
+        return response()->json(['data'=>$seeker_info, 'exp'=>$seeker_info->experiences, 'edu'=>$seeker_info->educations]);
 
    
     }

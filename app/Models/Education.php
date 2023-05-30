@@ -19,4 +19,10 @@ class Education extends Model
     {
         return $this->BelongsTo(User::class);
     }
+
+
+    public function seekerInfo(): BelongsTo
+    {
+        return $this->BelongsTo(SeekerInformation::class);
+    }
 }

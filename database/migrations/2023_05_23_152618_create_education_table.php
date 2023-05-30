@@ -16,8 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->string('field_of_study');
             $table->text('establishment');
-            $table->string('certification_type');
-            $table->date('graduation_date');
+            $table->string('certification_type')->nullable();
+            $table->date('graduation_date')->nullable();
+            $table->foreignId('seeker_information_id');
             $table->timestamps();
         });
     }

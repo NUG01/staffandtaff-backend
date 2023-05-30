@@ -16,13 +16,12 @@ return new class extends Migration
             $table->string('fullname');
             $table->date('birthdate');
             $table->string('gender');
-            $table->foreignId('desired_position');
-            $table->foreignId('current_position');
-            $table->string('desired_country');
-            $table->string('desired_city');
-            $table->text('more_info');
-            $table->foreignId('experience_id');
-            $table->text('cover_letter');
+            $table->string('desired_position');
+            $table->string('current_position')->nullable();
+            $table->string('desired_country')->nullable();
+            $table->string('desired_city')->nullable();
+            $table->text('more_info')->nullable();
+            $table->text('cover_letter')->nullable();
             $table->timestamps();
         });
     }
