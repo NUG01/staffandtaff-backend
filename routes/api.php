@@ -68,6 +68,7 @@ Route::controller(EstablishmentController::class)->group(function () {
 
 //Seeker Routes
 Route::controller(SeekerController::class)->group(function () {
+    Route::get('/seeker-information/{user}', 'show')->name('seeker.information.show');
     Route::post('/seeker-information/store', 'store')->name('seeker.information.store');
     Route::get('positions/{position}', 'getPositions')->name('seeker.information.positions');
 });

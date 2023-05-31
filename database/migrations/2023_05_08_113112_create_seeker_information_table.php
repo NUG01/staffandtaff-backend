@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('seeker_information', function (Blueprint $table) {
             $table->id();
             $table->string('fullname');
+            $table->foreignId('user_id');
             $table->date('birthdate');
             $table->string('gender');
             $table->string('desired_position');

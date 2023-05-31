@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSeekerInformationRequest;
 use App\Models\Education;
 use App\Models\Experience;
+use App\Models\Geolocation;
 use App\Models\SeekerInformation;
 use App\Models\SocialLinks;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,9 +26,11 @@ class SeekerController extends Controller
             'desired_position' => $request->information['desired_position'],
             'current_position' => $request->information['current_position'],
             'desired_country' => $request->information['desired_country'],
-            'desired_city' => $request->information['desired_city'],
+            // 'desired_city' => $request->information['desired_city'],
+            'desired_city' => Geolocation::where('id', $request->information['desired_city'])->get('name'),
             'more_info' => $request->information['more_info'],
             'cover_letter' => $request->letter,
+            'user_id'=>Auth::user()->id
         ];
 
 
@@ -77,6 +81,13 @@ class SeekerController extends Controller
         }
 
         return response()->json(['data'=>$seeker_info, 'exp'=>$seeker_info->experiences, 'edu'=>$seeker_info->educations]);
+    }
+
+
+    public function show(User $user){
+        return response()->json(
+            ['data'=>$user->load('seekerInfo','seekerInfo.experiences', 'seekerInfo.educations'), 
+            'social_links'=>SocialLinks::where('user_type_id', $user->id)->get()]);
     }
 
 

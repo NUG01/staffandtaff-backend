@@ -29,7 +29,8 @@ class RegisteredUserController extends Controller
             'name' => $request->user_type.'_' . mt_rand(1000000, 9999999),
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'verification_code' => $token
+            'verification_code' => $token,
+            'role_id'=>$request->user_type=='seeker'? 3: 2,
         ]);
 
         if ($user) {
